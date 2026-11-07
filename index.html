@@ -62,7 +62,8 @@ footer{max-width:1080px;margin:auto;padding:24px 16px;color:var(--soft);font-siz
     <tr><th>Capacidade</th><th>Estado</th><th>Evidência</th></tr>
     <tr><td>Pipeline ficha → Blender → sprites → Godot</td><td><span class="tag ok">testado</span></td><td>Gates G1, G7 e G8 passam; o Godot confere 192 quadros em 24 clips</td></tr>
     <tr><td>Rig humanoide chibi, idle, walk e run</td><td><span class="tag ok">testado</span></td><td>Sonda de chão e túnica em todos os quadros; pé deslizando ≤ 0,00006 H/s</td></tr>
-    <tr><td>Personagem mestre: Aprendiz</td><td><span class="tag wait">aguarda aprovação</span></td><td>G9 em revisão; a reprovação anterior fica no histórico</td></tr>
+    <tr><td><b>Protagonista indígena (mestre)</b>: desenho no ChatGPT + QA e correção por código</td><td><span class="tag ok">aprovado pelo usuário</span></td><td>Opção 1 escolhida em 2026-11-07; andar em 5 direções (+3 espelhadas), 40 poses revisadas; ver <a href="docs/arte_chatgpt/README.html">arte_chatgpt</a></td></tr>
+    <tr><td>Aprendiz no motor 3D procedural</td><td><span class="tag warn">histórico</span></td><td>Substituído: o usuário achou o resultado ruim e trocou o mago por um protagonista indígena</td></tr>
     <tr><td>Acabamento suave <code>pindorama_friendly_smooth_v1</code> (principal)</td><td><span class="tag ok">implementado e testado</span></td><td>Passes em 3× com antialiasing real, luz de borda, textura contínua; transparência 207 de 216</td></tr>
     <tr><td>Acabamento pixel art (opcional)</td><td><span class="tag ok">testado</span></td><td>Transparência 216 de 216, alpha binário</td></tr>
     <tr><td>Atlas recortado para o Godot</td><td><span class="tag ok">testado</span></td><td>VRAM por personagem (192 px): 27,9 → 10,6 MiB; Godot confere pixel a pixel</td></tr>
@@ -76,7 +77,12 @@ footer{max-width:1080px;margin:auto;padding:24px 16px;color:var(--soft);font-siz
 <section id="galeria">
   <h2>Galeria</h2>
   <div class="grid">
-    <div class="card wide"><img src="docs/audit/suave/animacoes/walk_8dir.gif" alt="Aprendiz caminhando nas oito direções, acabamento suave" loading="lazy"><p><b>Atual:</b> Aprendiz detalhado no acabamento suave, caminhada nas 8 direções, 192 px, 12 fps.</p></div>
+    <div class="card wide"><img src="docs/arte_chatgpt/prep/protagonista_andar_8direcoes.gif" alt="Protagonista indígena caminhando nas oito direções" loading="lazy"><p><b>Atual:</b> protagonista indígena caminhando nas 8 direções, 128 px. Desenho gerado no ChatGPT; recorte, escala, linha do pé, correção de cor por material e contorno feitos por código.</p></div>
+    <div class="card wide"><img src="docs/arte_chatgpt/gerado/mockup_vila_t2_indigena.png" alt="Tela-alvo do jogo: vila à beira do riacho" loading="lazy"><p><b>Tela-alvo:</b> clima e estilo do jogo. Não é planta técnica: ângulo, tile e escala serão fixados pela engine.</p></div>
+    <div class="card wide"><img src="docs/arte_chatgpt/mestre/protagonista_5vistas.png" alt="Protagonista indígena em cinco vistas" loading="lazy"><p>Mestre aprovado: cinco vistas. Sem cocar, penas, pintura ou grafismos (elemento cultural real exige dossiê).</p></div>
+    <div class="card wide"><img src="docs/arte_chatgpt/prep/protagonista_andar_prancha_qa.png" alt="Prancha de QA das 40 poses" loading="lazy"><p>Prancha de QA: as 40 poses do andar ampliadas para caçar erros que o ChatGPT costuma deixar.</p></div>
+    <div class="card wide"><img src="docs/arte_chatgpt/antes_depois_2026-11-07.jpg" alt="Antes e depois" loading="lazy"><p>Antes (motor 3D procedural) e depois (desenho liso).</p></div>
+    <div class="card wide"><img src="docs/audit/suave/animacoes/walk_8dir.gif" alt="Aprendiz caminhando nas oito direções, acabamento suave" loading="lazy"><p><b>Histórico:</b> Aprendiz detalhado no acabamento suave, caminhada nas 8 direções, 192 px, 12 fps.</p></div>
     <div class="card"><img src="docs/audit/suave/animacoes/run_8dir.gif" alt="Corrida nas oito direções" loading="lazy"><p>Corrida, 16 fps.</p></div>
     <div class="card"><img src="docs/audit/suave/animacoes/idle_8dir.gif" alt="Idle nas oito direções" loading="lazy"><p>Idle, 8 fps.</p></div>
     <div class="card wide"><img src="docs/audit/suave/variacoes_suave.png" alt="Variações no acabamento suave" loading="lazy"><p>Variações modulares no acabamento suave: base, capuz vermelho, floresta, cajado de cristal e couro escuro com <code>seed</code> 7. Cada uma muda um campo da ficha.</p></div>
@@ -107,6 +113,7 @@ footer{max-width:1080px;margin:auto;padding:24px 16px;color:var(--soft);font-siz
     <li><b>2026-11-07</b>: atlas recortado: −62% de memória de vídeo por personagem.</li>
     <li><b>2026-11-07</b>: sonda de chão e túnica dentro do gate G5 (ANI-005); piscar no idle.</li>
     <li><b>2026-11-07</b>: prioridade em animação: 5 ações por poses-chave, máquina de estados no Godot (GODOT-003) e página de validação.</li>
+    <li><b>2026-11-07</b>: virada de arte: o motor 3D não alcança o nível desejado. Volta a geração no ChatGPT, com QA por código. O usuário troca o mago por um <b>protagonista indígena</b>, aprova a opção 1 e o andar sai nas 5 direções, com cor normalizada e contorno.</li>
   </ol>
 </section>
 
