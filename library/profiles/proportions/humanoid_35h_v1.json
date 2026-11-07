@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "id": "humanoid_35h_v1",
+  "version": "1.0.0",
+  "family": "humanoid",
+  "heads_tall": 3.5,
+  "height_m": 1.3,
+  "head_height_m": 0.371,
+  "chin_z_m": 0.929,
+  "shoulder_half_width_m": 0.215,
+  "hip_z_m": 0.47,
+  "knee_z_m": 0.27,
+  "ankle_z_m": 0.08,
+  "hand_length_m": 0.17,
+  "foot_length_m": 0.235,
+  "tolerance_heads": 0.05,
+  "notes": "Decisão D2: 3,5 cabeças para o personagem jogável. Medida sem cabelo, penas ou calçado."
+}

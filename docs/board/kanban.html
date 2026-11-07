@@ -1,0 +1,142 @@
+<title>Isometric Character Studio Kanban</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: faixa de estado (agora + gates G0–G9) sobre cinco colunas de produção com rolagem própria. */
+:root {
+  --bg: #eef1ec; --panel: #e2e7df; --card: #fbfcf9; --line: #c6cec3; --fg: #1d2620; --muted: #5a665d;
+  --accent: #1f6f55; --ok: #1f7a4d; --warn: #a86a00; --bad: #b3362b; --review: #3a62b5; --idle: #7c877f;
+  --display: "Archivo", "Segoe UI", sans-serif; --mono: "IBM Plex Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #141a16; --panel: #1c241f; --card: #242e28; --line: #36423a; --fg: #e6ece6; --muted: #9aa89e;
+  --accent: #5cc7a0; --ok: #5fcf95; --warn: #e6b04f; --bad: #f0806f; --review: #8fb0f0; --idle: #8a968e; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #141a16; --panel: #1c241f; --card: #242e28; --line: #36423a; --fg: #e6ece6; --muted: #9aa89e;
+  --accent: #5cc7a0; --ok: #5fcf95; --warn: #e6b04f; --bad: #f0806f; --review: #8fb0f0; --idle: #8a968e; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font-family: var(--display); }
+main { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 18px 28px; display: grid; gap: 16px; }
+header { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; justify-content: space-between; }
+h1 { font-size: 1.35rem; font-weight: 800; margin: 0; letter-spacing: -.01em; text-wrap: balance; }
+#sync { font: 400 .75rem var(--mono); color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
+#dot { width: 8px; height: 8px; border-radius: 50%; background: var(--idle); }
+#dot.live { background: var(--ok); }
+#dot.stale { background: var(--warn); }
+.now { display: grid; gap: 6px; padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; }
+.label { font: 600 .68rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+#current { font-size: 1.02rem; font-weight: 700; min-width: 0; overflow-wrap: anywhere; }
+.meter { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+#bar { height: 100%; width: 0; background: var(--accent); transition: width .4s; }
+#counts { font: 400 .76rem var(--mono); color: var(--muted); }
+.gates { display: grid; grid-template-columns: repeat(auto-fit, minmax(112px, 1fr)); gap: 6px; }
+.gate { padding: 7px 9px; background: var(--card); border: 1px solid var(--line); border-radius: 4px; display: grid; gap: 2px; min-width: 0; }
+.gate b { font: 600 .72rem var(--mono); }
+.gate span { font-size: .74rem; color: var(--muted); }
+.gate em { font: 600 .68rem var(--mono); font-style: normal; }
+.board { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; align-items: start; }
+.col { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 10px; display: grid; gap: 8px; min-width: 0; }
+.col h2 { margin: 0; font-size: .82rem; font-weight: 700; display: flex; justify-content: space-between; gap: 8px; }
+.col h2 span { font: 400 .76rem var(--mono); color: var(--muted); }
+.empty { font-size: .76rem; color: var(--muted); padding: 2px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 9px 10px; display: grid; gap: 5px; min-width: 0; }
+.card.fresh { outline: 2px solid var(--accent); outline-offset: -1px; }
+.card .top { display: flex; justify-content: space-between; gap: 6px; font: 400 .68rem var(--mono); color: var(--muted); }
+.card h3 { margin: 0; font-size: .86rem; font-weight: 700; line-height: 1.28; overflow-wrap: anywhere; }
+.card p { margin: 0; font-size: .77rem; line-height: 1.38; color: var(--muted); overflow-wrap: anywhere; }
+.st { font: 600 .68rem var(--mono); }
+.PASS, .APPROVED, .testado, .validado { color: var(--ok); }
+.WARN, .implementado { color: var(--warn); }
+.FAIL, .REJECTED, .bloqueado { color: var(--bad); }
+.REVIEW, .revisao { color: var(--review); }
+.NOT_TESTED, .PENDING, .pendente { color: var(--idle); }
+#log { display: grid; gap: 3px; margin: 0; padding: 0; list-style: none; font: 400 .74rem var(--mono); color: var(--muted); max-height: 190px; overflow-y: auto; }
+#log time { color: var(--fg); margin-right: 8px; }
+@media (max-width: 980px) { .board { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .board { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { #bar { transition: none; } }
+</style>
+<main>
+  <header>
+    <h1>Isometric Character Studio</h1>
+    <span id="sync"><i id="dot"></i><span id="syncText">conectando…</span></span>
+  </header>
+  <section class="now" aria-label="Estado atual">
+    <span class="label">Agora</span>
+    <div id="current">Aguardando o primeiro dado do quadro.</div>
+    <div class="meter"><div id="bar"></div></div>
+    <div id="counts">0 de 0 tarefas concluídas</div>
+  </section>
+  <section class="gates" id="gates" aria-label="Quality Gates"></section>
+  <section class="board" id="board" aria-label="Quadro"></section>
+  <section class="now" aria-label="Histórico">
+    <span class="label">Histórico</span>
+    <ul id="log"></ul>
+  </section>
+</main>
+<script>
+const COLUMNS = [["backlog","A fazer"],["doing","Em andamento"],["verify","Verificando"],["done","Concluído"],["blocked","Bloqueado"]];
+const STATUS = {pendente:"pendente",implementado:"implementado",testado:"testado",validado:"validado visual",bloqueado:"bloqueado",revisao:"revisão humana"};
+const $ = id => document.getElementById(id);
+const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
+let cards = [], gates = [], lastSeen = new Map(), loaded = false;
+
+function renderBoard() {
+  const board = $("board"); board.replaceChildren();
+  for (const [key, name] of COLUMNS) {
+    const list = cards.filter(c => c.column === key).sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+    const col = el("div", "col"), h = el("h2", "", name); h.append(el("span", "", String(list.length)));
+    col.append(h);
+    if (!list.length) col.append(el("div", "empty", loaded ? "Nada aqui." : "Carregando…"));
+    for (const c of list) {
+      const card = el("article", "card" + (c._fresh ? " fresh" : ""));
+      const top = el("div", "top"); top.append(el("span", "", c.phase || ""), el("span", "st " + (c.status || "pendente"), STATUS[c.status] || c.status || ""));
+      card.append(top, el("h3", "", c.title || c.id));
+      if (c.note) card.append(el("p", "", c.note));
+      col.append(card);
+    }
+    board.append(col);
+  }
+  const done = cards.filter(c => c.column === "done").length;
+  $("bar").style.width = cards.length ? (100 * done / cards.length) + "%" : "0";
+  $("counts").textContent = `${done} de ${cards.length} tarefas concluídas · ${cards.filter(c => c.column === "blocked").length} bloqueadas`;
+}
+function renderGates() {
+  const box = $("gates"); box.replaceChildren();
+  for (const g of [...gates].sort((a, b) => a.id.localeCompare(b.id))) {
+    const n = el("div", "gate");
+    n.append(el("b", "", g.id), el("span", "", g.name || ""), el("em", g.status || "NOT_TESTED", g.status || "NOT_TESTED"));
+    box.append(n);
+  }
+}
+function renderState(s) {
+  if (!s) return;
+  $("current").textContent = s.current || "Sem atividade registrada.";
+  const log = $("log"); log.replaceChildren();
+  for (const e of (s.log || []).slice(-40).reverse()) {
+    const li = el("li"); li.append(el("time", "", e.at || ""), document.createTextNode(e.text || "")); log.append(li);
+  }
+}
+function setSync(kind, text) { $("dot").className = kind; $("syncText").textContent = text; }
+
+async function start() {
+  renderBoard();
+  const db = await claude.use("db");
+  if (!db) { setSync("stale", "sem acesso aos dados nesta visualização"); return; }
+  const timer = setTimeout(() => setSync("stale", "dados ainda não alcançados; podem estar desatualizados"), 10000);
+  const fresh = snap => { if (!snap.metadata.fromCache) { clearTimeout(timer); setSync("live", "ao vivo · " + new Date().toLocaleTimeString("pt-BR")); } };
+  const fail = e => { clearTimeout(timer); setSync("stale", "conexão encerrada: recarregue a página (" + e.code + ")"); };
+  db.collection("cards").onSnapshot(snap => {
+    const first = !loaded; loaded = true;
+    cards = snap.docs.map(d => {
+      const data = { id: d.id, ...d.data() }, sig = data.column + "|" + data.status + "|" + data.note;
+      data._fresh = !first && lastSeen.get(d.id) !== sig;
+      lastSeen.set(d.id, sig);
+      return data;
+    });
+    renderBoard(); fresh(snap);
+  }, fail);
+  db.collection("gates").onSnapshot(snap => { gates = snap.docs.map(d => ({ id: d.id, ...d.data() })); renderGates(); fresh(snap); }, fail);
+  db.doc("board/state").onSnapshot(snap => { if (snap.exists) renderState(snap.data()); fresh(snap); }, fail);
+}
+start();
+</script>

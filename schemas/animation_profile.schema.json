@@ -1,0 +1,256 @@
+{
+  "$defs": {
+    "AnimationClip": {
+      "additionalProperties": false,
+      "properties": {
+        "animation_id": {
+          "enum": [
+            "idle",
+            "walk",
+            "run"
+          ],
+          "title": "Animation Id",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string"
+        },
+        "fps": {
+          "exclusiveMinimum": 0,
+          "maximum": 60,
+          "title": "Fps",
+          "type": "integer"
+        },
+        "frame_count": {
+          "exclusiveMinimum": 1,
+          "maximum": 64,
+          "title": "Frame Count",
+          "type": "integer"
+        },
+        "loop": {
+          "title": "Loop",
+          "type": "boolean"
+        },
+        "root_motion": {
+          "const": "in_place",
+          "title": "Root Motion",
+          "type": "string"
+        },
+        "ground_speed_mps": {
+          "description": "Derivada/validada: velocidade de esteira",
+          "minimum": 0,
+          "title": "Ground Speed Mps",
+          "type": "number"
+        },
+        "gait": {
+          "$ref": "#/$defs/GaitParams"
+        },
+        "events": {
+          "items": {
+            "$ref": "#/$defs/ContactEvent"
+          },
+          "title": "Events",
+          "type": "array"
+        },
+        "tolerances": {
+          "$ref": "#/$defs/AnimationTolerances"
+        },
+        "approval": {
+          "default": "UNAPPROVED",
+          "enum": [
+            "UNAPPROVED",
+            "APPROVED"
+          ],
+          "title": "Approval",
+          "type": "string"
+        }
+      },
+      "required": [
+        "animation_id",
+        "version",
+        "fps",
+        "frame_count",
+        "loop",
+        "root_motion",
+        "ground_speed_mps",
+        "gait",
+        "events",
+        "tolerances"
+      ],
+      "title": "AnimationClip",
+      "type": "object"
+    },
+    "AnimationTolerances": {
+      "additionalProperties": false,
+      "description": "Tolerâncias relativas à altura de referência do rig (unidade: fração de H).",
+      "properties": {
+        "foot_slide_speed_h_per_s": {
+          "exclusiveMinimum": 0,
+          "title": "Foot Slide Speed H Per S",
+          "type": "number"
+        },
+        "ground_penetration_h": {
+          "exclusiveMinimum": 0,
+          "title": "Ground Penetration H",
+          "type": "number"
+        },
+        "contact_height_h": {
+          "exclusiveMinimum": 0,
+          "title": "Contact Height H",
+          "type": "number"
+        },
+        "ik_error_h": {
+          "exclusiveMinimum": 0,
+          "title": "Ik Error H",
+          "type": "number"
+        },
+        "max_landmark_step_h": {
+          "exclusiveMinimum": 0,
+          "title": "Max Landmark Step H",
+          "type": "number"
+        },
+        "loop_landmark_gap_factor": {
+          "exclusiveMinimum": 0,
+          "title": "Loop Landmark Gap Factor",
+          "type": "number"
+        }
+      },
+      "required": [
+        "foot_slide_speed_h_per_s",
+        "ground_penetration_h",
+        "contact_height_h",
+        "ik_error_h",
+        "max_landmark_step_h",
+        "loop_landmark_gap_factor"
+      ],
+      "title": "AnimationTolerances",
+      "type": "object"
+    },
+    "ContactEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "frame": {
+          "minimum": 0,
+          "title": "Frame",
+          "type": "integer"
+        },
+        "event": {
+          "enum": [
+            "LEFT_FOOT_CONTACT",
+            "RIGHT_FOOT_CONTACT",
+            "LEFT_SWING",
+            "RIGHT_SWING"
+          ],
+          "title": "Event",
+          "type": "string"
+        }
+      },
+      "required": [
+        "frame",
+        "event"
+      ],
+      "title": "ContactEvent",
+      "type": "object"
+    },
+    "GaitParams": {
+      "additionalProperties": false,
+      "properties": {
+        "stride_m": {
+          "minimum": 0,
+          "title": "Stride M",
+          "type": "number"
+        },
+        "stance_fraction": {
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "title": "Stance Fraction",
+          "type": "number"
+        },
+        "foot_lift_m": {
+          "minimum": 0,
+          "title": "Foot Lift M",
+          "type": "number"
+        },
+        "pelvis_drop_m": {
+          "minimum": 0,
+          "title": "Pelvis Drop M",
+          "type": "number"
+        },
+        "pelvis_bob_m": {
+          "minimum": 0,
+          "title": "Pelvis Bob M",
+          "type": "number"
+        },
+        "arm_swing_deg": {
+          "minimum": 0,
+          "title": "Arm Swing Deg",
+          "type": "number"
+        },
+        "forearm_bend_deg": {
+          "minimum": 0,
+          "title": "Forearm Bend Deg",
+          "type": "number"
+        },
+        "torso_lean_deg": {
+          "default": 0,
+          "title": "Torso Lean Deg",
+          "type": "number"
+        },
+        "torso_twist_deg": {
+          "default": 0,
+          "title": "Torso Twist Deg",
+          "type": "number"
+        }
+      },
+      "required": [
+        "stride_m",
+        "stance_fraction",
+        "foot_lift_m",
+        "pelvis_drop_m",
+        "pelvis_bob_m",
+        "arm_swing_deg",
+        "forearm_bend_deg"
+      ],
+      "title": "GaitParams",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+      "title": "Id",
+      "type": "string"
+    },
+    "version": {
+      "title": "Version",
+      "type": "string"
+    },
+    "rig_profile": {
+      "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+      "title": "Rig Profile",
+      "type": "string"
+    },
+    "clips": {
+      "items": {
+        "$ref": "#/$defs/AnimationClip"
+      },
+      "title": "Clips",
+      "type": "array"
+    }
+  },
+  "required": [
+    "id",
+    "version",
+    "rig_profile",
+    "clips"
+  ],
+  "title": "AnimationProfile",
+  "type": "object"
+}

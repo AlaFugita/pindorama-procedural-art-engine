@@ -1,0 +1,34 @@
+{
+ "schema_version": "1.0.0",
+ "id": "character_115",
+ "name": "Aprendiz variação arma",
+ "slug": "aprendiz_var_arma",
+ "family": "humanoid",
+ "art_profile": "pindorama_chibi_v1",
+ "body_profile": {
+  "asset_id": "chibi_body_v1",
+  "scale": 1.0,
+  "proportions": "chibi_round"
+ },
+ "appearance": {
+  "head_asset": "chibi_head_v1",
+  "hair_asset": "chibi_hair_bangs_v1",
+  "skin_material": "chibi_skin_01",
+  "face_preset": "chibi_face_v1"
+ },
+ "outfit": {
+  "body_asset": "chibi_robe_v1",
+  "accessories": [
+   "chibi_bag_v1"
+  ],
+  "weapon_asset": "chibi_crystal_staff_v1"
+ },
+ "palette": {
+  "primary": "#5C72AE",
+  "secondary": "#8A5230",
+  "accent": "#EFDFB8"
+ },
+ "rig_profile": "humanoid_chibi_v1",
+ "animation_profile": "humanoid_chibi_basic_v1",
+ "render_profile": "isometric_chibi_v1"
+}

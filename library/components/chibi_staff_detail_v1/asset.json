@@ -1,0 +1,27 @@
+{
+ "schema_version": "1.0.0",
+ "id": "chibi_staff_detail_v1",
+ "version": "1.0.0",
+ "kind": "weapon",
+ "families": [
+  "humanoid"
+ ],
+ "generator": "chibi_staff_detail",
+ "params": {
+  "glow": "#FFD45A"
+ },
+ "anchors": [
+  "hand_l"
+ ],
+ "depends_on": [],
+ "scale_reference_m": 1.0,
+ "tags": [
+  "detalhado"
+ ],
+ "license": {
+  "spdx_or_terms": "project-original",
+  "origin": "blender/scripts/ics_blender/chibi_detail.py",
+  "author": "Isometric Character Studio",
+  "redistribution_allowed": true
+ }
+}

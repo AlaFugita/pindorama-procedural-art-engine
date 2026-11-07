@@ -1,0 +1,82 @@
+{
+  "render": {
+    "schema_version": "1.0.0",
+    "id": "isometric_8dir_v1",
+    "version": "1.0.0",
+    "projection": "orthographic",
+    "elevation_deg": 30.0,
+    "azimuth_deg": 0.0,
+    "canvas": {
+      "width": 1280,
+      "height": 1600
+    },
+    "pixels_per_meter": 800.0,
+    "pivot": {
+      "x": 640.0,
+      "y": 1420.0
+    },
+    "safety_margin_px": 2,
+    "transparent": true,
+    "engine": "BLENDER_EEVEE",
+    "samples": 32,
+    "filter_width_px": 1.2,
+    "view_transform": "Standard",
+    "rotation_strategy": "rotate_character_root",
+    "direction_order": [
+      "N",
+      "NE",
+      "E",
+      "SE",
+      "S",
+      "SW",
+      "W",
+      "NW"
+    ],
+    "headings_deg": {
+      "N": 0.0,
+      "NE": 45.0,
+      "E": 90.0,
+      "SE": 135.0,
+      "S": 180.0,
+      "SW": 225.0,
+      "W": 270.0,
+      "NW": 315.0
+    },
+    "camera": {
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          -0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          0.49999999999999994,
+          -0.8660254037844387,
+          -16.933008075688775
+        ],
+        [
+          0.0,
+          0.8660254037844387,
+          0.49999999999999994,
+          10.671169687932938
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ortho_scale": 2.0
+    }
+  },
+  "headings": {
+    "frente": 180,
+    "tres_quartos": 135,
+    "perfil": 90,
+    "costas": 0
+  },
+  "output_dir": "C:\\Users\\Pichau\\Documents\\Isometric_Character_Studio_Docs\\docs\\audit\\evidence"
+}

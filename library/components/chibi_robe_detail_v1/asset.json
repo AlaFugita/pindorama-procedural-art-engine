@@ -1,0 +1,25 @@
+{
+ "schema_version": "1.0.0",
+ "id": "chibi_robe_detail_v1",
+ "version": "1.0.0",
+ "kind": "outfit",
+ "families": [
+  "humanoid"
+ ],
+ "generator": "chibi_robe_detail",
+ "params": {},
+ "anchors": [
+  "chest"
+ ],
+ "depends_on": [],
+ "scale_reference_m": 1.0,
+ "tags": [
+  "detalhado"
+ ],
+ "license": {
+  "spdx_or_terms": "project-original",
+  "origin": "blender/scripts/ics_blender/chibi_detail.py",
+  "author": "Isometric Character Studio",
+  "redistribution_allowed": true
+ }
+}

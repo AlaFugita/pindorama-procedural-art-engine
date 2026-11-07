@@ -1,0 +1,23 @@
+{
+ "render_folder": "projects\\default\\characters\\aprendiz\\stages\\render\\2ff8c4dd5876b9a2",
+ "clips": {
+  "idle": {
+   "fps": 8,
+   "frames": 8,
+   "ground_speed_mps": 0.0,
+   "frame_ms": 125
+  },
+  "walk": {
+   "fps": 12,
+   "frames": 8,
+   "ground_speed_mps": 0.408,
+   "frame_ms": 83
+  },
+  "run": {
+   "fps": 16,
+   "frames": 8,
+   "ground_speed_mps": 1.0133,
+   "frame_ms": 62
+  }
+ }
+}

@@ -1,0 +1,90 @@
+{
+  "$defs": {
+    "CheckResult": {
+      "additionalProperties": false,
+      "description": "Linha da matriz de testes (doc 23 §4).",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/GateStatus"
+        },
+        "detail": {
+          "default": "",
+          "title": "Detail",
+          "type": "string"
+        },
+        "tolerance": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tolerance"
+        },
+        "evidence": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "status"
+      ],
+      "title": "CheckResult",
+      "type": "object"
+    },
+    "GateStatus": {
+      "enum": [
+        "PENDING",
+        "PASS",
+        "WARN",
+        "FAIL",
+        "REVIEW",
+        "APPROVED",
+        "REJECTED",
+        "NOT_TESTED"
+      ],
+      "title": "GateStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "gate": {
+      "title": "Gate",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/GateStatus"
+    },
+    "checks": {
+      "items": {
+        "$ref": "#/$defs/CheckResult"
+      },
+      "title": "Checks",
+      "type": "array"
+    }
+  },
+  "required": [
+    "gate",
+    "status",
+    "checks"
+  ],
+  "title": "GateReport",
+  "type": "object"
+}

@@ -1,0 +1,848 @@
+{
+ "schema_version": "1.0.0",
+ "id": "humanoid_chibi_v1",
+ "version": "1.0.0",
+ "family": "humanoid",
+ "reference_height_m": 1.0,
+ "orientation": "+Z_up,+Y_front,+X_right_anatomical",
+ "max_influences": 4,
+ "weight_sum_tolerance": 0.001,
+ "side_center_tolerance_m": 0.005,
+ "compatible_animation_profiles": [
+  "humanoid_chibi_basic_v1"
+ ],
+ "ik_chains": {
+  "leg_l": {
+   "tip": "shin_l",
+   "target": "ik_foot_l",
+   "pole": "pole_knee_l",
+   "foot": "foot_l",
+   "base": "thigh_l"
+  },
+  "leg_r": {
+   "tip": "shin_r",
+   "target": "ik_foot_r",
+   "pole": "pole_knee_r",
+   "foot": "foot_r",
+   "base": "thigh_r"
+  }
+ },
+ "bones": [
+  {
+   "semantic_id": "root",
+   "blender_name": "root",
+   "side": "CENTER",
+   "role": "root",
+   "parent": null,
+   "deform": false,
+   "head": [
+    0,
+    0,
+    0
+   ],
+   "tail": [
+    0,
+    0.1,
+    0
+   ],
+   "roll_deg": 0.0,
+   "connected": false,
+   "required": true
+  },
+  {
+   "semantic_id": "pelvis",
+   "blender_name": "pelvis",
+   "side": "CENTER",
+   "role": "pelvis",
+   "parent": "root",
+   "deform": true,
+   "head": [
+    0,
+    0,
+    0.3
+   ],
+   "tail": [
+    0,
+    0,
+    0.36
+   ],
+   "roll_deg": 0.0,
+   "connected": false,
+   "required": true
+  },
+  {
+   "semantic_id": "spine_01",
+   "blender_name": "spine_01",
+   "side": "CENTER",
+   "role": "spine",
+   "parent": "pelvis",
+   "deform": true,
+   "head": [
+    0,
+    0,
+    0.36
+   ],
+   "tail": [
+    0,
+    0,
+    0.42
+   ],
+   "roll_deg": 0.0,
+   "connected": true,
+   "required": true
+  },
+  {
+   "semantic_id": "chest",
+   "blender_name": "chest",
+   "side": "CENTER",
+   "role": "chest",
+   "parent": "spine_01",
+   "deform": true,
+   "head": [
+    0,
+    0,
+    0.42
+   ],
+   "tail": [
+    0,
+    0,
+    0.5
+   ],
+   "roll_deg": 0.0,
+   "connected": true,
+   "required": true
+  },
+  {
+   "semantic_id": "neck",
+   "blender_name": "neck",
+   "side": "CENTER",
+   "role": "neck",
+   "parent": "chest",
+   "deform": true,
+   "head": [
+    0,
+    0,
+    0.5
+   ],
+   "tail": [
+    0,
+    0,
+    0.54
+   ],
+   "roll_deg": 0.0,
+   "connected": true,
+   "required": true
+  },
+  {
+   "semantic_id": "head",
+   "blender_name": "head",
+   "side": "CENTER",
+   "role": "head",
+   "parent": "neck",
+   "deform": true,
+   "head": [
+    0,
+    0,
+    0.54
+   ],
+   "tail": [
+    0,
+    0,
+    1.0
+   ],
+   "roll_deg": 0.0,
+   "connected": true,
+   "required": true
+  },
+  {
+   "semantic_id": "qa_front",
+   "blender_name": "qa_front",
+   "side": "NONE",
+   "role": "qa_marker",
+   "parent": "root",
+   "deform": false,
+   "head": [
+    0,
+    0.3,
+    0.4
+   ],
+   "tail": [
+    0,
+    0.4,
+    0.4
+   ],
+   "roll_deg": 0.0,
+   "connected": false,
+   "required": true
+  },
+  {
+   "semantic_id": "clavicle_l",
+   "blender_name": "clavicle_l",
+   "side": "LEFT",
+   "role": "clavicle",
+   "parent": "chest",
+   "deform": true,
+   "head": [
+    -0.03,
+    0,
+    0.5
+   ],
+   "tail": [
+    -0.105,
+    0,
+    0.495
+   ],
+   "roll_deg": 0.0,
+   "connected": false,
+   "required": true
+  },
+  {
+   "semantic_id": "upper_arm_l",
+   "blender_name": "upper_arm_l",
+   "side": "LEFT",
+   "role": "upper_arm",
+   "parent": "clavicle_l",
+   "deform": true,
+   "head": [
+    -0.105,
+    0,
+    0.495
+   ],
+   "tail": [
+    -0.165,
+    0,
+    0.4
+   ],
+   "roll_deg": 0.0,
+   "connected": true,
+   "required": true
+  },
+  {
+   "semantic_id": "forearm_l",
+   "blender_name": "forearm_l",
+   "side": "LEFT",
+   "role": "forearm",
+   "parent": "upper_arm_l",
+   "deform": true,
+   "head": [
+    -0.165,
+    0,
+    0.4
+   ],
+   "tail": [
+    -0.205,
+    0.012,
+    0.31
+   ],
+   "roll_deg": 0.0,
+   "connected": true,
+   "required": true
+  },
+  {
+   "semantic_id": "hand_l",
+   "blender_name": "hand_l",
+   "side": "LEFT",
+   "role": "hand",
+   "parent": "forearm_l",
+   "deform": true,
+   "head": [
+    -0.205,
+    0.012,
+    0.31
+   ],
+   "tail": [
+    -0.222,
+    0.018,
+    0.25
+   ],
+   "roll_deg": 0.0,
+   "connected": true,
+   "required": true
+  },
+  {
+   "semantic_id": "thigh_l",
+   "blender_name": "thigh_l",
+   "side": "LEFT",
+   "role": "upper_leg",
+   "parent": "pelvis",
+   "deform": true,
+   "head": [
+    -0.07,
+    0,
+    0.3
+   ],
+   "tail": [
+    -0.07,
+    0.01,
+    0.19
+   ],
+   "roll_deg": 0.0,
+   "connected": false,
+   "required": true
+  },
+  {
+   "semantic_id": "shin_l",
+   "blender_name": "shin_l",
+   "side": "LEFT",
+   "role": "lower_leg",
+   "parent": "thigh_l",
+   "deform": true,
+   "head": [
+    -0.07,
+    0.01,
+    0.19
+   ],
+   "tail": [
+    -0.07,
+    0,
+    0.07
+   ],
+   "roll_deg": 0.0,
+   "connected": true,
+   "required": true
+  },
+  {
+   "semantic_id": "foot_l",
+   "blender_name": "foot_l",
+   "side": "LEFT",
+   "role": "foot",
+   "parent": "shin_l",
+   "deform": true,
+   "head": [
+    -0.07,
+    0,
+    0.07
+   ],
+   "tail": [
+    -0.07,
+    0.08,
+    0.025
+   ],
+   "roll_deg": 0.0,
+   "connected": true,
+   "required": true
+  },
+  {
+   "semantic_id": "toe_l",
+   "blender_name": "toe_l",
+   "side": "LEFT",
+   "role": "toe",
+   "parent": "foot_l",
+   "deform": true,
+   "head": [
+    -0.07,
+    0.08,
+    0.025
+   ],
+   "tail": [
+    -0.07,
+    0.13,
+    0.025
+   ],
+   "roll_deg": 0.0,
+   "connected": true,
+   "required": true
+  },
+  {
+   "semantic_id": "heel_l",
+   "blender_name": "heel_l",
+   "side": "LEFT",
+   "role": "contact_heel",
+   "parent": "foot_l",
+   "deform": false,
+   "head": [
+    -0.07,
+    -0.035,
+    0
+   ],
+   "tail": [
+    -0.07,
+    -0.035,
+    0.03
+   ],
+   "roll_deg": 0.0,
+   "connected": false,
+   "required": true
+  },
+  {
+   "semantic_id": "ball_l",
+   "blender_name": "ball_l",
+   "side": "LEFT",
+   "role": "contact_ball",
+   "parent": "foot_l",
+   "deform": false,
+   "head": [
+    -0.07,
+    0.115,
+    0
+   ],
+   "tail": [
+    -0.07,
+    0.115,
+    0.03
+   ],
+   "roll_deg": 0.0,
+   "connected": false,
+   "required": true
+  },
+  {
+   "semantic_id": "ctrl_foot_l",
+   "blender_name": "ctrl_foot_l",
+   "side": "LEFT",
+   "role": "ik_control",
+   "parent": "root",
+   "deform": false,
+   "head": [
+    -0.07,
+    0,
+    0.07
+   ],
+   "tail": [
+    -0.07,
+    0.08,
+    0.07
+   ],
+   "roll_deg": 0.0,
+   "connected": false,
+   "required": true
+  },
+  {
+   "semantic_id": "ik_foot_l",
+   "blender_name": "ik_foot_l",
+   "side": "LEFT",
+   "role": "ik_target",
+   "parent": "ctrl_foot_l",
+   "deform": false,
+   "head": [
+    -0.07,
+    0,
+    0.07
+   ],
+   "tail": [
+    -0.07,
+    0.08,
+    0.025
+   ],
+   "roll_deg": 0.0,
+   "connected": false,
+   "required": true
+  },
+  {
+   "semantic_id": "pole_knee_l",
+   "blender_name": "pole_knee_l",
+   "side": "LEFT",
+   "role": "ik_pole",
+   "parent": "root",
+   "deform": false,
+   "head": [
+    -0.07,
+    0.3,
+    0.19
+   ],
+   "tail": [
+    -0.07,
+    0.38,
+    0.19
+   ],
+   "roll_deg": 0.0,
+   "connected": false,
+   "required": true
+  },
+  {
+   "semantic_id": "clavicle_r",
+   "blender_name": "clavicle_r",
+   "side": "RIGHT",
+   "role": "clavicle",
+   "parent": "chest",
+   "deform": true,
+   "head": [
+    0.03,
+    0,
+    0.5
+   ],
+   "tail": [
+    0.105,
+    0,
+    0.495
+   ],
+   "roll_deg": 0.0,
+   "connected": false,
+   "required": true
+  },
+  {
+   "semantic_id": "upper_arm_r",
+   "blender_name": "upper_arm_r",
+   "side": "RIGHT",
+   "role": "upper_arm",
+   "parent": "clavicle_r",
+   "deform": true,
+   "head": [
+    0.105,
+    0,
+    0.495
+   ],
+   "tail": [
+    0.165,
+    0,
+    0.4
+   ],
+   "roll_deg": 0.0,
+   "connected": true,
+   "required": true
+  },
+  {
+   "semantic_id": "forearm_r",
+   "blender_name": "forearm_r",
+   "side": "RIGHT",
+   "role": "forearm",
+   "parent": "upper_arm_r",
+   "deform": true,
+   "head": [
+    0.165,
+    0,
+    0.4
+   ],
+   "tail": [
+    0.205,
+    0.012,
+    0.31
+   ],
+   "roll_deg": 0.0,
+   "connected": true,
+   "required": true
+  },
+  {
+   "semantic_id": "hand_r",
+   "blender_name": "hand_r",
+   "side": "RIGHT",
+   "role": "hand",
+   "parent": "forearm_r",
+   "deform": true,
+   "head": [
+    0.205,
+    0.012,
+    0.31
+   ],
+   "tail": [
+    0.222,
+    0.018,
+    0.25
+   ],
+   "roll_deg": 0.0,
+   "connected": true,
+   "required": true
+  },
+  {
+   "semantic_id": "thigh_r",
+   "blender_name": "thigh_r",
+   "side": "RIGHT",
+   "role": "upper_leg",
+   "parent": "pelvis",
+   "deform": true,
+   "head": [
+    0.07,
+    0,
+    0.3
+   ],
+   "tail": [
+    0.07,
+    0.01,
+    0.19
+   ],
+   "roll_deg": 0.0,
+   "connected": false,
+   "required": true
+  },
+  {
+   "semantic_id": "shin_r",
+   "blender_name": "shin_r",
+   "side": "RIGHT",
+   "role": "lower_leg",
+   "parent": "thigh_r",
+   "deform": true,
+   "head": [
+    0.07,
+    0.01,
+    0.19
+   ],
+   "tail": [
+    0.07,
+    0,
+    0.07
+   ],
+   "roll_deg": 0.0,
+   "connected": true,
+   "required": true
+  },
+  {
+   "semantic_id": "foot_r",
+   "blender_name": "foot_r",
+   "side": "RIGHT",
+   "role": "foot",
+   "parent": "shin_r",
+   "deform": true,
+   "head": [
+    0.07,
+    0,
+    0.07
+   ],
+   "tail": [
+    0.07,
+    0.08,
+    0.025
+   ],
+   "roll_deg": 0.0,
+   "connected": true,
+   "required": true
+  },
+  {
+   "semantic_id": "toe_r",
+   "blender_name": "toe_r",
+   "side": "RIGHT",
+   "role": "toe",
+   "parent": "foot_r",
+   "deform": true,
+   "head": [
+    0.07,
+    0.08,
+    0.025
+   ],
+   "tail": [
+    0.07,
+    0.13,
+    0.025
+   ],
+   "roll_deg": 0.0,
+   "connected": true,
+   "required": true
+  },
+  {
+   "semantic_id": "heel_r",
+   "blender_name": "heel_r",
+   "side": "RIGHT",
+   "role": "contact_heel",
+   "parent": "foot_r",
+   "deform": false,
+   "head": [
+    0.07,
+    -0.035,
+    0
+   ],
+   "tail": [
+    0.07,
+    -0.035,
+    0.03
+   ],
+   "roll_deg": 0.0,
+   "connected": false,
+   "required": true
+  },
+  {
+   "semantic_id": "ball_r",
+   "blender_name": "ball_r",
+   "side": "RIGHT",
+   "role": "contact_ball",
+   "parent": "foot_r",
+   "deform": false,
+   "head": [
+    0.07,
+    0.115,
+    0
+   ],
+   "tail": [
+    0.07,
+    0.115,
+    0.03
+   ],
+   "roll_deg": 0.0,
+   "connected": false,
+   "required": true
+  },
+  {
+   "semantic_id": "ctrl_foot_r",
+   "blender_name": "ctrl_foot_r",
+   "side": "RIGHT",
+   "role": "ik_control",
+   "parent": "root",
+   "deform": false,
+   "head": [
+    0.07,
+    0,
+    0.07
+   ],
+   "tail": [
+    0.07,
+    0.08,
+    0.07
+   ],
+   "roll_deg": 0.0,
+   "connected": false,
+   "required": true
+  },
+  {
+   "semantic_id": "ik_foot_r",
+   "blender_name": "ik_foot_r",
+   "side": "RIGHT",
+   "role": "ik_target",
+   "parent": "ctrl_foot_r",
+   "deform": false,
+   "head": [
+    0.07,
+    0,
+    0.07
+   ],
+   "tail": [
+    0.07,
+    0.08,
+    0.025
+   ],
+   "roll_deg": 0.0,
+   "connected": false,
+   "required": true
+  },
+  {
+   "semantic_id": "pole_knee_r",
+   "blender_name": "pole_knee_r",
+   "side": "RIGHT",
+   "role": "ik_pole",
+   "parent": "root",
+   "deform": false,
+   "head": [
+    0.07,
+    0.3,
+    0.19
+   ],
+   "tail": [
+    0.07,
+    0.38,
+    0.19
+   ],
+   "roll_deg": 0.0,
+   "connected": false,
+   "required": true
+  }
+ ],
+ "sentinel_poses": [
+  {
+   "id": "leg_left",
+   "bone": "ctrl_foot_l",
+   "mode": "translate",
+   "vector": [
+    0,
+    0.06,
+    0.06
+   ],
+   "expected_moved": [
+    "foot_l",
+    "shin_l",
+    "toe_l"
+   ],
+   "expected_static": [
+    "hand_l",
+    "hand_r",
+    "foot_r",
+    "head"
+   ]
+  },
+  {
+   "id": "leg_right",
+   "bone": "ctrl_foot_r",
+   "mode": "translate",
+   "vector": [
+    0,
+    0.06,
+    0.06
+   ],
+   "expected_moved": [
+    "foot_r",
+    "shin_r",
+    "toe_r"
+   ],
+   "expected_static": [
+    "hand_l",
+    "hand_r",
+    "foot_l",
+    "head"
+   ]
+  },
+  {
+   "id": "arm_left",
+   "bone": "upper_arm_l",
+   "mode": "rotate",
+   "vector": [
+    45,
+    0,
+    0
+   ],
+   "expected_moved": [
+    "forearm_l",
+    "hand_l"
+   ],
+   "expected_static": [
+    "hand_r",
+    "foot_l",
+    "foot_r",
+    "head"
+   ]
+  },
+  {
+   "id": "arm_right",
+   "bone": "upper_arm_r",
+   "mode": "rotate",
+   "vector": [
+    45,
+    0,
+    0
+   ],
+   "expected_moved": [
+    "forearm_r",
+    "hand_r"
+   ],
+   "expected_static": [
+    "hand_l",
+    "foot_l",
+    "foot_r",
+    "head"
+   ]
+  },
+  {
+   "id": "head",
+   "bone": "head",
+   "mode": "rotate",
+   "vector": [
+    20,
+    0,
+    30
+   ],
+   "expected_moved": [
+    "head"
+   ],
+   "expected_static": [
+    "hand_l",
+    "hand_r",
+    "foot_l",
+    "foot_r"
+   ]
+  },
+  {
+   "id": "spine",
+   "bone": "spine_01",
+   "mode": "rotate",
+   "vector": [
+    20,
+    0,
+    0
+   ],
+   "expected_moved": [
+    "chest",
+    "head",
+    "hand_l",
+    "hand_r"
+   ],
+   "expected_static": [
+    "foot_l",
+    "foot_r"
+   ]
+  }
+ ]
+}

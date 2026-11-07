@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "id": "character_001",
+  "name": "Guardião da Floresta",
+  "slug": "guardiao_da_floresta",
+  "family": "humanoid",
+  "art_profile": "pindorama_stylized_v1",
+  "body_profile": { "asset_id": "humanoid_compact_v1", "scale": 1.0, "proportions": "chibi_moderate" },
+  "appearance": {
+    "head_asset": "head_round_v1",
+    "hair_asset": "hair_long_tied_v1",
+    "skin_material": "skin_warm_01",
+    "face_preset": "face_guardian_01"
+  },
+  "outfit": {
+    "body_asset": "outfit_natural_fabric_01",
+    "accessories": ["feather_ornament_01", "necklace_01", "belt_pouch_01"],
+    "weapon_asset": "spear_wood_01"
+  },
+  "palette": { "primary": "#A94D2D", "secondary": "#4D3025", "accent": "#E5B36C" },
+  "rig_profile": "humanoid_standard_v1",
+  "animation_profile": "humanoid_basic_v1",
+  "render_profile": "isometric_8dir_v1"
+}

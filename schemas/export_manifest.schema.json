@@ -1,0 +1,363 @@
+{
+  "$defs": {
+    "AnimationExport": {
+      "additionalProperties": false,
+      "properties": {
+        "animation": {
+          "title": "Animation",
+          "type": "string"
+        },
+        "fps": {
+          "title": "Fps",
+          "type": "integer"
+        },
+        "loop": {
+          "title": "Loop",
+          "type": "boolean"
+        },
+        "frame_count": {
+          "title": "Frame Count",
+          "type": "integer"
+        },
+        "duration_s": {
+          "title": "Duration S",
+          "type": "number"
+        },
+        "ground_speed_mps": {
+          "title": "Ground Speed Mps",
+          "type": "number"
+        },
+        "events": {
+          "items": {
+            "$ref": "#/$defs/ContactEvent"
+          },
+          "title": "Events",
+          "type": "array"
+        },
+        "direction_order": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Direction Order",
+          "type": "array"
+        },
+        "directions": {
+          "additionalProperties": {
+            "$ref": "#/$defs/DirectionAtlas"
+          },
+          "title": "Directions",
+          "type": "object"
+        }
+      },
+      "required": [
+        "animation",
+        "fps",
+        "loop",
+        "frame_count",
+        "duration_s",
+        "ground_speed_mps",
+        "events",
+        "direction_order",
+        "directions"
+      ],
+      "title": "AnimationExport",
+      "type": "object"
+    },
+    "ContactEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "frame": {
+          "minimum": 0,
+          "title": "Frame",
+          "type": "integer"
+        },
+        "event": {
+          "enum": [
+            "LEFT_FOOT_CONTACT",
+            "RIGHT_FOOT_CONTACT",
+            "LEFT_SWING",
+            "RIGHT_SWING"
+          ],
+          "title": "Event",
+          "type": "string"
+        }
+      },
+      "required": [
+        "frame",
+        "event"
+      ],
+      "title": "ContactEvent",
+      "type": "object"
+    },
+    "DirectionAtlas": {
+      "additionalProperties": false,
+      "properties": {
+        "file": {
+          "title": "File",
+          "type": "string"
+        },
+        "atlas_width": {
+          "title": "Atlas Width",
+          "type": "integer"
+        },
+        "atlas_height": {
+          "title": "Atlas Height",
+          "type": "integer"
+        },
+        "frame_width": {
+          "title": "Frame Width",
+          "type": "integer"
+        },
+        "frame_height": {
+          "title": "Frame Height",
+          "type": "integer"
+        },
+        "frame_count": {
+          "title": "Frame Count",
+          "type": "integer"
+        },
+        "gutter_px": {
+          "title": "Gutter Px",
+          "type": "integer"
+        },
+        "heading_deg": {
+          "title": "Heading Deg",
+          "type": "number"
+        },
+        "pivot": {
+          "$ref": "#/$defs/Pixel"
+        },
+        "frames": {
+          "items": {
+            "$ref": "#/$defs/FrameRect"
+          },
+          "title": "Frames",
+          "type": "array"
+        }
+      },
+      "required": [
+        "file",
+        "atlas_width",
+        "atlas_height",
+        "frame_width",
+        "frame_height",
+        "frame_count",
+        "gutter_px",
+        "heading_deg",
+        "pivot",
+        "frames"
+      ],
+      "title": "DirectionAtlas",
+      "type": "object"
+    },
+    "ExportedFile": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "sha256": {
+          "title": "Sha256",
+          "type": "string"
+        },
+        "bytes": {
+          "exclusiveMinimum": 0,
+          "title": "Bytes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "path",
+        "sha256",
+        "bytes"
+      ],
+      "title": "ExportedFile",
+      "type": "object"
+    },
+    "FrameRect": {
+      "additionalProperties": false,
+      "properties": {
+        "index": {
+          "minimum": 0,
+          "title": "Index",
+          "type": "integer"
+        },
+        "x": {
+          "minimum": 0,
+          "title": "X",
+          "type": "integer"
+        },
+        "y": {
+          "minimum": 0,
+          "title": "Y",
+          "type": "integer"
+        },
+        "w": {
+          "exclusiveMinimum": 0,
+          "title": "W",
+          "type": "integer"
+        },
+        "h": {
+          "exclusiveMinimum": 0,
+          "title": "H",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "index",
+        "x",
+        "y",
+        "w",
+        "h"
+      ],
+      "title": "FrameRect",
+      "type": "object"
+    },
+    "Pixel": {
+      "additionalProperties": false,
+      "properties": {
+        "x": {
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "title": "Y",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "title": "Pixel",
+      "type": "object"
+    },
+    "ReleaseStatus": {
+      "enum": [
+        "experimental",
+        "review",
+        "production"
+      ],
+      "title": "ReleaseStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "character_id": {
+      "title": "Character Id",
+      "type": "string"
+    },
+    "character_name": {
+      "title": "Character Name",
+      "type": "string"
+    },
+    "character_revision": {
+      "title": "Character Revision",
+      "type": "integer"
+    },
+    "art_profile": {
+      "title": "Art Profile",
+      "type": "string"
+    },
+    "render_profile": {
+      "title": "Render Profile",
+      "type": "string"
+    },
+    "rig_profile": {
+      "title": "Rig Profile",
+      "type": "string"
+    },
+    "animation_profile": {
+      "title": "Animation Profile",
+      "type": "string"
+    },
+    "release": {
+      "$ref": "#/$defs/ReleaseStatus"
+    },
+    "approval": {
+      "enum": [
+        "UNAPPROVED",
+        "APPROVED"
+      ],
+      "title": "Approval",
+      "type": "string"
+    },
+    "exporter_version": {
+      "title": "Exporter Version",
+      "type": "string"
+    },
+    "blender_version": {
+      "title": "Blender Version",
+      "type": "string"
+    },
+    "target": {
+      "title": "Target",
+      "type": "string"
+    },
+    "tested_compatibility": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tested Compatibility"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "direction_order": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Direction Order",
+      "type": "array"
+    },
+    "animations": {
+      "items": {
+        "$ref": "#/$defs/AnimationExport"
+      },
+      "title": "Animations",
+      "type": "array"
+    },
+    "files": {
+      "items": {
+        "$ref": "#/$defs/ExportedFile"
+      },
+      "title": "Files",
+      "type": "array"
+    }
+  },
+  "required": [
+    "character_id",
+    "character_name",
+    "character_revision",
+    "art_profile",
+    "render_profile",
+    "rig_profile",
+    "animation_profile",
+    "release",
+    "approval",
+    "exporter_version",
+    "blender_version",
+    "target",
+    "tested_compatibility",
+    "created_at",
+    "direction_order",
+    "animations",
+    "files"
+  ],
+  "title": "ExportManifest",
+  "type": "object"
+}

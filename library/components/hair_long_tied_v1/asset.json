@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "id": "hair_long_tied_v1",
+  "version": "1.0.0",
+  "kind": "hair",
+  "families": [
+    "humanoid"
+  ],
+  "generator": "hair_long_tied",
+  "params": {},
+  "anchors": [
+    "head"
+  ],
+  "depends_on": [],
+  "scale_reference_m": 1.3,
+  "tags": [
+    "cabelo",
+    "longo",
+    "preso"
+  ],
+  "license": {
+    "spdx_or_terms": "project-original",
+    "origin": "gerado por blender/scripts/ics_blender/components.py",
+    "author": "Isometric Character Studio",
+    "redistribution_allowed": true
+  }
+}

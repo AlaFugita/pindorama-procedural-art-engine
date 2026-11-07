@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pindorama Procedural Art Engine</title>
+<meta name="description" content="Isometric Character Studio: geração procedural de personagens 2.5D isométricos para um MMORPG, por código, geometria e renderização.">
+<style>
+:root{--bg:#f6f3ec;--card:#fffdf8;--ink:#2a2430;--soft:#6b6070;--line:#e2dccf;--accent:#3f5fa8;--ok:#2f7d4f;--warn:#b07a12;--wait:#7a4fa0;--no:#a23b3b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17151b;--card:#201d25;--ink:#ece6f2;--soft:#a79fb0;--line:#332e3a;--accent:#8fa8ff;--ok:#6fcf97;--warn:#f2c94c;--wait:#c39bf0;--no:#ff8a8a}}
+:root[data-theme="dark"]{--bg:#17151b;--card:#201d25;--ink:#ece6f2;--soft:#a79fb0;--line:#332e3a;--accent:#8fa8ff;--ok:#6fcf97;--warn:#f2c94c;--wait:#c39bf0;--no:#ff8a8a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{padding:48px 16px 24px;max-width:1080px;margin:auto}
+header h1{margin:0 0 6px;font-size:clamp(26px,5vw,40px);letter-spacing:-.02em}
+header p{margin:0;color:var(--soft);max-width:760px}
+nav{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:2}
+nav div{max-width:1080px;margin:auto;padding:8px 16px;display:flex;gap:18px;overflow-x:auto;white-space:nowrap}
+nav a{color:var(--soft);text-decoration:none;font-size:14px}nav a:hover{color:var(--accent)}
+main{max-width:1080px;margin:auto;padding:0 16px 64px}
+section{margin-top:44px}
+h2{font-size:22px;margin:0 0 14px}
+h3{font-size:16px;margin:0 0 6px}
+p,li{color:var(--ink)}
+.muted{color:var(--soft)}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.card img{width:100%;height:auto;border-radius:8px;background:#7a9668;image-rendering:auto;display:block}
+.card.pixel img{image-rendering:pixelated}
+.card p{margin:8px 0 0;font-size:14px;color:var(--soft)}
+.wide{grid-column:1/-1}
+table{width:100%;border-collapse:collapse;font-size:14px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--soft);font-weight:600}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:1px 8px;border-radius:99px;border:1px solid currentColor}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.wait{color:var(--wait)}.no{color:var(--no)}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:14px}
+.flow span{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:4px 10px}
+.flow b{color:var(--soft);font-weight:400}
+ol.timeline{list-style:none;padding:0;margin:0;border-left:2px solid var(--line)}
+ol.timeline li{padding:0 0 14px 16px;position:relative}
+ol.timeline li:before{content:"";position:absolute;left:-6px;top:8px;width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.scroll{overflow-x:auto}
+a{color:var(--accent)}
+footer{max-width:1080px;margin:auto;padding:24px 16px;color:var(--soft);font-size:13px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<header>
+  <h1>Pindorama Procedural Art Engine</h1>
+  <p>O <b>Isometric Character Studio</b> gera personagens 2.5D isométricos para um MMORPG <b>por código</b>: geometria procedural, rig, animação e renderização no Blender, composição de imagem em Python e exportação para o Godot. A visão de longo prazo é gerar também criaturas, natureza, objetos, construções e ambientes com a mesma identidade visual. Projeto pessoal, de hobby.</p>
+</header>
+<nav><div>
+  <a href="#estado">Estado</a><a href="#galeria">Galeria</a><a href="#evolucao">Evolução</a><a href="#arquitetura">Arquitetura</a><a href="#pesquisa">Pesquisa</a><a href="#decisoes">Decisões</a><a href="#docs">Documentação</a>
+</div></nav>
+<main>
+
+<section id="estado">
+  <h2>Estado atual</h2>
+  <p class="muted">Cada item tem um estado: planejado → em desenvolvimento → implementado → testado → validado → aprovado artisticamente. Só o usuário aprova arte.</p>
+  <div class="scroll"><table>
+    <tr><th>Capacidade</th><th>Estado</th><th>Evidência</th></tr>
+    <tr><td>Pipeline ficha → Blender → sprites → Godot</td><td><span class="tag ok">testado</span></td><td>Gates G1, G7 e G8 passam; o Godot confere 192 quadros em 24 clips</td></tr>
+    <tr><td>Rig humanoide chibi, idle, walk e run</td><td><span class="tag ok">testado</span></td><td>Sonda de chão e túnica em todos os quadros; pé deslizando ≤ 0,00006 H/s</td></tr>
+    <tr><td>Personagem mestre: Aprendiz</td><td><span class="tag wait">aguarda aprovação</span></td><td>G9 em revisão; a reprovação anterior fica no histórico</td></tr>
+    <tr><td>Acabamento suave <code>pindorama_friendly_smooth_v1</code> (principal)</td><td><span class="tag ok">implementado e testado</span></td><td>Passes em 3× com antialiasing real; transparência 207 de 216</td></tr>
+    <tr><td>Acabamento pixel art (opcional)</td><td><span class="tag ok">testado</span></td><td>Transparência 216 de 216, alpha binário</td></tr>
+    <tr><td>Personalização modular</td><td><span class="tag ok">testado</span></td><td>5 variações de um campo cada; só mudam as peças trocadas</td></tr>
+    <tr><td>Clips de ataque, magia, defesa e morte; perfis por arma</td><td><span class="tag warn">planejado</span></td><td>Bloqueado até a aprovação do mestre</td></tr>
+    <tr><td>Criaturas, natureza, objetos, construções, ambientes</td><td><span class="tag warn">visão / planejado</span></td><td>Roadmap; nenhum código ainda</td></tr>
+  </table></div>
+</section>
+
+<section id="galeria">
+  <h2>Galeria</h2>
+  <div class="grid">
+    <div class="card wide"><img src="docs/audit/suave/animacoes/walk_8dir.gif" alt="Aprendiz caminhando nas oito direções, acabamento suave" loading="lazy"><p><b>Atual:</b> Aprendiz detalhado no acabamento suave, caminhada nas 8 direções, 192 px, 12 fps.</p></div>
+    <div class="card"><img src="docs/audit/suave/animacoes/run_8dir.gif" alt="Corrida nas oito direções" loading="lazy"><p>Corrida, 16 fps.</p></div>
+    <div class="card"><img src="docs/audit/suave/animacoes/idle_8dir.gif" alt="Idle nas oito direções" loading="lazy"><p>Idle, 8 fps.</p></div>
+    <div class="card wide"><img src="docs/audit/suave/oito_direcoes_idle.png" alt="Oito direções identificadas" loading="lazy"><p>As oito direções com a mesma escala, enquadramento, pivô e fundo; embaixo, em tamanho real.</p></div>
+    <div class="card wide pixel"><img src="docs/audit/detalhamento/antes_depois.png" alt="Antes e depois" loading="lazy"><p>Antes e depois: o protótipo, só o acabamento, só a modelagem e os dois juntos, com a Duende como referência de nível.</p></div>
+    <div class="card wide"><img src="docs/audit/master_audit/modular/variacoes.png" alt="Variações modulares" loading="lazy"><p>Personalização modular: cor do capuz, cabelo, roupa, acessório e arma.</p></div>
+    <div class="card pixel"><img src="docs/audit/detalhamento/animacoes/walk_8dir.gif" alt="Versão pixel art" loading="lazy"><p>Perfil opcional em pixel art.</p></div>
+    <div class="card pixel"><img src="docs/audit/detalhamento/resolucao/resolucoes_mesma_altura.png" alt="Resoluções" loading="lazy"><p>Teste de resolução 128, 192 e 256 na mesma altura de tela.</p></div>
+  </div>
+</section>
+
+<section id="evolucao">
+  <h2>Evolução</h2>
+  <ol class="timeline" id="timeline">
+    <li><b>2026-11-06</b>: a cadeia técnica funciona até o Godot; o primeiro visual é reprovado (G9).</li>
+    <li><b>2026-11-06</b>: protótipos do mestre (rotas A, B e C) com malha de IA local; a forma base é aprovada, a pintura é reprovada.</li>
+    <li><b>2026-11-07</b>: virada para o chibi do Mago, conforme a direção de arte do Pindorama.</li>
+    <li><b>2026-11-07</b>: auditoria do mestre; a sonda de pose acha e corrige botas e cajado no chão e coxa saindo da túnica.</li>
+    <li><b>2026-11-07</b>: modelo detalhado e pixel art nativo por passes.</li>
+    <li><b>2026-11-07</b>: Master Prompt V2. A direção principal vira ilustração suave; o acabamento <code>smooth</code> reusa os passes.</li>
+  </ol>
+</section>
+
+<section id="arquitetura">
+  <h2>Arquitetura</h2>
+  <div class="flow">
+    <span>CharacterSpec</span><b>→</b><span>resolver</span><b>→</b><span>build (peças)</span><b>→</b><span>rig</span><b>→</b><span>animate</span><b>→</b><span>passes nativos: id · luz · profundidade</span><b>→</b><span>composição: smooth | pixel</span><b>→</b><span>atlas + gates</span><b>→</b><span>Godot</span>
+  </div>
+  <p class="muted">A direção de arte é dado versionado (<code>ArtProfile</code>): luz, sombra, papéis de material (pele, tecido, couro, madeira, metal, gema), contorno e resolução. Os geradores consomem o perfil, e o cache por hash de conteúdo evita retrabalho.</p>
+</section>
+
+<section id="pesquisa">
+  <h2>Pesquisa técnica</h2>
+  <p>Estudo de projetos abertos de geração procedural, para aproveitar técnicas, não estilos: <a href="docs/research/repository-catalog.html">catálogo</a>, <a href="docs/research/technology-comparison.html">comparação</a>, <a href="docs/research/technical-findings.html">descobertas</a>, <a href="docs/research/architecture-opportunity-map.html">mapa de oportunidades</a>, <a href="docs/research/technical-recommendations.html">recomendações</a> e <a href="docs/research/research-decisions.html">decisões</a>.</p>
+</section>
+
+<section id="decisoes">
+  <h2>Decisões e conflitos</h2>
+  <p><a href="docs/DECISIONS.html">Registro de decisões</a> · <a href="docs/audit/MATRIZ_ADERENCIA_PROCEDURAL_ART_ENGINE_2026-11-07.html">Matriz de aderência ao Procedural Art Engine</a> · <a href="docs/STATUS.html">Status detalhado</a> · <a href="docs/VALIDATION_REPORT.html">Validação</a></p>
+</section>
+
+<section id="docs">
+  <h2>Documentação</h2>
+  <div class="grid">
+    <div class="card"><h3>Produto</h3><p><a href="01_VISAO_E_ESCOPO.html">Visão e escopo</a> · <a href="02_REQUISITOS_FUNCIONAIS_NAO_FUNCIONAIS.html">Requisitos</a> · <a href="11_ROADMAP_DE_IMPLEMENTACAO.html">Roadmap</a> · <a href="13_RISCOS_E_DECISOES_ABERTAS.html">Riscos</a></p></div>
+    <div class="card"><h3>Arte</h3><p><a href="03_DIRECAO_ARTISTICA.html">Direção artística</a> · <a href="docs/DETALHAMENTO_ARTISTICO.html">Sistema de detalhamento</a> · <a href="docs/REFERENCE_PROVENANCE.html">Referências</a></p></div>
+    <div class="card"><h3>Técnica</h3><p><a href="04_ARQUITETURA_TECNICA.html">Arquitetura</a> · <a href="06_CONTRATOS_DE_DADOS.html">Contratos</a> · <a href="07_PIPELINE_DE_GERACAO.html">Pipeline</a> · <a href="08_RENDERIZACAO_E_ANIMACAO.html">Render e animação</a> · <a href="09_EXPORTACAO_E_INTEGRACAO_GODOT.html">Godot</a></p></div>
+    <div class="card"><h3>Qualidade</h3><p><a href="20_QUALITY_GATES_E_APROVACAO.html">Quality gates</a> · <a href="docs/audit/AUDITORIA_MESTRE_APRENDIZ_2026-11-07.html">Auditoria do mestre</a> · <a href="docs/MASTER_QUALITY_CRITERIA.html">Critérios</a></p></div>
+  </div>
+</section>
+</main>
+<footer>Projeto pessoal de hobby. Gerado e mantido com Claude Code. A aprovação artística é sempre humana.</footer>
+</body>
+</html>

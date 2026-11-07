@@ -1,0 +1,26 @@
+{
+ "schema_version": "1.0.0",
+ "id": "chibi_head_v1",
+ "version": "1.0.0",
+ "kind": "head",
+ "families": [
+  "humanoid"
+ ],
+ "generator": "chibi_head",
+ "params": {},
+ "anchors": [
+  "head"
+ ],
+ "depends_on": [],
+ "scale_reference_m": 1.0,
+ "tags": [
+  "cabeça",
+  "chibi"
+ ],
+ "license": {
+  "spdx_or_terms": "project-original",
+  "origin": "blender/scripts/ics_blender/chibi_components.py",
+  "author": "Isometric Character Studio",
+  "redistribution_allowed": true
+ }
+}

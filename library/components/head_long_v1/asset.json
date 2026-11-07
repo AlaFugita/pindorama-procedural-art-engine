@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "id": "head_long_v1",
+  "version": "1.0.0",
+  "kind": "head",
+  "families": [
+    "humanoid"
+  ],
+  "generator": "head",
+  "params": {
+    "rx": 0.18,
+    "ry": 0.18,
+    "rz": 0.215,
+    "chin": 0.62
+  },
+  "anchors": [
+    "head"
+  ],
+  "depends_on": [],
+  "scale_reference_m": 1.3,
+  "tags": [
+    "cabeça",
+    "alongada"
+  ],
+  "license": {
+    "spdx_or_terms": "project-original",
+    "origin": "gerado por blender/scripts/ics_blender/components.py",
+    "author": "Isometric Character Studio",
+    "redistribution_allowed": true
+  }
+}

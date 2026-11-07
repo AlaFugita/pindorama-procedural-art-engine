@@ -1,0 +1,291 @@
+{
+ "schema_version": "1.0.0",
+ "id": "pindorama_friendly_smooth_v1",
+ "version": "1.0.0",
+ "reference_height_m": 1.0,
+ "lights": [
+  {
+   "name": "Key",
+   "azimuth_deg": 215,
+   "elevation_deg": 50,
+   "energy": 2.7,
+   "color": "#FFF2DD",
+   "angle_deg": 14
+  },
+  {
+   "name": "Fill",
+   "azimuth_deg": 120,
+   "elevation_deg": 20,
+   "energy": 0.4,
+   "color": "#CBDBFF",
+   "angle_deg": 40
+  }
+ ],
+ "world_color": "#FFFFFF",
+ "world_strength": 0.1,
+ "toon_steps": [
+  [
+   0.0,
+   0.68
+  ],
+  [
+   0.34,
+   0.86
+  ],
+  [
+   0.5,
+   1.0
+  ]
+ ],
+ "light_shadows": true,
+ "outline_thickness_m": 0.0,
+ "outline_darken": 0.05,
+ "allowed_references": [
+  "Mago e Coquinho (identidade)",
+  "Duende.png (nível de detalhe)",
+  "Saci.png (expressividade)"
+ ],
+ "smooth": {
+  "reference_canvas_px": 192,
+  "supersample": 3,
+  "light_bands": [
+   0.2,
+   0.45,
+   0.72
+  ],
+  "band_softness": 0.14,
+  "roles": {
+   "skin": {
+    "tones": 4,
+    "value_range": [
+     0.7,
+     1.05
+    ],
+    "shadow_hue_shift_deg": -12.0,
+    "ao_strength": 0.35
+   },
+   "hair": {
+    "tones": 4,
+    "value_range": [
+     0.5,
+     1.05
+    ],
+    "shadow_hue_shift_deg": 10.0,
+    "highlight": "#F0B27A",
+    "highlight_threshold": 0.9,
+    "ao_strength": 0.6
+   },
+   "cloth": {
+    "tones": 4,
+    "value_range": [
+     0.44,
+     1.1
+    ],
+    "shadow_hue_shift_deg": 16.0,
+    "ao_strength": 0.55
+   },
+   "cloth_pattern": {
+    "tones": 4,
+    "value_range": [
+     0.44,
+     1.1
+    ],
+    "shadow_hue_shift_deg": 16.0,
+    "ao_strength": 0.55,
+    "pattern": "glyph",
+    "pattern_scale": 9.0
+   },
+   "cloth_light": {
+    "tones": 4,
+    "value_range": [
+     0.7,
+     1.0
+    ],
+    "shadow_hue_shift_deg": 10.0,
+    "ao_strength": 0.4,
+    "pattern": "stitch",
+    "pattern_scale": 60.0
+   },
+   "leather": {
+    "tones": 4,
+    "value_range": [
+     0.45,
+     1.0
+    ],
+    "shadow_hue_shift_deg": 8.0,
+    "ao_strength": 0.55,
+    "pattern": "stitch",
+    "pattern_scale": 45.0
+   },
+   "leather_dark": {
+    "tones": 4,
+    "value_range": [
+     0.4,
+     0.85
+    ],
+    "shadow_hue_shift_deg": 8.0,
+    "ao_strength": 0.5
+   },
+   "wood": {
+    "tones": 4,
+    "value_range": [
+     0.5,
+     1.0
+    ],
+    "shadow_hue_shift_deg": 8.0,
+    "ao_strength": 0.4,
+    "pattern": "grain",
+    "pattern_scale": 14.0
+   },
+   "metal": {
+    "tones": 4,
+    "value_range": [
+     0.55,
+     1.0
+    ],
+    "shadow_hue_shift_deg": 20.0,
+    "base": "#D9B35B",
+    "highlight": "#FFF4C8",
+    "highlight_threshold": 0.7,
+    "ao_strength": 0.3
+   },
+   "gem": {
+    "tones": 3,
+    "value_range": [
+     0.7,
+     1.0
+    ],
+    "shadow_hue_shift_deg": 0.0,
+    "highlight": "#F4FFFF",
+    "highlight_threshold": 0.6,
+    "emissive": true,
+    "protect": true
+   },
+   "eyes": {
+    "tones": 1,
+    "value_range": [
+     1.0,
+     1.0
+    ],
+    "shadow_hue_shift_deg": 0.0,
+    "shading": false,
+    "protect": true
+   },
+   "eye_shine": {
+    "tones": 1,
+    "value_range": [
+     1.0,
+     1.0
+    ],
+    "shadow_hue_shift_deg": 0.0,
+    "shading": false,
+    "protect": true
+   },
+   "mouth": {
+    "tones": 1,
+    "value_range": [
+     1.0,
+     1.0
+    ],
+    "shadow_hue_shift_deg": 0.0,
+    "shading": false,
+    "protect": true
+   },
+   "detail": {
+    "tones": 4,
+    "value_range": [
+     0.75,
+     1.0
+    ],
+    "shadow_hue_shift_deg": 0.0,
+    "protect": true,
+    "ao_strength": 0.2
+   },
+   "ink": {
+    "tones": 1,
+    "value_range": [
+     1.0,
+     1.0
+    ],
+    "shadow_hue_shift_deg": 0.0,
+    "shading": false,
+    "protect": true
+   },
+   "default": {
+    "tones": 4,
+    "value_range": [
+     0.45,
+     1.0
+    ],
+    "shadow_hue_shift_deg": 12.0
+   }
+  },
+  "part_roles": {
+   "*": "default",
+   "body": "skin",
+   "head": "skin",
+   "ear": "skin",
+   "nose": "skin",
+   "hand": "skin",
+   "hair": "hair",
+   "brows": "hair",
+   "lashes": "ink",
+   "eyes": "eyes",
+   "iris": "eyes",
+   "eye_white": "eyes",
+   "eye_shine": "eye_shine",
+   "mouth": "mouth",
+   "blush": "detail",
+   "hood": "cloth",
+   "hair_locks": "hair",
+   "boot_toe_": "leather",
+   "lace_bracer_": "leather_dark",
+   "hood_trim": "cloth_light",
+   "hood_seam": "cloth_light",
+   "cape": "cloth",
+   "cape_trim": "cloth_light",
+   "lapel": "cloth_light",
+   "tunic": "cloth",
+   "tunic_hem": "cloth_light",
+   "sleeve_": "cloth",
+   "sleeve_cuff_": "cloth_light",
+   "vest": "leather",
+   "collar": "cloth_light",
+   "belt": "leather",
+   "strap": "leather",
+   "pouch": "leather",
+   "bag": "leather",
+   "bag_flap": "leather",
+   "boot_": "leather",
+   "boot_cuff_": "leather",
+   "boot_sole_": "leather_dark",
+   "lace_": "leather_dark",
+   "bracer_": "leather",
+   "wrap": "cloth_light",
+   "staff": "wood",
+   "staff_gem": "gem",
+   "orb": "gem",
+   "book": "leather",
+   "book_clasp": "metal",
+   "buckle": "metal",
+   "clasp": "metal",
+   "emblem": "metal",
+   "stud": "metal",
+   "bell": "metal"
+  },
+  "texture_strength": 0.3,
+  "outline_px": 1.6,
+  "outline_shadow_extra_px": 0.9,
+  "shadow_side": [
+   0.6,
+   0.8
+  ],
+  "outline_ink": "#2A1E2E",
+  "outline_ink_mix": 0.5,
+  "internal_line_px": 0.9,
+  "internal_line_depth_m": 0.07,
+  "internal_line_strength": 0.75,
+  "glow_radius_px": 5.0,
+  "glow_strength": 0.55
+ }
+}

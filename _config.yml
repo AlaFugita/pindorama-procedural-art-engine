@@ -1,0 +1,14 @@
+title: Pindorama Procedural Art Engine
+description: Isometric Character Studio — geração procedural de arte para um MMORPG 2.5D isométrico
+theme: jekyll-theme-cayman
+markdown: kramdown
+lang: pt-BR
+exclude:
+  - tools/
+  - artifacts/
+  - projects/
+  - exports/
+  - .venv/
+  - library/masters/
+  - uv.lock
+  - pyproject.toml

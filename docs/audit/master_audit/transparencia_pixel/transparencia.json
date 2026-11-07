@@ -1,0 +1,17 @@
+{
+ "render_folder": "projects\\default\\characters\\aprendiz_pixel_192\\stages\\render\\2ec3e5754be48d40",
+ "files": 216,
+ "failures": {},
+ "totals": {
+  "border_opaque_px": 0,
+  "opaque_magenta_px": 0,
+  "interior_partial_px": 0,
+  "halo_px": 0,
+  "partial_px": 0,
+  "hidden_rgb_px": 0
+ },
+ "modes": [
+  "RGBA"
+ ],
+ "passed": 216
+}

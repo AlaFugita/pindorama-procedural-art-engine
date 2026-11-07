@@ -1,0 +1,160 @@
+{
+  "$defs": {
+    "Canvas": {
+      "additionalProperties": false,
+      "properties": {
+        "width": {
+          "maximum": 2048,
+          "minimum": 16,
+          "title": "Width",
+          "type": "integer"
+        },
+        "height": {
+          "maximum": 2048,
+          "minimum": 16,
+          "title": "Height",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "width",
+        "height"
+      ],
+      "title": "Canvas",
+      "type": "object"
+    },
+    "Pixel": {
+      "additionalProperties": false,
+      "properties": {
+        "x": {
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "title": "Y",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "title": "Pixel",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+      "title": "Id",
+      "type": "string"
+    },
+    "version": {
+      "title": "Version",
+      "type": "string"
+    },
+    "projection": {
+      "const": "orthographic",
+      "title": "Projection",
+      "type": "string"
+    },
+    "elevation_deg": {
+      "exclusiveMaximum": 90,
+      "exclusiveMinimum": 0,
+      "title": "Elevation Deg",
+      "type": "number"
+    },
+    "azimuth_deg": {
+      "default": 0.0,
+      "title": "Azimuth Deg",
+      "type": "number"
+    },
+    "canvas": {
+      "$ref": "#/$defs/Canvas"
+    },
+    "pixels_per_meter": {
+      "exclusiveMinimum": 0,
+      "title": "Pixels Per Meter",
+      "type": "number"
+    },
+    "pivot": {
+      "$ref": "#/$defs/Pixel"
+    },
+    "safety_margin_px": {
+      "minimum": 0,
+      "title": "Safety Margin Px",
+      "type": "integer"
+    },
+    "transparent": {
+      "const": true,
+      "default": true,
+      "title": "Transparent",
+      "type": "boolean"
+    },
+    "engine": {
+      "const": "BLENDER_EEVEE",
+      "title": "Engine",
+      "type": "string"
+    },
+    "samples": {
+      "maximum": 512,
+      "minimum": 1,
+      "title": "Samples",
+      "type": "integer"
+    },
+    "filter_width_px": {
+      "default": 1.5,
+      "exclusiveMinimum": 0,
+      "title": "Filter Width Px",
+      "type": "number"
+    },
+    "view_transform": {
+      "const": "Standard",
+      "default": "Standard",
+      "title": "View Transform",
+      "type": "string"
+    },
+    "rotation_strategy": {
+      "const": "rotate_character_root",
+      "title": "Rotation Strategy",
+      "type": "string"
+    },
+    "direction_order": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Direction Order",
+      "type": "array"
+    },
+    "headings_deg": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Headings Deg",
+      "type": "object"
+    }
+  },
+  "required": [
+    "id",
+    "version",
+    "projection",
+    "elevation_deg",
+    "canvas",
+    "pixels_per_meter",
+    "pivot",
+    "safety_margin_px",
+    "engine",
+    "samples",
+    "rotation_strategy",
+    "direction_order",
+    "headings_deg"
+  ],
+  "title": "RenderProfile",
+  "type": "object"
+}

@@ -1,0 +1,119 @@
+{
+  "$defs": {
+    "ComponentUse": {
+      "additionalProperties": false,
+      "properties": {
+        "asset_id": {
+          "title": "Asset Id",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string"
+        },
+        "kind": {
+          "title": "Kind",
+          "type": "string"
+        },
+        "anchor": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Anchor"
+        },
+        "meta_sha256": {
+          "title": "Meta Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "asset_id",
+        "version",
+        "kind",
+        "meta_sha256"
+      ],
+      "title": "ComponentUse",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "character_id": {
+      "title": "Character Id",
+      "type": "string"
+    },
+    "spec_sha256": {
+      "title": "Spec Sha256",
+      "type": "string"
+    },
+    "builder_version": {
+      "title": "Builder Version",
+      "type": "string"
+    },
+    "blender_version": {
+      "title": "Blender Version",
+      "type": "string"
+    },
+    "source_scene": {
+      "title": "Source Scene",
+      "type": "string"
+    },
+    "source_scene_sha256": {
+      "title": "Source Scene Sha256",
+      "type": "string"
+    },
+    "components": {
+      "items": {
+        "$ref": "#/$defs/ComponentUse"
+      },
+      "title": "Components",
+      "type": "array"
+    },
+    "materials": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Materials",
+      "type": "array"
+    },
+    "objects": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Objects",
+      "type": "array"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Warnings",
+      "type": "array"
+    }
+  },
+  "required": [
+    "character_id",
+    "spec_sha256",
+    "builder_version",
+    "blender_version",
+    "source_scene",
+    "source_scene_sha256",
+    "components",
+    "materials",
+    "objects"
+  ],
+  "title": "BuildManifest",
+  "type": "object"
+}

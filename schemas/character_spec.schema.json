@@ -1,0 +1,217 @@
+{
+  "$defs": {
+    "Appearance": {
+      "additionalProperties": false,
+      "properties": {
+        "head_asset": {
+          "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+          "title": "Head Asset",
+          "type": "string"
+        },
+        "hair_asset": {
+          "anyOf": [
+            {
+              "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Hair Asset"
+        },
+        "skin_material": {
+          "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+          "title": "Skin Material",
+          "type": "string"
+        },
+        "face_preset": {
+          "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+          "title": "Face Preset",
+          "type": "string"
+        }
+      },
+      "required": [
+        "head_asset",
+        "skin_material",
+        "face_preset"
+      ],
+      "title": "Appearance",
+      "type": "object"
+    },
+    "BodyProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "asset_id": {
+          "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+          "title": "Asset Id",
+          "type": "string"
+        },
+        "scale": {
+          "default": 1.0,
+          "exclusiveMinimum": 0.25,
+          "maximum": 4.0,
+          "title": "Scale",
+          "type": "number"
+        },
+        "proportions": {
+          "default": "chibi_moderate",
+          "title": "Proportions",
+          "type": "string"
+        }
+      },
+      "required": [
+        "asset_id"
+      ],
+      "title": "BodyProfile",
+      "type": "object"
+    },
+    "Outfit": {
+      "additionalProperties": false,
+      "properties": {
+        "body_asset": {
+          "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+          "title": "Body Asset",
+          "type": "string"
+        },
+        "accessories": {
+          "items": {
+            "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+            "type": "string"
+          },
+          "title": "Accessories",
+          "type": "array"
+        },
+        "weapon_asset": {
+          "anyOf": [
+            {
+              "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Weapon Asset"
+        }
+      },
+      "required": [
+        "body_asset"
+      ],
+      "title": "Outfit",
+      "type": "object"
+    },
+    "Palette": {
+      "additionalProperties": false,
+      "properties": {
+        "primary": {
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "title": "Primary",
+          "type": "string"
+        },
+        "secondary": {
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "title": "Secondary",
+          "type": "string"
+        },
+        "accent": {
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "title": "Accent",
+          "type": "string"
+        }
+      },
+      "required": [
+        "primary",
+        "secondary",
+        "accent"
+      ],
+      "title": "Palette",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+      "title": "Id",
+      "type": "string"
+    },
+    "name": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "slug": {
+      "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+      "title": "Slug",
+      "type": "string"
+    },
+    "family": {
+      "const": "humanoid",
+      "title": "Family",
+      "type": "string"
+    },
+    "art_profile": {
+      "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+      "title": "Art Profile",
+      "type": "string"
+    },
+    "body_profile": {
+      "$ref": "#/$defs/BodyProfile"
+    },
+    "appearance": {
+      "$ref": "#/$defs/Appearance"
+    },
+    "outfit": {
+      "$ref": "#/$defs/Outfit"
+    },
+    "palette": {
+      "$ref": "#/$defs/Palette"
+    },
+    "rig_profile": {
+      "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+      "title": "Rig Profile",
+      "type": "string"
+    },
+    "animation_profile": {
+      "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+      "title": "Animation Profile",
+      "type": "string"
+    },
+    "render_profile": {
+      "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+      "title": "Render Profile",
+      "type": "string"
+    },
+    "revision": {
+      "default": 1,
+      "minimum": 1,
+      "title": "Revision",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "slug",
+    "family",
+    "art_profile",
+    "body_profile",
+    "appearance",
+    "outfit",
+    "palette",
+    "rig_profile",
+    "animation_profile",
+    "render_profile"
+  ],
+  "title": "CharacterSpec",
+  "type": "object"
+}

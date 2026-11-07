@@ -1,0 +1,126 @@
+{
+  "$defs": {
+    "AssetKind": {
+      "enum": [
+        "body",
+        "head",
+        "hair",
+        "face",
+        "outfit",
+        "accessory",
+        "weapon",
+        "material"
+      ],
+      "title": "AssetKind",
+      "type": "string"
+    },
+    "License": {
+      "additionalProperties": false,
+      "properties": {
+        "spdx_or_terms": {
+          "title": "Spdx Or Terms",
+          "type": "string"
+        },
+        "origin": {
+          "title": "Origin",
+          "type": "string"
+        },
+        "author": {
+          "title": "Author",
+          "type": "string"
+        },
+        "redistribution_allowed": {
+          "title": "Redistribution Allowed",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "spdx_or_terms",
+        "origin",
+        "author",
+        "redistribution_allowed"
+      ],
+      "title": "License",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "``asset.json`` de cada componente (doc 05 §4, RNF-010).",
+  "properties": {
+    "schema_version": {
+      "default": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+      "title": "Id",
+      "type": "string"
+    },
+    "version": {
+      "title": "Version",
+      "type": "string"
+    },
+    "kind": {
+      "$ref": "#/$defs/AssetKind"
+    },
+    "families": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Families",
+      "type": "array"
+    },
+    "generator": {
+      "description": "Função em blender/scripts/ics_blender/components.py",
+      "title": "Generator",
+      "type": "string"
+    },
+    "params": {
+      "additionalProperties": true,
+      "title": "Params",
+      "type": "object"
+    },
+    "anchors": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Anchors",
+      "type": "array"
+    },
+    "depends_on": {
+      "items": {
+        "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+        "type": "string"
+      },
+      "title": "Depends On",
+      "type": "array"
+    },
+    "scale_reference_m": {
+      "default": 1.0,
+      "exclusiveMinimum": 0,
+      "title": "Scale Reference M",
+      "type": "number"
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Tags",
+      "type": "array"
+    },
+    "license": {
+      "$ref": "#/$defs/License"
+    }
+  },
+  "required": [
+    "id",
+    "version",
+    "kind",
+    "families",
+    "generator",
+    "license"
+  ],
+  "title": "AssetMeta",
+  "type": "object"
+}

@@ -1,0 +1,139 @@
+{
+  "schema_version": "1.0.0",
+  "id": "humanoid_basic_v1",
+  "version": "1.0.0",
+  "rig_profile": "humanoid_standard_v1",
+  "clips": [
+    {
+      "animation_id": "idle",
+      "version": "1.0.0",
+      "fps": 8,
+      "frame_count": 8,
+      "loop": true,
+      "root_motion": "in_place",
+      "ground_speed_mps": 0.0,
+      "gait": {
+        "stride_m": 0,
+        "stance_fraction": 1,
+        "foot_lift_m": 0,
+        "pelvis_drop_m": 0.018,
+        "pelvis_bob_m": 0.006,
+        "arm_swing_deg": 2.5,
+        "forearm_bend_deg": 10
+      },
+      "events": [
+        {
+          "frame": 0,
+          "event": "LEFT_FOOT_CONTACT"
+        },
+        {
+          "frame": 0,
+          "event": "RIGHT_FOOT_CONTACT"
+        }
+      ],
+      "tolerances": {
+        "foot_slide_speed_h_per_s": 0.03,
+        "ground_penetration_h": 0.006,
+        "contact_height_h": 0.012,
+        "ik_error_h": 0.002,
+        "max_landmark_step_h": 0.32,
+        "loop_landmark_gap_factor": 1.25
+      },
+      "approval": "UNAPPROVED"
+    },
+    {
+      "animation_id": "walk",
+      "version": "1.0.0",
+      "fps": 12,
+      "frame_count": 8,
+      "loop": true,
+      "root_motion": "in_place",
+      "ground_speed_mps": 0.72,
+      "gait": {
+        "stride_m": 0.3,
+        "stance_fraction": 0.625,
+        "foot_lift_m": 0.05,
+        "pelvis_drop_m": 0.035,
+        "pelvis_bob_m": 0.008,
+        "arm_swing_deg": 24,
+        "forearm_bend_deg": 16,
+        "torso_lean_deg": 3,
+        "torso_twist_deg": 6
+      },
+      "events": [
+        {
+          "frame": 0,
+          "event": "LEFT_FOOT_CONTACT"
+        },
+        {
+          "frame": 5,
+          "event": "LEFT_SWING"
+        },
+        {
+          "frame": 4,
+          "event": "RIGHT_FOOT_CONTACT"
+        },
+        {
+          "frame": 1,
+          "event": "RIGHT_SWING"
+        }
+      ],
+      "tolerances": {
+        "foot_slide_speed_h_per_s": 0.03,
+        "ground_penetration_h": 0.006,
+        "contact_height_h": 0.012,
+        "ik_error_h": 0.002,
+        "max_landmark_step_h": 0.32,
+        "loop_landmark_gap_factor": 1.25
+      },
+      "approval": "UNAPPROVED"
+    },
+    {
+      "animation_id": "run",
+      "version": "1.0.0",
+      "fps": 16,
+      "frame_count": 8,
+      "loop": true,
+      "root_motion": "in_place",
+      "ground_speed_mps": 2.1333,
+      "gait": {
+        "stride_m": 0.4,
+        "stance_fraction": 0.375,
+        "foot_lift_m": 0.1,
+        "pelvis_drop_m": 0.07,
+        "pelvis_bob_m": 0.012,
+        "arm_swing_deg": 42,
+        "forearm_bend_deg": 60,
+        "torso_lean_deg": 10,
+        "torso_twist_deg": 12
+      },
+      "events": [
+        {
+          "frame": 0,
+          "event": "LEFT_FOOT_CONTACT"
+        },
+        {
+          "frame": 3,
+          "event": "LEFT_SWING"
+        },
+        {
+          "frame": 4,
+          "event": "RIGHT_FOOT_CONTACT"
+        },
+        {
+          "frame": 7,
+          "event": "RIGHT_SWING"
+        }
+      ],
+      "tolerances": {
+        "foot_slide_speed_h_per_s": 0.03,
+        "ground_penetration_h": 0.006,
+        "contact_height_h": 0.012,
+        "ik_error_h": 0.002,
+        "max_landmark_step_h": 0.32,
+        "loop_landmark_gap_factor": 1.25
+      },
+      "approval": "UNAPPROVED"
+    }
+  ]
+}

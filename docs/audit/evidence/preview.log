@@ -1,0 +1,9 @@
+# C:\Users\Pichau\Documents\Isometric_Character_Studio_Docs\tools\blender-5.2.3-windows-x64\blender.exe --background --factory-startup C:\Users\Pichau\Documents\Isometric_Character_Studio_Docs\projects\default\characters\guardiao_da_floresta\stages\animate\39707a4e9358cff1\character.blend --python-exit-code 17 --python C:\Users\Pichau\Documents\Isometric_Character_Studio_Docs\blender\scripts\run_stage.py -- --stage preview --input C:\Users\Pichau\Documents\Isometric_Character_Studio_Docs\docs\audit\evidence\preview.input.json --output C:\Users\Pichau\Documents\Isometric_Character_Studio_Docs\docs\audit\evidence\preview.output.json
+00:00.468  blend            | Read blend: "C:\Users\Pichau\Documents\Isometric_Character_Studio_Docs\projects\default\characters\guardiao_da_floresta\stages\animate\39707a4e9358cff1\character.blend"
+00:01.578  render           | Saved: 'C:\Users\Pichau\Documents\Isometric_Character_Studio_Docs\docs\audit\evidence\frente.png'
+00:01.890  render           | Saved: 'C:\Users\Pichau\Documents\Isometric_Character_Studio_Docs\docs\audit\evidence\tres_quartos.png'
+00:02.156  render           | Saved: 'C:\Users\Pichau\Documents\Isometric_Character_Studio_Docs\docs\audit\evidence\perfil.png'
+00:02.437  render           | Saved: 'C:\Users\Pichau\Documents\Isometric_Character_Studio_Docs\docs\audit\evidence\costas.png'
+Blender 5.2.3 LTS (hash e13b728c6880 built 2026-10-22 01:37:16)
+
+Blender quit

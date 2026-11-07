@@ -1,0 +1,32 @@
+{
+ "128": {
+  "frames": 192,
+  "character_height_px": 97,
+  "colors_idle_S": 79,
+  "vram_full_frames_mib": 12.0,
+  "vram_trimmed_mib": 4.18,
+  "atlas_disk_kib": 419.8,
+  "atlas_vram_mib": 12.59,
+  "render_s": 69.14
+ },
+ "192": {
+  "frames": 192,
+  "character_height_px": 145,
+  "colors_idle_S": 79,
+  "vram_full_frames_mib": 27.0,
+  "vram_trimmed_mib": 9.23,
+  "atlas_disk_kib": 684.3,
+  "atlas_vram_mib": 27.89,
+  "render_s": 82.95
+ },
+ "256": {
+  "frames": 192,
+  "character_height_px": 192,
+  "colors_idle_S": 76,
+  "vram_full_frames_mib": 48.0,
+  "vram_trimmed_mib": 16.27,
+  "atlas_disk_kib": 983.6,
+  "atlas_vram_mib": 49.18,
+  "render_s": 100.14
+ }
+}

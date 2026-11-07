@@ -1,0 +1,26 @@
+# Ferramentas locais (binários; ver docs/ENVIRONMENT_REPORT.md)
+/tools/
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+# Saídas geradas
+/artifacts/
+/projects/*
+!/projects/.gitkeep
+/exports/
+*.blend1
+# Godot (import cache e pacotes gerados na demo)
+integrations/godot/**/.godot/
+integrations/godot/demo_project/characters/
+# Node / Tauri
+node_modules/
+apps/desktop/dist/
+apps/desktop/src-tauri/target/
+# Testes com caminhos especiais
+tests/_tmp/
+
+# Notas de sessão de outras ferramentas
+.memento/

@@ -1,0 +1,558 @@
+{
+  "$defs": {
+    "Light": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "azimuth_deg": {
+          "title": "Azimuth Deg",
+          "type": "number"
+        },
+        "elevation_deg": {
+          "title": "Elevation Deg",
+          "type": "number"
+        },
+        "energy": {
+          "exclusiveMinimum": 0,
+          "title": "Energy",
+          "type": "number"
+        },
+        "color": {
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "title": "Color",
+          "type": "string"
+        },
+        "angle_deg": {
+          "default": 10.0,
+          "minimum": 0,
+          "title": "Angle Deg",
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "azimuth_deg",
+        "elevation_deg",
+        "energy",
+        "color"
+      ],
+      "title": "Light",
+      "type": "object"
+    },
+    "PixelArtSettings": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1.0.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "reference_canvas_px": {
+          "description": "Resolução de referência do quadro",
+          "exclusiveMinimum": 0,
+          "title": "Reference Canvas Px",
+          "type": "integer"
+        },
+        "light_bands": {
+          "description": "Limiares de luz entre tons, do escuro ao claro",
+          "items": {
+            "type": "number"
+          },
+          "title": "Light Bands",
+          "type": "array"
+        },
+        "roles": {
+          "additionalProperties": {
+            "$ref": "#/$defs/PixelMaterialRole"
+          },
+          "title": "Roles",
+          "type": "object"
+        },
+        "part_roles": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Nome ou prefixo da peça → papel; '*' = padrão",
+          "title": "Part Roles",
+          "type": "object"
+        },
+        "outline_mode": {
+          "default": "outside",
+          "description": "outside soma 1 px fora; inside pinta a borda",
+          "title": "Outline Mode",
+          "type": "string"
+        },
+        "outline_ink": {
+          "default": "#1B1424",
+          "description": "Tinta misturada ao contorno",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "title": "Outline Ink",
+          "type": "string"
+        },
+        "outline_ink_mix": {
+          "default": 0.55,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Outline Ink Mix",
+          "type": "number"
+        },
+        "lit_outline_mix": {
+          "default": 0.2,
+          "description": "Mistura no lado iluminado (sel-out)",
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Lit Outline Mix",
+          "type": "number"
+        },
+        "internal_line_depth_m": {
+          "default": 0.05,
+          "description": "Salto de profundidade que vira linha interna",
+          "exclusiveMinimum": 0,
+          "title": "Internal Line Depth M",
+          "type": "number"
+        },
+        "cluster_min_px": {
+          "default": 2,
+          "description": "Ilhas menores viram o tom vizinho",
+          "minimum": 1,
+          "title": "Cluster Min Px",
+          "type": "integer"
+        },
+        "glow_radius_px": {
+          "default": 1,
+          "minimum": 0,
+          "title": "Glow Radius Px",
+          "type": "integer"
+        },
+        "alpha": {
+          "default": "binary",
+          "description": "binary: só 0 ou 255; sem semitransparência",
+          "title": "Alpha",
+          "type": "string"
+        },
+        "max_colors": {
+          "default": 48,
+          "exclusiveMinimum": 0,
+          "title": "Max Colors",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "reference_canvas_px",
+        "light_bands",
+        "roles",
+        "part_roles"
+      ],
+      "title": "PixelArtSettings",
+      "type": "object"
+    },
+    "PixelMaterialRole": {
+      "additionalProperties": false,
+      "description": "Como um material vira pixels: rampa de tons, matiz, brilho, padrão e contorno.",
+      "properties": {
+        "schema_version": {
+          "default": "1.0.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "base": {
+          "anyOf": [
+            {
+              "pattern": "^#[0-9A-Fa-f]{6}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Vazio = cor da própria peça (paleta do personagem)",
+          "title": "Base"
+        },
+        "tones": {
+          "description": "Tons de luz e sombra, sem contar o brilho",
+          "maximum": 6,
+          "minimum": 1,
+          "title": "Tones",
+          "type": "integer"
+        },
+        "value_range": {
+          "default": [
+            0.55,
+            1.0
+          ],
+          "description": "Brilho do tom mais escuro e do mais claro",
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Value Range",
+          "type": "array"
+        },
+        "shadow_hue_shift_deg": {
+          "default": 12.0,
+          "description": "Giro de matiz nas sombras, rumo ao frio",
+          "title": "Shadow Hue Shift Deg",
+          "type": "number"
+        },
+        "highlight": {
+          "anyOf": [
+            {
+              "pattern": "^#[0-9A-Fa-f]{6}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Tom de brilho especular; vazio = sem brilho",
+          "title": "Highlight"
+        },
+        "highlight_threshold": {
+          "default": 0.92,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Highlight Threshold",
+          "type": "number"
+        },
+        "ao_strength": {
+          "default": 0.5,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Ao Strength",
+          "type": "number"
+        },
+        "pattern": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "none, stitch, weave, grain, glyph",
+          "title": "Pattern"
+        },
+        "pattern_scale": {
+          "default": 40.0,
+          "exclusiveMinimum": 0,
+          "title": "Pattern Scale",
+          "type": "number"
+        },
+        "emissive": {
+          "default": false,
+          "title": "Emissive",
+          "type": "boolean"
+        },
+        "shading": {
+          "default": true,
+          "description": "Falso = cor chapada (olhos, boca)",
+          "title": "Shading",
+          "type": "boolean"
+        },
+        "protect": {
+          "default": false,
+          "description": "Não sofre limpeza de pixels órfãos",
+          "title": "Protect",
+          "type": "boolean"
+        },
+        "outline": {
+          "anyOf": [
+            {
+              "pattern": "^#[0-9A-Fa-f]{6}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Vazio = tom mais escuro escurecido (contorno seletivo)",
+          "title": "Outline"
+        }
+      },
+      "required": [
+        "tones"
+      ],
+      "title": "PixelMaterialRole",
+      "type": "object"
+    },
+    "SmoothArtSettings": {
+      "additionalProperties": false,
+      "description": "Ilustração suave: mesmos passes do pixel art, composição contínua com antialiasing real.",
+      "properties": {
+        "schema_version": {
+          "default": "1.0.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "reference_canvas_px": {
+          "exclusiveMinimum": 0,
+          "title": "Reference Canvas Px",
+          "type": "integer"
+        },
+        "supersample": {
+          "default": 3,
+          "description": "Passes em N× a resolução final, reduzidos por média",
+          "maximum": 6,
+          "minimum": 1,
+          "title": "Supersample",
+          "type": "integer"
+        },
+        "light_bands": {
+          "description": "Centros das transições entre tons",
+          "items": {
+            "type": "number"
+          },
+          "title": "Light Bands",
+          "type": "array"
+        },
+        "band_softness": {
+          "default": 0.06,
+          "description": "Meia-largura da transição suave entre tons",
+          "maximum": 0.5,
+          "minimum": 0,
+          "title": "Band Softness",
+          "type": "number"
+        },
+        "roles": {
+          "additionalProperties": {
+            "$ref": "#/$defs/PixelMaterialRole"
+          },
+          "title": "Roles",
+          "type": "object"
+        },
+        "part_roles": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Part Roles",
+          "type": "object"
+        },
+        "texture_strength": {
+          "default": 0.35,
+          "description": "Quanto o padrão escurece, em fração de um tom",
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Texture Strength",
+          "type": "number"
+        },
+        "outline_px": {
+          "default": 2.0,
+          "description": "Contorno externo no tamanho final",
+          "minimum": 0,
+          "title": "Outline Px",
+          "type": "number"
+        },
+        "outline_shadow_extra_px": {
+          "default": 1.0,
+          "description": "Peso extra no lado oposto à luz",
+          "minimum": 0,
+          "title": "Outline Shadow Extra Px",
+          "type": "number"
+        },
+        "shadow_side": {
+          "default": [
+            0.6,
+            0.8
+          ],
+          "description": "Direção de tela (x, y) do lado da sombra",
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Shadow Side",
+          "type": "array"
+        },
+        "outline_ink": {
+          "default": "#2A1E2E",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "title": "Outline Ink",
+          "type": "string"
+        },
+        "outline_ink_mix": {
+          "default": 0.55,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Outline Ink Mix",
+          "type": "number"
+        },
+        "internal_line_px": {
+          "default": 1.0,
+          "minimum": 0,
+          "title": "Internal Line Px",
+          "type": "number"
+        },
+        "internal_line_depth_m": {
+          "default": 0.07,
+          "exclusiveMinimum": 0,
+          "title": "Internal Line Depth M",
+          "type": "number"
+        },
+        "internal_line_strength": {
+          "default": 0.8,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Internal Line Strength",
+          "type": "number"
+        },
+        "glow_radius_px": {
+          "default": 4.0,
+          "minimum": 0,
+          "title": "Glow Radius Px",
+          "type": "number"
+        },
+        "glow_strength": {
+          "default": 0.6,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Glow Strength",
+          "type": "number"
+        }
+      },
+      "required": [
+        "reference_canvas_px",
+        "light_bands",
+        "roles",
+        "part_roles"
+      ],
+      "title": "SmoothArtSettings",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+      "title": "Id",
+      "type": "string"
+    },
+    "version": {
+      "title": "Version",
+      "type": "string"
+    },
+    "reference_height_m": {
+      "exclusiveMinimum": 0,
+      "title": "Reference Height M",
+      "type": "number"
+    },
+    "lights": {
+      "items": {
+        "$ref": "#/$defs/Light"
+      },
+      "title": "Lights",
+      "type": "array"
+    },
+    "world_color": {
+      "pattern": "^#[0-9A-Fa-f]{6}$",
+      "title": "World Color",
+      "type": "string"
+    },
+    "world_strength": {
+      "minimum": 0,
+      "title": "World Strength",
+      "type": "number"
+    },
+    "toon_steps": {
+      "description": "(posição no ramp, multiplicador de brilho)",
+      "items": {
+        "maxItems": 2,
+        "minItems": 2,
+        "prefixItems": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          }
+        ],
+        "type": "array"
+      },
+      "title": "Toon Steps",
+      "type": "array"
+    },
+    "light_shadows": {
+      "default": true,
+      "title": "Light Shadows",
+      "type": "boolean"
+    },
+    "outline_thickness_m": {
+      "minimum": 0,
+      "title": "Outline Thickness M",
+      "type": "number"
+    },
+    "outline_darken": {
+      "exclusiveMinimum": 0,
+      "maximum": 1,
+      "title": "Outline Darken",
+      "type": "number"
+    },
+    "allowed_references": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Allowed References",
+      "type": "array"
+    },
+    "pixel": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PixelArtSettings"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Presente = acabamento pixel art montado a partir de passes nativos"
+    },
+    "smooth": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SmoothArtSettings"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Presente = ilustração suave montada a partir dos mesmos passes"
+    }
+  },
+  "required": [
+    "id",
+    "version",
+    "reference_height_m",
+    "lights",
+    "world_color",
+    "world_strength",
+    "toon_steps",
+    "outline_thickness_m",
+    "outline_darken"
+  ],
+  "title": "ArtProfile",
+  "type": "object"
+}

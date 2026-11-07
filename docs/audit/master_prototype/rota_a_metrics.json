@@ -1,0 +1,29 @@
+{
+  "route": "A",
+  "attempt": "t08",
+  "rig": {
+    "bones": 19,
+    "finite": true,
+    "meshes_bound": 30,
+    "edge_stretch_p99": 1.602445324100464,
+    "edge_stretch_max": 15.613236479243888,
+    "edge_compress_p1": 0.6848728544182362,
+    "chin_z": 0.9216858148574829,
+    "head_top_z": 1.2955710887908936,
+    "feet_z": -0.015530698001384735,
+    "heads_measured": 3.506695444297672,
+    "armature_location": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "seconds": 1.6
+  },
+  "silhouette_iou_three_quarter": 0.569,
+  "silhouette_area_px": {
+    "frente": 274133,
+    "tres_quartos": 272762,
+    "perfil": 187249,
+    "costas": 274120
+  }
+}

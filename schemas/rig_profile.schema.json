@@ -1,0 +1,266 @@
+{
+  "$defs": {
+    "BoneSemantic": {
+      "additionalProperties": false,
+      "properties": {
+        "semantic_id": {
+          "title": "Semantic Id",
+          "type": "string"
+        },
+        "blender_name": {
+          "title": "Blender Name",
+          "type": "string"
+        },
+        "side": {
+          "$ref": "#/$defs/Side"
+        },
+        "role": {
+          "title": "Role",
+          "type": "string"
+        },
+        "parent": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Parent"
+        },
+        "deform": {
+          "title": "Deform",
+          "type": "boolean"
+        },
+        "head": {
+          "maxItems": 3,
+          "minItems": 3,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Head",
+          "type": "array"
+        },
+        "tail": {
+          "maxItems": 3,
+          "minItems": 3,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Tail",
+          "type": "array"
+        },
+        "roll_deg": {
+          "default": 0.0,
+          "title": "Roll Deg",
+          "type": "number"
+        },
+        "connected": {
+          "default": false,
+          "title": "Connected",
+          "type": "boolean"
+        },
+        "required": {
+          "default": true,
+          "title": "Required",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "semantic_id",
+        "blender_name",
+        "side",
+        "role",
+        "parent",
+        "deform",
+        "head",
+        "tail"
+      ],
+      "title": "BoneSemantic",
+      "type": "object"
+    },
+    "SentinelPose": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "bone": {
+          "title": "Bone",
+          "type": "string"
+        },
+        "mode": {
+          "enum": [
+            "translate",
+            "rotate"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "vector": {
+          "maxItems": 3,
+          "minItems": 3,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Vector",
+          "type": "array"
+        },
+        "expected_moved": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Expected Moved",
+          "type": "array"
+        },
+        "expected_static": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Expected Static",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "bone",
+        "mode",
+        "vector",
+        "expected_moved",
+        "expected_static"
+      ],
+      "title": "SentinelPose",
+      "type": "object"
+    },
+    "Side": {
+      "enum": [
+        "LEFT",
+        "RIGHT",
+        "CENTER",
+        "NONE"
+      ],
+      "title": "Side",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+      "title": "Id",
+      "type": "string"
+    },
+    "version": {
+      "title": "Version",
+      "type": "string"
+    },
+    "family": {
+      "title": "Family",
+      "type": "string"
+    },
+    "reference_height_m": {
+      "exclusiveMinimum": 0,
+      "title": "Reference Height M",
+      "type": "number"
+    },
+    "orientation": {
+      "const": "+Z_up,+Y_front,+X_right_anatomical",
+      "title": "Orientation",
+      "type": "string"
+    },
+    "max_influences": {
+      "default": 4,
+      "maximum": 8,
+      "minimum": 1,
+      "title": "Max Influences",
+      "type": "integer"
+    },
+    "weight_sum_tolerance": {
+      "default": 0.001,
+      "exclusiveMinimum": 0,
+      "title": "Weight Sum Tolerance",
+      "type": "number"
+    },
+    "side_center_tolerance_m": {
+      "default": 0.005,
+      "minimum": 0,
+      "title": "Side Center Tolerance M",
+      "type": "number"
+    },
+    "compatible_animation_profiles": {
+      "items": {
+        "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+        "type": "string"
+      },
+      "title": "Compatible Animation Profiles",
+      "type": "array"
+    },
+    "ik_chains": {
+      "additionalProperties": {
+        "additionalProperties": {
+          "type": "string"
+        },
+        "type": "object"
+      },
+      "title": "Ik Chains",
+      "type": "object"
+    },
+    "bones": {
+      "items": {
+        "$ref": "#/$defs/BoneSemantic"
+      },
+      "title": "Bones",
+      "type": "array"
+    },
+    "sentinel_poses": {
+      "items": {
+        "$ref": "#/$defs/SentinelPose"
+      },
+      "title": "Sentinel Poses",
+      "type": "array"
+    }
+  },
+  "required": [
+    "id",
+    "version",
+    "family",
+    "reference_height_m",
+    "orientation",
+    "compatible_animation_profiles",
+    "bones",
+    "sentinel_poses"
+  ],
+  "title": "RigProfile",
+  "type": "object"
+}

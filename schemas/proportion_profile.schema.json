@@ -1,0 +1,102 @@
+{
+  "additionalProperties": false,
+  "description": "Proporção canônica do personagem (D2). Medidas em metros, sem cabelo nem calçado.",
+  "properties": {
+    "schema_version": {
+      "default": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
+      "title": "Id",
+      "type": "string"
+    },
+    "version": {
+      "title": "Version",
+      "type": "string"
+    },
+    "family": {
+      "title": "Family",
+      "type": "string"
+    },
+    "heads_tall": {
+      "exclusiveMinimum": 0,
+      "title": "Heads Tall",
+      "type": "number"
+    },
+    "height_m": {
+      "exclusiveMinimum": 0,
+      "title": "Height M",
+      "type": "number"
+    },
+    "head_height_m": {
+      "exclusiveMinimum": 0,
+      "title": "Head Height M",
+      "type": "number"
+    },
+    "chin_z_m": {
+      "exclusiveMinimum": 0,
+      "title": "Chin Z M",
+      "type": "number"
+    },
+    "shoulder_half_width_m": {
+      "exclusiveMinimum": 0,
+      "title": "Shoulder Half Width M",
+      "type": "number"
+    },
+    "hip_z_m": {
+      "exclusiveMinimum": 0,
+      "title": "Hip Z M",
+      "type": "number"
+    },
+    "knee_z_m": {
+      "exclusiveMinimum": 0,
+      "title": "Knee Z M",
+      "type": "number"
+    },
+    "ankle_z_m": {
+      "exclusiveMinimum": 0,
+      "title": "Ankle Z M",
+      "type": "number"
+    },
+    "hand_length_m": {
+      "exclusiveMinimum": 0,
+      "title": "Hand Length M",
+      "type": "number"
+    },
+    "foot_length_m": {
+      "exclusiveMinimum": 0,
+      "title": "Foot Length M",
+      "type": "number"
+    },
+    "tolerance_heads": {
+      "exclusiveMinimum": 0,
+      "title": "Tolerance Heads",
+      "type": "number"
+    },
+    "notes": {
+      "default": "",
+      "title": "Notes",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "version",
+    "family",
+    "heads_tall",
+    "height_m",
+    "head_height_m",
+    "chin_z_m",
+    "shoulder_half_width_m",
+    "hip_z_m",
+    "knee_z_m",
+    "ankle_z_m",
+    "hand_length_m",
+    "foot_length_m",
+    "tolerance_heads"
+  ],
+  "title": "ProportionProfile",
+  "type": "object"
+}

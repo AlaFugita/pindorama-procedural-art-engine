@@ -1,0 +1,46 @@
+{
+ "schema_version": "1.0.0",
+ "id": "pindorama_chibi_v1",
+ "version": "1.0.0",
+ "reference_height_m": 1.0,
+ "lights": [
+  {
+   "name": "Key",
+   "azimuth_deg": 195,
+   "elevation_deg": 52,
+   "energy": 2.7,
+   "color": "#FFFFFF",
+   "angle_deg": 10
+  },
+  {
+   "name": "Fill",
+   "azimuth_deg": 130,
+   "elevation_deg": 20,
+   "energy": 0.25,
+   "color": "#FFFFFF",
+   "angle_deg": 30
+  }
+ ],
+ "world_color": "#FFFFFF",
+ "world_strength": 0.12,
+ "toon_steps": [
+  [
+   0.0,
+   0.68
+  ],
+  [
+   0.34,
+   0.86
+  ],
+  [
+   0.5,
+   1.0
+  ]
+ ],
+ "light_shadows": false,
+ "outline_thickness_m": 0.017,
+ "outline_darken": 0.055,
+ "allowed_references": [
+  "Mago e Coquinho do Pindorama"
+ ]
+}

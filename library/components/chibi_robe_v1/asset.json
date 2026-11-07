@@ -1,0 +1,26 @@
+{
+ "schema_version": "1.0.0",
+ "id": "chibi_robe_v1",
+ "version": "1.0.0",
+ "kind": "outfit",
+ "families": [
+  "humanoid"
+ ],
+ "generator": "chibi_robe",
+ "params": {},
+ "anchors": [
+  "chest"
+ ],
+ "depends_on": [],
+ "scale_reference_m": 1.0,
+ "tags": [
+  "roupa",
+  "capuz"
+ ],
+ "license": {
+  "spdx_or_terms": "project-original",
+  "origin": "blender/scripts/ics_blender/chibi_components.py",
+  "author": "Isometric Character Studio",
+  "redistribution_allowed": true
+ }
+}

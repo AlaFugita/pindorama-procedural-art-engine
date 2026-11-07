@@ -1,0 +1,25 @@
+{
+ "schema_version": "1.0.0",
+ "id": "chibi_bag_detail_v1",
+ "version": "1.0.0",
+ "kind": "accessory",
+ "families": [
+  "humanoid"
+ ],
+ "generator": "chibi_bag_detail",
+ "params": {},
+ "anchors": [
+  "pelvis"
+ ],
+ "depends_on": [],
+ "scale_reference_m": 1.0,
+ "tags": [
+  "detalhado"
+ ],
+ "license": {
+  "spdx_or_terms": "project-original",
+  "origin": "blender/scripts/ics_blender/chibi_detail.py",
+  "author": "Isometric Character Studio",
+  "redistribution_allowed": true
+ }
+}

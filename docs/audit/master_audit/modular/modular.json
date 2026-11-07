@@ -1,0 +1,85 @@
+{
+ "base": "aprendiz",
+ "variants": {
+  "aprendiz_var_capuz": {
+   "spec_changes": [
+    "palette.primary: '#5C72AE' → '#A8433A'"
+   ],
+   "parts_identical": 26,
+   "parts_total": 26,
+   "geometry_changed": [],
+   "added": [],
+   "removed": [],
+   "material_changed": [],
+   "profiles_identical": true
+  },
+  "aprendiz_var_cabelo": {
+   "spec_changes": [
+    "appearance.hair_asset: 'chibi_hair_bangs_v1' → 'chibi_hair_swept_v1'"
+   ],
+   "parts_identical": 25,
+   "parts_total": 26,
+   "geometry_changed": [
+    "hair"
+   ],
+   "added": [],
+   "removed": [],
+   "material_changed": [],
+   "profiles_identical": true
+  },
+  "aprendiz_var_roupa": {
+   "spec_changes": [
+    "outfit.body_asset: 'chibi_robe_v1' → 'chibi_robe_vest_v1'"
+   ],
+   "parts_identical": 22,
+   "parts_total": 24,
+   "geometry_changed": [],
+   "added": [
+    "collar",
+    "vest"
+   ],
+   "removed": [
+    "cape",
+    "cape_trim",
+    "hood",
+    "hood_trim"
+   ],
+   "material_changed": [],
+   "profiles_identical": true
+  },
+  "aprendiz_var_acessorio": {
+   "spec_changes": [
+    "outfit.accessories: ['chibi_bag_v1'] → ['chibi_book_v1']"
+   ],
+   "parts_identical": 24,
+   "parts_total": 26,
+   "geometry_changed": [],
+   "added": [
+    "book",
+    "book_clasp"
+   ],
+   "removed": [
+    "bag",
+    "bag_flap"
+   ],
+   "material_changed": [],
+   "profiles_identical": true
+  },
+  "aprendiz_var_arma": {
+   "spec_changes": [
+    "outfit.weapon_asset: 'chibi_staff_v1' → 'chibi_crystal_staff_v1'"
+   ],
+   "parts_identical": 25,
+   "parts_total": 27,
+   "geometry_changed": [
+    "staff"
+   ],
+   "added": [
+    "staff_gem"
+   ],
+   "removed": [],
+   "material_changed": [],
+   "profiles_identical": true
+  }
+ }
+}

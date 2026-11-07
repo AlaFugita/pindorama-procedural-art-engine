@@ -1,0 +1,43 @@
+[project]
+name = "isometric-character-studio"
+version = "0.1.0"
+description = "Criação de personagens 3D→2D isométricos em 8 direções para Godot"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "pydantic>=2.9,<3",
+  "fastapi>=0.115,<1",
+  "uvicorn>=0.32,<1",
+  "pillow>=11,<13",
+  "numpy>=2.1,<3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3,<9",
+    "httpx>=0.27,<1",
+    "jsonschema>=4.23,<5",
+    "ruff>=0.8,<1",
+    "scipy>=1.18.1",
+]
+
+[project.scripts]
+ics = "app.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["backend/app", "engines"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+  "blender: exige o executável do Blender",
+  "godot: exige o executável do Godot",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["tools", "apps"]

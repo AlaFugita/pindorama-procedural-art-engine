@@ -1,0 +1,30 @@
+{
+  "reference_hero": {
+    "luma_p5": 0.075,
+    "luma_p95": 0.68,
+    "saturation": 0.358,
+    "colors_5bit": 2814,
+    "detail": 0.0405
+  },
+  "painted_presentation": {
+    "luma_p5": 0.1,
+    "luma_p95": 0.821,
+    "saturation": 0.367,
+    "colors_5bit": 1831,
+    "detail": 0.0185
+  },
+  "reference_sprite": {
+    "luma_p5": 0.08,
+    "luma_p95": 0.535,
+    "saturation": 0.207,
+    "colors_5bit": 1221,
+    "detail": 0.0265
+  },
+  "painted_sprite": {
+    "luma_p5": 0.125,
+    "luma_p95": 0.736,
+    "saturation": 0.356,
+    "colors_5bit": 933,
+    "detail": 0.0232
+  }
+}

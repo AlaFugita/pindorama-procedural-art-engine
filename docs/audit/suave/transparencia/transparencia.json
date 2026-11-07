@@ -1,0 +1,117 @@
+{
+ "render_folder": "projects\\default\\characters\\aprendiz_suave_192\\stages\\render\\a4ef263050cddc1f",
+ "files": 216,
+ "failures": {
+  "projects\\default\\characters\\aprendiz_suave_192\\stages\\render\\a4ef263050cddc1f\\frames\\run\\S\\run_S_0006.png": {
+   "mode": "RGBA",
+   "rgba": true,
+   "border_opaque_px": 0,
+   "opaque_magenta_px": 0,
+   "interior_partial_px": 1,
+   "partial_px": 394,
+   "halo_px": 0,
+   "hidden_rgb_px": 0,
+   "ok": false
+  },
+  "projects\\default\\characters\\aprendiz_suave_192\\stages\\render\\a4ef263050cddc1f\\frames\\run\\SE\\run_SE_0002.png": {
+   "mode": "RGBA",
+   "rgba": true,
+   "border_opaque_px": 0,
+   "opaque_magenta_px": 0,
+   "interior_partial_px": 0,
+   "partial_px": 338,
+   "halo_px": 2,
+   "hidden_rgb_px": 0,
+   "ok": false
+  },
+  "projects\\default\\characters\\aprendiz_suave_192\\stages\\render\\a4ef263050cddc1f\\frames\\run\\SE\\run_SE_0006.png": {
+   "mode": "RGBA",
+   "rgba": true,
+   "border_opaque_px": 0,
+   "opaque_magenta_px": 0,
+   "interior_partial_px": 0,
+   "partial_px": 356,
+   "halo_px": 1,
+   "hidden_rgb_px": 0,
+   "ok": false
+  },
+  "projects\\default\\characters\\aprendiz_suave_192\\stages\\render\\a4ef263050cddc1f\\frames\\walk\\S\\walk_S_0004.png": {
+   "mode": "RGBA",
+   "rgba": true,
+   "border_opaque_px": 0,
+   "opaque_magenta_px": 0,
+   "interior_partial_px": 1,
+   "partial_px": 417,
+   "halo_px": 0,
+   "hidden_rgb_px": 0,
+   "ok": false
+  },
+  "projects\\default\\characters\\aprendiz_suave_192\\stages\\render\\a4ef263050cddc1f\\frames\\walk\\SE\\walk_SE_0004.png": {
+   "mode": "RGBA",
+   "rgba": true,
+   "border_opaque_px": 0,
+   "opaque_magenta_px": 0,
+   "interior_partial_px": 1,
+   "partial_px": 387,
+   "halo_px": 0,
+   "hidden_rgb_px": 0,
+   "ok": false
+  },
+  "exports\\aprendiz_suave_192\\atlases\\run_S.png": {
+   "mode": "RGBA",
+   "rgba": true,
+   "border_opaque_px": 0,
+   "opaque_magenta_px": 0,
+   "interior_partial_px": 1,
+   "partial_px": 3208,
+   "halo_px": 0,
+   "hidden_rgb_px": 0,
+   "ok": false
+  },
+  "exports\\aprendiz_suave_192\\atlases\\run_SE.png": {
+   "mode": "RGBA",
+   "rgba": true,
+   "border_opaque_px": 0,
+   "opaque_magenta_px": 0,
+   "interior_partial_px": 0,
+   "partial_px": 2841,
+   "halo_px": 3,
+   "hidden_rgb_px": 0,
+   "ok": false
+  },
+  "exports\\aprendiz_suave_192\\atlases\\walk_S.png": {
+   "mode": "RGBA",
+   "rgba": true,
+   "border_opaque_px": 0,
+   "opaque_magenta_px": 0,
+   "interior_partial_px": 1,
+   "partial_px": 3321,
+   "halo_px": 0,
+   "hidden_rgb_px": 0,
+   "ok": false
+  },
+  "exports\\aprendiz_suave_192\\atlases\\walk_SE.png": {
+   "mode": "RGBA",
+   "rgba": true,
+   "border_opaque_px": 0,
+   "opaque_magenta_px": 0,
+   "interior_partial_px": 1,
+   "partial_px": 3023,
+   "halo_px": 0,
+   "hidden_rgb_px": 0,
+   "ok": false
+  }
+ },
+ "totals": {
+  "border_opaque_px": 0,
+  "opaque_magenta_px": 0,
+  "interior_partial_px": 6,
+  "halo_px": 6,
+  "partial_px": 144400,
+  "hidden_rgb_px": 0
+ },
+ "modes": [
+  "RGBA"
+ ],
+ "passed": 207
+}

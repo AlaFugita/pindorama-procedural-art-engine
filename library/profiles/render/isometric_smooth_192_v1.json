@@ -1,0 +1,43 @@
+{
+ "schema_version": "1.0.0",
+ "id": "isometric_smooth_192_v1",
+ "version": "1.0.0",
+ "projection": "orthographic",
+ "elevation_deg": 30.0,
+ "azimuth_deg": 0.0,
+ "canvas": {
+  "width": 192,
+  "height": 192
+ },
+ "pixels_per_meter": 156.0,
+ "pivot": {
+  "x": 96.0,
+  "y": 160.5
+ },
+ "safety_margin_px": 2,
+ "engine": "BLENDER_EEVEE",
+ "samples": 16,
+ "filter_width_px": 1.0,
+ "view_transform": "Standard",
+ "rotation_strategy": "rotate_character_root",
+ "direction_order": [
+  "N",
+  "NE",
+  "E",
+  "SE",
+  "S",
+  "SW",
+  "W",
+  "NW"
+ ],
+ "headings_deg": {
+  "N": 0,
+  "NE": 45,
+  "E": 90,
+  "SE": 135,
+  "S": 180,
+  "SW": 225,
+  "W": 270,
+  "NW": 315
+ }
+}
