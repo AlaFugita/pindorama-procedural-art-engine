@@ -47,7 +47,7 @@ PART_ROLES = {
     "boot_": "leather", "boot_cuff_": "leather", "boot_sole_": "leather_dark", "lace_": "leather_dark",
     "bracer_": "leather", "wrap": "cloth_light",
     "staff": "wood", "staff_gem": "gem", "orb": "gem", "book": "leather", "book_clasp": "metal",
-    "buckle": "metal", "clasp": "metal", "emblem": "metal", "stud": "metal", "bell": "metal",
+    "buckle": "metal", "hood_band": "metal", "clasp": "metal", "emblem": "metal", "stud": "metal", "bell": "metal",
 }
 chibi = json.loads((LIB / "profiles/art/pindorama_chibi_v1.json").read_text(encoding="utf-8"))
 profile = copy.deepcopy(chibi)
@@ -137,6 +137,7 @@ smooth.update({
         "outline_ink": "#2A1E2E", "outline_ink_mix": .5,
         "internal_line_px": .9, "internal_line_depth_m": .07, "internal_line_strength": .75,
         "glow_radius_px": 5.0, "glow_strength": .55,
+        "noise_strength": .32, "rim_px": 2.0, "rim_strength": .5, "rim_color": "#FFF2D8",
     },
 })
 dump(LIB / "profiles/art/pindorama_friendly_smooth_v1.json", smooth)

@@ -426,6 +426,34 @@
           "minimum": 0,
           "title": "Glow Strength",
           "type": "number"
+        },
+        "noise_strength": {
+          "default": 0.0,
+          "description": "Variação contínua de tom pelo ruído, em tons",
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Noise Strength",
+          "type": "number"
+        },
+        "rim_px": {
+          "default": 0.0,
+          "description": "Largura da luz de borda no lado iluminado",
+          "minimum": 0,
+          "title": "Rim Px",
+          "type": "number"
+        },
+        "rim_strength": {
+          "default": 0.0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Rim Strength",
+          "type": "number"
+        },
+        "rim_color": {
+          "default": "#FFF4DC",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "title": "Rim Color",
+          "type": "string"
         }
       },
       "required": [

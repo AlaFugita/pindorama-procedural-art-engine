@@ -363,6 +363,10 @@ class SmoothArtSettings(Contract):
     internal_line_strength: float = Field(default=.8, ge=0, le=1)
     glow_radius_px: float = Field(default=4.0, ge=0)
     glow_strength: float = Field(default=.6, ge=0, le=1)
+    noise_strength: float = Field(default=0.0, ge=0, le=1, description="Variação contínua de tom pelo ruído, em tons")
+    rim_px: float = Field(default=0.0, ge=0, description="Largura da luz de borda no lado iluminado")
+    rim_strength: float = Field(default=0.0, ge=0, le=1)
+    rim_color: Hex = "#FFF4DC"
 
 
 class ArtProfile(Contract):

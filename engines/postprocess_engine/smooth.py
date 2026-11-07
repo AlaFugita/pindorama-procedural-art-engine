@@ -79,11 +79,24 @@ def compose_smooth(p: Passes, parts: list[dict], cfg: SmoothArtSettings) -> Imag
             pos = _tone_position(s, cfg.light_bands, cfg.band_softness)
             if role.pattern:
                 pos = pos - p.pattern[mask] * cfg.texture_strength
+            if p.noise is not None and cfg.noise_strength > 0:
+                pos = pos + (p.noise[mask] - .5) * 2 * cfg.noise_strength
             colors = _sample_ramp(tones, np.clip(pos, 0, len(cfg.light_bands)), len(cfg.light_bands))
             if role.highlight:
                 k = _smoothstep(role.highlight_threshold - cfg.band_softness, role.highlight_threshold + cfg.band_softness, s)
                 colors = colors * (1 - k[:, None]) + hex_rgb(role.highlight) * k[:, None]
             rgb[mask] = colors
+    # Luz de borda: faixa junto à silhueta, só onde a normal de tela aponta para a luz.
+    if cfg.rim_px > 0 and cfg.rim_strength > 0:
+        inside = ndimage.distance_transform_edt(solid)
+        soft = ndimage.gaussian_filter(solid.astype(np.float64), ss * 1.5)
+        gy, gx = np.gradient(soft)
+        length = np.maximum(np.hypot(gx, gy), 1e-6)
+        lx, ly = -cfg.shadow_side[0], -cfg.shadow_side[1]  # luz vem do lado oposto à sombra
+        facing = np.clip((-gx * lx - gy * ly) / length, 0, 1)
+        band = 1 - _smoothstep(0, cfg.rim_px * ss, inside)
+        k = (band * facing * cfg.rim_strength * solid)[..., None]
+        rgb = rgb * (1 - k) + hex_rgb(cfg.rim_color) * k
     ink = hex_rgb(cfg.outline_ink)
     # Linhas internas: pixel do lado mais distante de um salto de profundidade, engrossado.
     line = np.zeros_like(solid)

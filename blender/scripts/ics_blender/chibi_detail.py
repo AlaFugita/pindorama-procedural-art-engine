@@ -152,11 +152,23 @@ def _hood_detail(folds=7, amp=.085):
     for u in np.linspace(.15, 2.3, 22):
         p = Vector((0, -ry * math.sin(u), rz * math.cos(u)))
         seam.append(tuple(HOOD_C + _hood_point(p) * 1.012))
-    return (verts, faces), tube(trim, [.022] * len(trim), segments=12), tube(seam, [.0045] * len(seam), segments=6)
+    # Faixa bordada: anel paralelo à abertura, um pouco para fora, com contas metálicas.
+    band, beads = [], []
+    for i, a in enumerate(np.linspace(0, 2 * math.pi, 97)):
+        x, z = (ax + .045) * math.cos(a), (az + .045) * math.sin(a) + oz
+        y = ry * math.sqrt(max(1 - (x / rx) ** 2 - (z / rz) ** 2, .01))
+        point = HOOD_C + _hood_point(Vector((x, y, z))) * 1.01
+        band.append(tuple(point))
+        if i % 8 == 4 and z > oz - az * .2:
+            beads.append(ellipsoid(tuple(point * 1.0 + (point - HOOD_C).normalized() * .006), (.011, .011, .011),
+                                   rings=6, segments=8))
+    self_band = tube(band, [.008] * len(band), segments=6)
+    return ((verts, faces), tube(trim, [.022] * len(trim), segments=12), tube(seam, [.0045] * len(seam), segments=6),
+            self_band, merge(*beads))
 
 
 def chibi_robe_detail(params, ctx):
-    hood, trim, seam = _hood_detail()
+    hood, trim, seam, band, beads = _hood_detail()
     shoulders = ["chest", "spine_01", "clavicle_l", "clavicle_r"]
     robe = {"bones": ["pelvis", "spine_01", "chest"]}
     # Capinha com dobras que abrem para a barra; frente mais lisa.
@@ -183,6 +195,8 @@ def chibi_robe_detail(params, ctx):
         _part("hood", hood, "primary", {"rigid": "head"}),
         _part("hood_trim", trim, "accent", {"rigid": "head"}),
         _part("hood_seam", seam, "accent", {"rigid": "head"}, outline=False),
+        _part("hood_band", band, "#D9B35B", {"rigid": "head"}, outline=False),
+        _part("stud_hood", beads, "#D9B35B", {"rigid": "head"}, outline=False),
         _part("cape", cape, "primary", {"bones": shoulders}),
         _part("cape_trim", cape_trim, "accent", {"bones": shoulders}, outline=False),
         _part("lapel", lapel, "accent", {"bones": shoulders}, outline=False),

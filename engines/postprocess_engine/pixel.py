@@ -61,6 +61,7 @@ class Passes:
     ao: np.ndarray       # 0..1
     pattern: np.ndarray  # bool
     depth: np.ndarray    # metros
+    noise: np.ndarray | None = None  # 0..1, ruído de baixa frequência (canal G do passe de profundidade)
 
 
 def load_passes(folder: Path, frame: int, depth_range: tuple[float, float]) -> Passes:
@@ -72,11 +73,13 @@ def load_passes(folder: Path, frame: int, depth_range: tuple[float, float]) -> P
     scale = 65535.0 if ident.dtype == np.uint16 else 255.0
     ids = np.where(alpha, np.round(ident[..., 0] / scale * 255.0).astype(int), 0)
     light = read("light").astype(np.float64) / (65535.0 if read("light").dtype == np.uint16 else 255.0)
-    depth_raw = read("depth").astype(np.float64)
-    depth_raw = depth_raw[..., 0] / (65535.0 if depth_raw.max() > 255 else 255.0)
+    depth_img = read("depth").astype(np.float64)
+    depth_scale = 65535.0 if depth_img.max() > 255 else 255.0
+    depth_raw = depth_img[..., 0] / depth_scale
+    noise = depth_img[..., 1] / depth_scale if depth_img.ndim == 3 and depth_img.shape[-1] > 1 else None
     near, far = depth_range
     return Passes(ids=ids, light=light[..., 0], ao=light[..., 1], pattern=light[..., 2] > .5,
-                  depth=near + depth_raw * (far - near))
+                  depth=near + depth_raw * (far - near), noise=noise)
 
 
 def compose(p: Passes, parts: list[dict], cfg: PixelArtSettings) -> Image.Image:

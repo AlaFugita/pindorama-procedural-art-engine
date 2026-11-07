@@ -83,7 +83,7 @@ def _light_material(name, role):
         to_rgb = tree.nodes.new("ShaderNodeShaderToRGB")
         tree.links.new(diffuse.outputs[0], to_rgb.inputs[0])
         ao = tree.nodes.new("ShaderNodeAmbientOcclusion")
-        ao.inputs["Distance"].default_value = .06
+        ao.inputs["Distance"].default_value = .1
         combine = tree.nodes.new("ShaderNodeCombineColor")
         bw = tree.nodes.new("ShaderNodeRGBToBW")
         tree.links.new(to_rgb.outputs["Color"], bw.inputs[0])
@@ -100,14 +100,25 @@ def _light_material(name, role):
 
 
 def _depth_material():
+    """R = profundidade normalizada; G = ruído de baixa frequência em coordenadas do objeto
+    (textura contínua estável entre quadros, porque acompanha a peça)."""
     def build(tree, emission):
         camera = tree.nodes.new("ShaderNodeCameraData")
         remap = tree.nodes.new("ShaderNodeMapRange")
         remap.inputs["From Min"].default_value = DEPTH_NEAR
         remap.inputs["From Max"].default_value = DEPTH_FAR
         tree.links.new(camera.outputs["View Z Depth"], remap.inputs["Value"])
-        tree.links.new(remap.outputs["Result"], emission.inputs["Strength"])
-        emission.inputs["Color"].default_value = (1, 1, 1, 1)
+        coords = tree.nodes.new("ShaderNodeTexCoord")
+        noise = tree.nodes.new("ShaderNodeTexNoise")
+        noise.inputs["Scale"].default_value = 9.0
+        noise.inputs["Detail"].default_value = 3.0
+        noise.inputs["Roughness"].default_value = .55
+        tree.links.new(coords.outputs["Object"], noise.inputs["Vector"])
+        combine = tree.nodes.new("ShaderNodeCombineColor")
+        tree.links.new(remap.outputs["Result"], combine.inputs[0])
+        tree.links.new(noise.outputs["Fac"], combine.inputs[1])
+        tree.links.new(combine.outputs[0], emission.inputs["Color"])
+        emission.inputs["Strength"].default_value = 1.0
     return _emission_material("PX_depth", build)
 
 

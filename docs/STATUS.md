@@ -5,6 +5,17 @@
 
 Auditoria: [audit/AUDITORIA_VISUAL_2026-11-06.md](audit/AUDITORIA_VISUAL_2026-11-06.md)
 
+## Procedural Art Engine e acabamento suave, 2026-11-07
+
+| Item | Estado | Evidência |
+|---|---|---|
+| Matriz de aderência ao Master Prompt V2 | Feita | [MATRIZ_ADERENCIA_PROCEDURAL_ART_ENGINE_2026-11-07.md](audit/MATRIZ_ADERENCIA_PROCEDURAL_ART_ENGINE_2026-11-07.md) |
+| Acabamento suave `pindorama_friendly_smooth_v1` | **Implementado e testado** até o Godot; **arte aguarda o usuário** | `audit/suave/`; transparência 207/216; sonda: nada no chão |
+| Pixel art | Implementado e testado; passa a **opcional** (VIS-005) | `audit/detalhamento/` |
+| Pesquisa de 14 repositórios | Feita | `research/repository-catalog.md` e mais 5 |
+| Repositório e site | Públicos | github.com/AlaFugita/pindorama-procedural-art-engine |
+| Testes automatizados | 56 passam | `pytest` |
+
 ## Auditoria do mestre e sistema de detalhamento, 2026-11-07
 
 | Item | Estado | Evidência |

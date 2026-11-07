@@ -63,7 +63,7 @@ footer{max-width:1080px;margin:auto;padding:24px 16px;color:var(--soft);font-siz
     <tr><td>Pipeline ficha → Blender → sprites → Godot</td><td><span class="tag ok">testado</span></td><td>Gates G1, G7 e G8 passam; o Godot confere 192 quadros em 24 clips</td></tr>
     <tr><td>Rig humanoide chibi, idle, walk e run</td><td><span class="tag ok">testado</span></td><td>Sonda de chão e túnica em todos os quadros; pé deslizando ≤ 0,00006 H/s</td></tr>
     <tr><td>Personagem mestre: Aprendiz</td><td><span class="tag wait">aguarda aprovação</span></td><td>G9 em revisão; a reprovação anterior fica no histórico</td></tr>
-    <tr><td>Acabamento suave <code>pindorama_friendly_smooth_v1</code> (principal)</td><td><span class="tag ok">implementado e testado</span></td><td>Passes em 3× com antialiasing real; transparência 207 de 216</td></tr>
+    <tr><td>Acabamento suave <code>pindorama_friendly_smooth_v1</code> (principal)</td><td><span class="tag ok">implementado e testado</span></td><td>Passes em 3× com antialiasing real, luz de borda, textura contínua; transparência 207 de 216</td></tr>
     <tr><td>Acabamento pixel art (opcional)</td><td><span class="tag ok">testado</span></td><td>Transparência 216 de 216, alpha binário</td></tr>
     <tr><td>Personalização modular</td><td><span class="tag ok">testado</span></td><td>5 variações de um campo cada; só mudam as peças trocadas</td></tr>
     <tr><td>Clips de ataque, magia, defesa e morte; perfis por arma</td><td><span class="tag warn">planejado</span></td><td>Bloqueado até a aprovação do mestre</td></tr>
@@ -77,6 +77,8 @@ footer{max-width:1080px;margin:auto;padding:24px 16px;color:var(--soft);font-siz
     <div class="card wide"><img src="docs/audit/suave/animacoes/walk_8dir.gif" alt="Aprendiz caminhando nas oito direções, acabamento suave" loading="lazy"><p><b>Atual:</b> Aprendiz detalhado no acabamento suave, caminhada nas 8 direções, 192 px, 12 fps.</p></div>
     <div class="card"><img src="docs/audit/suave/animacoes/run_8dir.gif" alt="Corrida nas oito direções" loading="lazy"><p>Corrida, 16 fps.</p></div>
     <div class="card"><img src="docs/audit/suave/animacoes/idle_8dir.gif" alt="Idle nas oito direções" loading="lazy"><p>Idle, 8 fps.</p></div>
+    <div class="card wide"><img src="docs/audit/suave/evolucao_faixa_bordada.png" alt="Evolução: faixa bordada, luz de borda e textura" loading="lazy"><p><b>Evolução 2:</b> faixa bordada dourada com contas, luz de borda no lado iluminado e textura contínua no tecido.</p></div>
+    <div class="card wide"><img src="docs/audit/suave/e1_rim_ruido_antes_depois.png" alt="Antes e depois do experimento E1" loading="lazy"><p>Experimento E1/E2: em cima, antes; embaixo, com luz de borda e ruído de baixa frequência (efeito sutil).</p></div>
     <div class="card wide"><img src="docs/audit/suave/oito_direcoes_idle.png" alt="Oito direções identificadas" loading="lazy"><p>As oito direções com a mesma escala, enquadramento, pivô e fundo; embaixo, em tamanho real.</p></div>
     <div class="card wide pixel"><img src="docs/audit/detalhamento/antes_depois.png" alt="Antes e depois" loading="lazy"><p>Antes e depois: o protótipo, só o acabamento, só a modelagem e os dois juntos, com a Duende como referência de nível.</p></div>
     <div class="card wide"><img src="docs/audit/master_audit/modular/variacoes.png" alt="Variações modulares" loading="lazy"><p>Personalização modular: cor do capuz, cabelo, roupa, acessório e arma.</p></div>
@@ -94,6 +96,8 @@ footer{max-width:1080px;margin:auto;padding:24px 16px;color:var(--soft);font-siz
     <li><b>2026-11-07</b>: auditoria do mestre; a sonda de pose acha e corrige botas e cajado no chão e coxa saindo da túnica.</li>
     <li><b>2026-11-07</b>: modelo detalhado e pixel art nativo por passes.</li>
     <li><b>2026-11-07</b>: Master Prompt V2. A direção principal vira ilustração suave; o acabamento <code>smooth</code> reusa os passes.</li>
+    <li><b>2026-11-07</b>: repositório público e este site; pesquisa de 14 repositórios de geração procedural.</li>
+    <li><b>2026-11-07</b>: evolução 2 do acabamento suave: luz de borda, textura contínua e faixa bordada no capuz.</li>
   </ol>
 </section>
 
