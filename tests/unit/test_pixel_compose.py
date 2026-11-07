@@ -69,3 +69,27 @@ def test_role_lookup_uses_longest_prefix():
     assert role_of("boot_sole_l", table) == "sole"
     assert role_of("boot_l", table) == "leather"
     assert role_of("hood", table) == "x"
+
+
+def test_trimmed_atlas_rebuilds_full_frame(tmp_path):
+    from PIL import Image
+
+    from app.schemas.contracts import RenderProfile
+    from engines.postprocess_engine.atlas import build_atlas, check_atlas
+
+    data = {"schema_version": "1.0.0", "id": "t", "version": "1", "projection": "orthographic", "elevation_deg": 30,
+            "azimuth_deg": 0, "canvas": {"width": 32, "height": 32}, "pixels_per_meter": 20, "pivot": {"x": 16, "y": 28},
+            "safety_margin_px": 1, "engine": "BLENDER_EEVEE", "samples": 1, "rotation_strategy": "rotate_character_root",
+            "direction_order": ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
+            "headings_deg": {d: i * 45 for i, d in enumerate(["N", "NE", "E", "SE", "S", "SW", "W", "NW"])},
+            "atlas_trim": True}
+    render = RenderProfile(**data)
+    frames = []
+    for i in range(3):
+        img = Image.new("RGBA", (32, 32), (0, 0, 0, 0))
+        img.paste((200, 50, 50, 255), (8 + i, 10, 20 + i, 26))
+        frames.append(tmp_path / f"f{i}.png")
+        img.save(frames[-1])
+    atlas = build_atlas(frames, tmp_path / "walk_S.png", render, 180)
+    assert atlas.frames[0].w < 32 and atlas.frames[0].ox > 0
+    assert check_atlas(tmp_path / "walk_S.png", atlas, frames) == []

@@ -68,7 +68,9 @@ def compare_captures(package: Path, manifest: ExportManifest, capture_dir: Path,
         atlas = animations[animation].directions[direction]
         rect = atlas.frames[capture["frame"]]
         with Image.open(package / "atlases" / atlas.file) as image:
-            source = image.convert("RGBA").crop((rect.x, rect.y, rect.x + rect.w, rect.y + rect.h))
+            region = image.convert("RGBA").crop((rect.x, rect.y, rect.x + rect.w, rect.y + rect.h))
+        source = Image.new("RGBA", (atlas.frame_width, atlas.frame_height), (0, 0, 0, 0))
+        source.paste(region, (rect.ox, rect.oy))  # quadro cheio (atlas recortado ou não)
         shot_path = capture_dir / capture["file"]
         with Image.open(shot_path) as image:
             shot = np.asarray(image.convert("RGB"), dtype=int)

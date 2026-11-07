@@ -29,8 +29,42 @@ LANDMARK_RADIUS_PX = 4
 IDLE_JITTER_WARN_PX = 4
 
 
+def _build_trimmed(frames: list[Path], destination: Path, render: RenderProfile) -> DirectionAtlas:
+    """Tira horizontal com a caixa justa de cada quadro (+1 px transparente). O quadro cheio é
+    reconstruído pela posição (ox, oy): pivô e enquadramento não mudam."""
+    width, height = render.canvas.width, render.canvas.height
+    crops = []
+    for path in frames:
+        rgba = load_rgba(path)
+        box = alpha_bbox(rgba, threshold=1) or (0, 0, 1, 1)
+        x0, y0 = max(0, box[0] - 1), max(0, box[1] - 1)
+        x1, y1 = min(width, box[2] + 1), min(height, box[3] + 1)
+        crops.append((Image.fromarray(rgba[y0:y1, x0:x1]), x0, y0))
+    atlas_width = sum(c[0].width for c in crops) + (len(crops) + 1) * GUTTER_PX
+    atlas_height = max(c[0].height for c in crops) + 2 * GUTTER_PX
+    atlas = Image.new("RGBA", (atlas_width, atlas_height), (0, 0, 0, 0))
+    rects, x = [], GUTTER_PX
+    for index, (crop, ox, oy) in enumerate(crops):
+        atlas.paste(crop, (x, GUTTER_PX))
+        rects.append(FrameRect(index=index, x=x, y=GUTTER_PX, w=crop.width, h=crop.height, ox=ox, oy=oy))
+        x += crop.width + GUTTER_PX
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    atlas.save(destination, optimize=True)
+    return DirectionAtlas(
+        file=destination.name, atlas_width=atlas_width, atlas_height=atlas_height,
+        frame_width=width, frame_height=height, frame_count=len(frames), gutter_px=GUTTER_PX,
+        heading_deg=render.headings_deg[destination.stem.rsplit("_", 1)[1]],
+        pivot=Pixel(x=render.pivot.x, y=render.pivot.y), frames=rects,
+    )
+
+
 def build_atlas(frames: list[Path], destination: Path, render: RenderProfile, heading: float) -> DirectionAtlas:
-    """Tira horizontal com canvas fixo; sem redimensionar nem recortar por frame (doc 05 §9)."""
+    """Tira horizontal com canvas fixo; sem redimensionar nem recortar por frame (doc 05 §9).
+
+    Com ``render.atlas_trim``, guarda só a caixa justa de cada quadro (veja ``_build_trimmed``).
+    """
+    if render.atlas_trim:
+        return _build_trimmed(frames, destination, render)
     width, height = render.canvas.width, render.canvas.height
     count = len(frames)
     atlas_width = count * width + (count + 1) * GUTTER_PX
@@ -69,7 +103,11 @@ def check_atlas(path: Path, atlas: DirectionAtlas, frame_paths: list[Path]) -> l
             problems.append(f"{path.name}: gutter violado no frame {rect.index}")
         previous_end = rect.x + rect.w
         crop = rgba[rect.y : rect.y + rect.h, rect.x : rect.x + rect.w]
-        if not np.array_equal(crop, load_rgba(frame_path)):
+        source = load_rgba(frame_path)
+        region = source[rect.oy : rect.oy + rect.h, rect.ox : rect.ox + rect.w]
+        outside = source[..., 3].copy()
+        outside[rect.oy : rect.oy + rect.h, rect.ox : rect.ox + rect.w] = 0
+        if not np.array_equal(crop, region) or outside.any():
             problems.append(f"{path.name}: frame {rect.index} difere da origem")
     return problems
 

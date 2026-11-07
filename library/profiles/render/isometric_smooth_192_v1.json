@@ -12,7 +12,7 @@
  "pixels_per_meter": 156.0,
  "pivot": {
   "x": 96.0,
-  "y": 160.5
+  "y": 160.0
  },
  "safety_margin_px": 2,
  "engine": "BLENDER_EEVEE",
@@ -39,5 +39,6 @@
   "SW": 225,
   "W": 270,
   "NW": 315
- }
+ },
+ "atlas_trim": true
 }

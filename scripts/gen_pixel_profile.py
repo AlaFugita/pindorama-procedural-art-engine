@@ -145,8 +145,9 @@ for size in (192, 256):
     k = size / 128
     r = copy.deepcopy(base)
     r.update({"id": f"isometric_smooth_{size}_v1", "canvas": {"width": size, "height": size},
-              "pixels_per_meter": round(104.0 * k, 3), "pivot": {"x": 64.0 * k, "y": 107.0 * k},
-              "samples": 16, "filter_width_px": 1.0, "safety_margin_px": 2})
+              # Pivô inteiro: meio pixel desloca a região recortada no Godot (filtro linear).
+              "pixels_per_meter": round(104.0 * k, 3), "pivot": {"x": float(round(64.0 * k)), "y": float(round(107.0 * k))},
+              "samples": 16, "filter_width_px": 1.0, "safety_margin_px": 2, "atlas_trim": True})
     dump(LIB / f"profiles/render/isometric_smooth_{size}_v1.json", r)
     s = copy.deepcopy(spec)
     s["appearance"].update({"hair_asset": "chibi_hair_detail_v1", "face_preset": "chibi_face_detail_v1"})

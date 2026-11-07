@@ -275,6 +275,7 @@ class RenderProfile(Contract):
     pixels_per_meter: float = Field(gt=0)
     pivot: Pixel
     safety_margin_px: int = Field(ge=0)
+    atlas_trim: bool = Field(default=False, description="Atlas guarda só a caixa justa de cada quadro")
     transparent: Literal[True] = True
     engine: Literal["BLENDER_EEVEE"]
     samples: int = Field(ge=1, le=512)
@@ -456,6 +457,8 @@ class FrameRect(Sub):
     y: int = Field(ge=0)
     w: int = Field(gt=0)
     h: int = Field(gt=0)
+    ox: int = Field(default=0, ge=0, description="Recorte: posição da região dentro do quadro cheio")
+    oy: int = Field(default=0, ge=0)
 
 
 class DirectionAtlas(Sub):

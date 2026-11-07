@@ -40,6 +40,10 @@ static func build_sprite_frames(package_dir: String) -> SpriteFrames:
 				var region := AtlasTexture.new()
 				region.atlas = texture
 				region.region = Rect2(rect["x"], rect["y"], rect["w"], rect["h"])
+				# Atlas recortado: a margem devolve o tamanho e a posição do quadro cheio.
+				var ox: float = rect.get("ox", 0)
+				var oy: float = rect.get("oy", 0)
+				region.margin = Rect2(ox, oy, entry["frame_width"] - rect["w"], entry["frame_height"] - rect["h"])
 				frames.add_frame(clip, region)
 	return frames
 

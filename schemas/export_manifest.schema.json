@@ -202,6 +202,19 @@
           "exclusiveMinimum": 0,
           "title": "H",
           "type": "integer"
+        },
+        "ox": {
+          "default": 0,
+          "description": "Recorte: posição da região dentro do quadro cheio",
+          "minimum": 0,
+          "title": "Ox",
+          "type": "integer"
+        },
+        "oy": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Oy",
+          "type": "integer"
         }
       },
       "required": [

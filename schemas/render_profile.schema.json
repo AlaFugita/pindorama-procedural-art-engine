@@ -91,6 +91,12 @@
       "title": "Safety Margin Px",
       "type": "integer"
     },
+    "atlas_trim": {
+      "default": false,
+      "description": "Atlas guarda só a caixa justa de cada quadro",
+      "title": "Atlas Trim",
+      "type": "boolean"
+    },
     "transparent": {
       "const": true,
       "default": true,
