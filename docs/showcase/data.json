@@ -1,0 +1,3699 @@
+{
+ "generated": "2026-11-07",
+ "directions": [
+  "N",
+  "NE",
+  "E",
+  "SE",
+  "S",
+  "SW",
+  "W",
+  "NW"
+ ],
+ "catalog": [
+  {
+   "category": "Locomoção",
+   "action": "Idle",
+   "clip": "idle",
+   "note": ""
+  },
+  {
+   "category": "Locomoção",
+   "action": "Walking",
+   "clip": "walk",
+   "note": ""
+  },
+  {
+   "category": "Locomoção",
+   "action": "Running",
+   "clip": "run",
+   "note": ""
+  },
+  {
+   "category": "Locomoção",
+   "action": "Falling",
+   "clip": null,
+   "note": "Exige deslocamento vertical da raiz; o pipeline é in_place"
+  },
+  {
+   "category": "Locomoção",
+   "action": "Landing",
+   "clip": null,
+   "note": "Depende de Falling"
+  },
+  {
+   "category": "Locomoção",
+   "action": "Jumping",
+   "clip": null,
+   "note": "Exige raiz com altura (root motion vertical) e evento de decolagem"
+  },
+  {
+   "category": "Corpo a corpo",
+   "action": "Melee Attack",
+   "clip": "attack_melee",
+   "note": "Golpe de cajado (arma equipada)"
+  },
+  {
+   "category": "Corpo a corpo",
+   "action": "Ataque com arma equipada",
+   "clip": "attack_melee",
+   "note": "Mesmo clip: o cajado está na mão esquerda"
+  },
+  {
+   "category": "Corpo a corpo",
+   "action": "Ataques por tipo de arma",
+   "clip": null,
+   "note": "Espada, maça, lança e duas mãos precisam de WeaponProfile"
+  },
+  {
+   "category": "Corpo a corpo",
+   "action": "Sequência de ataques",
+   "clip": "attack_melee",
+   "note": "Combo de 2 pela fila do controlador; sem clip de combo próprio"
+  },
+  {
+   "category": "À distância",
+   "action": "Shooting",
+   "clip": null,
+   "note": "Não há arco nem arma de disparo no personagem"
+  },
+  {
+   "category": "À distância",
+   "action": "Aiming",
+   "clip": null,
+   "note": ""
+  },
+  {
+   "category": "À distância",
+   "action": "Throwing",
+   "clip": null,
+   "note": ""
+  },
+  {
+   "category": "À distância",
+   "action": "Lançamento de projéteis",
+   "clip": null,
+   "note": "Evento existe só em CAST_RELEASE; sem projétil"
+  },
+  {
+   "category": "À distância",
+   "action": "Recuperação após disparo",
+   "clip": null,
+   "note": ""
+  },
+  {
+   "category": "Magia",
+   "action": "Magic Casting",
+   "clip": "cast",
+   "note": "Fases prepare 0–5, execute 6–7, recover 8–11"
+  },
+  {
+   "category": "Magia",
+   "action": "Preparação da magia",
+   "clip": "cast",
+   "note": "Fase prepare do clip cast"
+  },
+  {
+   "category": "Magia",
+   "action": "Execução do lançamento",
+   "clip": "cast",
+   "note": "Fase execute; evento CAST_RELEASE no quadro 7"
+  },
+  {
+   "category": "Magia",
+   "action": "Recuperação após lançamento",
+   "clip": "cast",
+   "note": "Fase recover; interrompível a partir do quadro 8"
+  },
+  {
+   "category": "Magia",
+   "action": "Habilidades especiais",
+   "clip": null,
+   "note": ""
+  },
+  {
+   "category": "Interação",
+   "action": "Interacting",
+   "clip": "interact",
+   "note": "Alcance com a mão livre; evento INTERACT"
+  },
+  {
+   "category": "Interação",
+   "action": "Coletar objetos",
+   "clip": null,
+   "note": "Pode reutilizar interact; sem clip próprio (abaixar até o chão)"
+  },
+  {
+   "category": "Interação",
+   "action": "Utilizar objetos",
+   "clip": null,
+   "note": ""
+  },
+  {
+   "category": "Interação",
+   "action": "Abrir/manipular cenário",
+   "clip": null,
+   "note": ""
+  },
+  {
+   "category": "Interação",
+   "action": "Interagir com NPCs",
+   "clip": null,
+   "note": "Pode reutilizar interact ou idle; sem clip próprio"
+  },
+  {
+   "category": "Interação",
+   "action": "Utilizar equipamentos",
+   "clip": null,
+   "note": ""
+  },
+  {
+   "category": "Estados",
+   "action": "Taking Damage",
+   "clip": "hurt",
+   "note": ""
+  },
+  {
+   "category": "Estados",
+   "action": "Stunned",
+   "clip": null,
+   "note": ""
+  },
+  {
+   "category": "Estados",
+   "action": "Death",
+   "clip": "death",
+   "note": "Terminal; último quadro mantido de propósito"
+  },
+  {
+   "category": "Estados",
+   "action": "Respawn",
+   "clip": null,
+   "note": ""
+  }
+ ],
+ "characters": [
+  {
+   "slug": "aprendiz_suave_192",
+   "name": "Aprendiz suave 192",
+   "render_profile": "isometric_smooth_192_v1",
+   "art_profile": "pindorama_friendly_smooth_v1",
+   "godot": "4.7.2-stable (official)",
+   "clips": {
+    "idle": {
+     "fps": 8,
+     "frames": 8,
+     "loop": true,
+     "category": "locomotion",
+     "priority": 0,
+     "interruptible_after": 0,
+     "return_to": null,
+     "held_frames": [],
+     "phases": [],
+     "events": [
+      {
+       "frame": 0,
+       "event": "LEFT_FOOT_CONTACT"
+      },
+      {
+       "frame": 0,
+       "event": "RIGHT_FOOT_CONTACT"
+      }
+     ],
+     "duration_s": 1.0,
+     "resolution": "192×192",
+     "checks": [
+      {
+       "id": "ANI-001:idle",
+       "status": "PASS",
+       "detail": "8 frames + fechamento avaliados; IK 0.00000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-002:idle",
+       "status": "PASS",
+       "detail": "contatos coerentes; mínimo -0.0000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-003:idle",
+       "status": "PASS",
+       "detail": "foot sliding 0.00001 H/s",
+       "tolerance": "0.03 H/s",
+       "evidence": []
+      },
+      {
+       "id": "ANI-004:idle",
+       "status": "PASS",
+       "detail": "loop 0.000000H; maior passo 0.0172H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-REVIEW:idle",
+       "status": "REVIEW",
+       "detail": "qualidade do movimento exige revisão humana",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-005:idle",
+       "status": "PASS",
+       "detail": "ponto mais baixo +0.5 mm (boot_sole_l, quadro 7); coxa fora da túnica até 0.0 mm",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "RND-003:idle",
+       "status": "PASS",
+       "detail": "8 direções × 8 frames",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "IMG-001:idle",
+       "status": "PASS",
+       "detail": "PNG RGBA, dimensões, alpha e sem corte",
+       "tolerance": "margem 2px",
+       "evidence": []
+      },
+      {
+       "id": "IMG-004:idle",
+       "status": "PASS",
+       "detail": "landmarks 3D projetados caem na silhueta em todos os frames",
+       "tolerance": "raio 4px",
+       "evidence": []
+      },
+      {
+       "id": "DIR-002:idle",
+       "status": "PASS",
+       "detail": "oito direções distintas (sem espelhamento)",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "IMG-005:idle",
+       "status": "WARN",
+       "detail": "3 frames repetidos dentro de uma direção",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "IMG-002:idle",
+       "status": "PASS",
+       "detail": "variação máxima de bbox no idle: 3px",
+       "tolerance": "4px",
+       "evidence": []
+      }
+     ],
+     "scenario": {
+      "actions": [
+       "idle"
+      ],
+      "detail": "8 quadros a 8 fps (1.00s), 8 direções no SpriteFrames, sequência completa",
+      "name": "clip:idle",
+      "status": "PASS"
+     },
+     "transitions": [
+      {
+       "actions": [
+        "idle",
+        "walk",
+        "run"
+       ],
+       "detail": "histórico [\"walk\", \"run\", \"idle\"]",
+       "name": "idle→walk→run→idle",
+       "status": "PASS"
+      }
+     ],
+     "directions": {
+      "N": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_192/idle_N.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/idle_N.png",
+       "smoke_failures": []
+      },
+      "NE": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_192/idle_NE.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/idle_NE.png",
+       "smoke_failures": []
+      },
+      "E": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_192/idle_E.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/idle_E.png",
+       "smoke_failures": []
+      },
+      "SE": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_192/idle_SE.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/idle_SE.png",
+       "smoke_failures": []
+      },
+      "S": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_192/idle_S.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/idle_S.png",
+       "smoke_failures": []
+      },
+      "SW": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_192/idle_SW.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/idle_SW.png",
+       "smoke_failures": []
+      },
+      "W": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_192/idle_W.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/idle_W.png",
+       "smoke_failures": []
+      },
+      "NW": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_192/idle_NW.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/idle_NW.png",
+       "smoke_failures": []
+      }
+     }
+    },
+    "walk": {
+     "fps": 12,
+     "frames": 8,
+     "loop": true,
+     "category": "locomotion",
+     "priority": 0,
+     "interruptible_after": 0,
+     "return_to": null,
+     "held_frames": [],
+     "phases": [],
+     "events": [
+      {
+       "frame": 0,
+       "event": "LEFT_FOOT_CONTACT"
+      },
+      {
+       "frame": 5,
+       "event": "LEFT_SWING"
+      },
+      {
+       "frame": 4,
+       "event": "RIGHT_FOOT_CONTACT"
+      },
+      {
+       "frame": 1,
+       "event": "RIGHT_SWING"
+      }
+     ],
+     "duration_s": 0.6666666666666666,
+     "resolution": "192×192",
+     "checks": [
+      {
+       "id": "ANI-001:walk",
+       "status": "PASS",
+       "detail": "8 frames + fechamento avaliados; IK 0.00001H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-002:walk",
+       "status": "PASS",
+       "detail": "contatos coerentes; mínimo -0.0000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-003:walk",
+       "status": "PASS",
+       "detail": "foot sliding 0.00002 H/s",
+       "tolerance": "0.03 H/s",
+       "evidence": []
+      },
+      {
+       "id": "ANI-004:walk",
+       "status": "PASS",
+       "detail": "loop 0.000000H; maior passo 0.0851H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-REVIEW:walk",
+       "status": "REVIEW",
+       "detail": "qualidade do movimento exige revisão humana",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-005:walk",
+       "status": "PASS",
+       "detail": "ponto mais baixo +0.5 mm (boot_sole_l, quadro 5); coxa fora da túnica até 5.4 mm",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "RND-003:walk",
+       "status": "PASS",
+       "detail": "8 direções × 8 frames",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "IMG-001:walk",
+       "status": "PASS",
+       "detail": "PNG RGBA, dimensões, alpha e sem corte",
+       "tolerance": "margem 2px",
+       "evidence": []
+      },
+      {
+       "id": "IMG-004:walk",
+       "status": "PASS",
+       "detail": "landmarks 3D projetados caem na silhueta em todos os frames",
+       "tolerance": "raio 4px",
+       "evidence": []
+      },
+      {
+       "id": "DIR-002:walk",
+       "status": "PASS",
+       "detail": "oito direções distintas (sem espelhamento)",
+       "tolerance": null,
+       "evidence": []
+      }
+     ],
+     "scenario": {
+      "actions": [
+       "walk"
+      ],
+      "detail": "8 quadros a 12 fps (0.67s), 8 direções no SpriteFrames, sequência completa",
+      "name": "clip:walk",
+      "status": "PASS"
+     },
+     "transitions": [
+      {
+       "actions": [
+        "idle",
+        "walk",
+        "run"
+       ],
+       "detail": "histórico [\"walk\", \"run\", \"idle\"]",
+       "name": "idle→walk→run→idle",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "walk",
+        "attack_melee"
+       ],
+       "detail": "termina em walk",
+       "name": "andar + atacar",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "cast",
+        "walk"
+       ],
+       "detail": "preparo protegido; corta a recuperação a partir do quadro 8",
+       "name": "magia + movimento",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "walk",
+        "interact"
+       ],
+       "detail": "termina em walk",
+       "name": "interagir em movimento",
+       "status": "PASS"
+      }
+     ],
+     "directions": {
+      "N": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/walk_N.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/walk_N.png",
+       "smoke_failures": []
+      },
+      "NE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/walk_NE.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/walk_NE.png",
+       "smoke_failures": []
+      },
+      "E": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/walk_E.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/walk_E.png",
+       "smoke_failures": []
+      },
+      "SE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/walk_SE.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/walk_SE.png",
+       "smoke_failures": []
+      },
+      "S": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/walk_S.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/walk_S.png",
+       "smoke_failures": []
+      },
+      "SW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/walk_SW.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/walk_SW.png",
+       "smoke_failures": []
+      },
+      "W": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/walk_W.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/walk_W.png",
+       "smoke_failures": []
+      },
+      "NW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/walk_NW.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/walk_NW.png",
+       "smoke_failures": []
+      }
+     }
+    },
+    "run": {
+     "fps": 16,
+     "frames": 8,
+     "loop": true,
+     "category": "locomotion",
+     "priority": 0,
+     "interruptible_after": 0,
+     "return_to": null,
+     "held_frames": [],
+     "phases": [],
+     "events": [
+      {
+       "frame": 0,
+       "event": "LEFT_FOOT_CONTACT"
+      },
+      {
+       "frame": 3,
+       "event": "LEFT_SWING"
+      },
+      {
+       "frame": 4,
+       "event": "RIGHT_FOOT_CONTACT"
+      },
+      {
+       "frame": 7,
+       "event": "RIGHT_SWING"
+      }
+     ],
+     "duration_s": 0.5,
+     "resolution": "192×192",
+     "checks": [
+      {
+       "id": "ANI-001:run",
+       "status": "PASS",
+       "detail": "8 frames + fechamento avaliados; IK 0.00001H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-002:run",
+       "status": "PASS",
+       "detail": "contatos coerentes; mínimo -0.0000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-003:run",
+       "status": "PASS",
+       "detail": "foot sliding 0.00006 H/s",
+       "tolerance": "0.03 H/s",
+       "evidence": []
+      },
+      {
+       "id": "ANI-004:run",
+       "status": "PASS",
+       "detail": "loop 0.000000H; maior passo 0.0700H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-REVIEW:run",
+       "status": "REVIEW",
+       "detail": "qualidade do movimento exige revisão humana",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-005:run",
+       "status": "PASS",
+       "detail": "ponto mais baixo +0.5 mm (boot_sole_l, quadro 3); coxa fora da túnica até 11.2 mm",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "RND-003:run",
+       "status": "PASS",
+       "detail": "8 direções × 8 frames",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "IMG-001:run",
+       "status": "PASS",
+       "detail": "PNG RGBA, dimensões, alpha e sem corte",
+       "tolerance": "margem 2px",
+       "evidence": []
+      },
+      {
+       "id": "IMG-004:run",
+       "status": "PASS",
+       "detail": "landmarks 3D projetados caem na silhueta em todos os frames",
+       "tolerance": "raio 4px",
+       "evidence": []
+      },
+      {
+       "id": "DIR-002:run",
+       "status": "PASS",
+       "detail": "oito direções distintas (sem espelhamento)",
+       "tolerance": null,
+       "evidence": []
+      }
+     ],
+     "scenario": {
+      "actions": [
+       "run"
+      ],
+      "detail": "8 quadros a 16 fps (0.50s), 8 direções no SpriteFrames, sequência completa",
+      "name": "clip:run",
+      "status": "PASS"
+     },
+     "transitions": [
+      {
+       "actions": [
+        "idle",
+        "walk",
+        "run"
+       ],
+       "detail": "histórico [\"walk\", \"run\", \"idle\"]",
+       "name": "idle→walk→run→idle",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "run",
+        "attack_melee"
+       ],
+       "detail": "termina em run",
+       "name": "correr + atacar",
+       "status": "PASS"
+      }
+     ],
+     "directions": {
+      "N": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/run_N.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/run_N.png",
+       "smoke_failures": []
+      },
+      "NE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/run_NE.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/run_NE.png",
+       "smoke_failures": []
+      },
+      "E": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/run_E.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/run_E.png",
+       "smoke_failures": []
+      },
+      "SE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/run_SE.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/run_SE.png",
+       "smoke_failures": []
+      },
+      "S": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/run_S.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/run_S.png",
+       "smoke_failures": []
+      },
+      "SW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/run_SW.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/run_SW.png",
+       "smoke_failures": []
+      },
+      "W": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/run_W.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/run_W.png",
+       "smoke_failures": []
+      },
+      "NW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/run_NW.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/run_NW.png",
+       "smoke_failures": []
+      }
+     }
+    },
+    "attack_melee": {
+     "fps": 12,
+     "frames": 8,
+     "loop": false,
+     "category": "melee",
+     "priority": 10,
+     "interruptible_after": 5,
+     "return_to": "idle",
+     "held_frames": [],
+     "phases": [
+      {
+       "name": "prepare",
+       "start_frame": 0,
+       "end_frame": 2
+      },
+      {
+       "name": "execute",
+       "start_frame": 3,
+       "end_frame": 4
+      },
+      {
+       "name": "recover",
+       "start_frame": 5,
+       "end_frame": 7
+      }
+     ],
+     "events": [
+      {
+       "frame": 0,
+       "event": "LEFT_FOOT_CONTACT"
+      },
+      {
+       "frame": 0,
+       "event": "RIGHT_FOOT_CONTACT"
+      },
+      {
+       "frame": 4,
+       "event": "HIT"
+      }
+     ],
+     "duration_s": 0.6666666666666666,
+     "resolution": "192×192",
+     "checks": [
+      {
+       "id": "ANI-001:attack_melee",
+       "status": "PASS",
+       "detail": "8 frames + fechamento avaliados; IK 0.00000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-002:attack_melee",
+       "status": "PASS",
+       "detail": "contatos coerentes; mínimo -0.0000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-003:attack_melee",
+       "status": "PASS",
+       "detail": "foot sliding 0.00002 H/s",
+       "tolerance": "0.03 H/s",
+       "evidence": []
+      },
+      {
+       "id": "ANI-004:attack_melee",
+       "status": "PASS",
+       "detail": "loop 0.000000H; maior passo 0.2987H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-REVIEW:attack_melee",
+       "status": "REVIEW",
+       "detail": "qualidade do movimento exige revisão humana",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-005:attack_melee",
+       "status": "PASS",
+       "detail": "ponto mais baixo +0.5 mm (boot_sole_l, quadro 7); coxa fora da túnica até 8.4 mm",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "RND-003:attack_melee",
+       "status": "PASS",
+       "detail": "8 direções × 8 frames",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "IMG-001:attack_melee",
+       "status": "PASS",
+       "detail": "PNG RGBA, dimensões, alpha e sem corte",
+       "tolerance": "margem 2px",
+       "evidence": []
+      },
+      {
+       "id": "IMG-004:attack_melee",
+       "status": "PASS",
+       "detail": "landmarks 3D projetados caem na silhueta em todos os frames",
+       "tolerance": "raio 4px",
+       "evidence": []
+      },
+      {
+       "id": "DIR-002:attack_melee",
+       "status": "PASS",
+       "detail": "oito direções distintas (sem espelhamento)",
+       "tolerance": null,
+       "evidence": []
+      }
+     ],
+     "scenario": {
+      "actions": [
+       "attack_melee"
+      ],
+      "detail": "8 quadros a 12 fps (0.67s), 8 direções no SpriteFrames, sequência completa",
+      "name": "clip:attack_melee",
+      "status": "PASS"
+     },
+     "transitions": [
+      {
+       "actions": [
+        "attack_melee"
+       ],
+       "detail": "dura 0.67s e volta para idle",
+       "name": "attack_melee: idle→ação→idle",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "walk",
+        "attack_melee"
+       ],
+       "detail": "termina em walk",
+       "name": "andar + atacar",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "run",
+        "attack_melee"
+       ],
+       "detail": "termina em run",
+       "name": "correr + atacar",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "attack_melee"
+       ],
+       "detail": "quadro 2 mantido, clip attack_melee_W",
+       "name": "atacar e virar",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "attack_melee",
+        "hurt"
+       ],
+       "detail": "histórico [\"attack_melee\", \"hurt\", \"idle\"]",
+       "name": "dano interrompe ataque",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "hurt",
+        "attack_melee"
+       ],
+       "detail": "estado hurt",
+       "name": "ataque durante dano",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "attack_melee"
+       ],
+       "detail": "histórico [\"attack_melee\", \"attack_melee\"]",
+       "name": "dois ataques seguidos",
+       "status": "PASS"
+      }
+     ],
+     "directions": {
+      "N": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/attack_melee_N.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/attack_melee_N.png",
+       "smoke_failures": []
+      },
+      "NE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/attack_melee_NE.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/attack_melee_NE.png",
+       "smoke_failures": []
+      },
+      "E": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/attack_melee_E.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/attack_melee_E.png",
+       "smoke_failures": []
+      },
+      "SE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/attack_melee_SE.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/attack_melee_SE.png",
+       "smoke_failures": []
+      },
+      "S": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/attack_melee_S.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/attack_melee_S.png",
+       "smoke_failures": []
+      },
+      "SW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/attack_melee_SW.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/attack_melee_SW.png",
+       "smoke_failures": []
+      },
+      "W": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/attack_melee_W.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/attack_melee_W.png",
+       "smoke_failures": []
+      },
+      "NW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/attack_melee_NW.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/attack_melee_NW.png",
+       "smoke_failures": []
+      }
+     }
+    },
+    "cast": {
+     "fps": 12,
+     "frames": 12,
+     "loop": false,
+     "category": "magic",
+     "priority": 10,
+     "interruptible_after": 8,
+     "return_to": "idle",
+     "held_frames": [],
+     "phases": [
+      {
+       "name": "prepare",
+       "start_frame": 0,
+       "end_frame": 5
+      },
+      {
+       "name": "execute",
+       "start_frame": 6,
+       "end_frame": 7
+      },
+      {
+       "name": "recover",
+       "start_frame": 8,
+       "end_frame": 11
+      }
+     ],
+     "events": [
+      {
+       "frame": 0,
+       "event": "LEFT_FOOT_CONTACT"
+      },
+      {
+       "frame": 0,
+       "event": "RIGHT_FOOT_CONTACT"
+      },
+      {
+       "frame": 7,
+       "event": "CAST_RELEASE"
+      }
+     ],
+     "duration_s": 1.0,
+     "resolution": "192×192",
+     "checks": [
+      {
+       "id": "ANI-001:cast",
+       "status": "PASS",
+       "detail": "12 frames + fechamento avaliados; IK 0.00000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-002:cast",
+       "status": "PASS",
+       "detail": "contatos coerentes; mínimo -0.0000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-003:cast",
+       "status": "PASS",
+       "detail": "foot sliding 0.00000 H/s",
+       "tolerance": "0.03 H/s",
+       "evidence": []
+      },
+      {
+       "id": "ANI-004:cast",
+       "status": "PASS",
+       "detail": "loop 0.000000H; maior passo 0.1474H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-REVIEW:cast",
+       "status": "REVIEW",
+       "detail": "qualidade do movimento exige revisão humana",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-005:cast",
+       "status": "WARN",
+       "detail": "ponto mais baixo +0.5 mm (boot_sole_l, quadro 11); coxa fora da túnica até 15.8 mm",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "RND-003:cast",
+       "status": "PASS",
+       "detail": "8 direções × 12 frames",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "IMG-001:cast",
+       "status": "PASS",
+       "detail": "PNG RGBA, dimensões, alpha e sem corte",
+       "tolerance": "margem 2px",
+       "evidence": []
+      },
+      {
+       "id": "IMG-004:cast",
+       "status": "PASS",
+       "detail": "landmarks 3D projetados caem na silhueta em todos os frames",
+       "tolerance": "raio 4px",
+       "evidence": []
+      },
+      {
+       "id": "DIR-002:cast",
+       "status": "PASS",
+       "detail": "oito direções distintas (sem espelhamento)",
+       "tolerance": null,
+       "evidence": []
+      }
+     ],
+     "scenario": {
+      "actions": [
+       "cast"
+      ],
+      "detail": "12 quadros a 12 fps (1.00s), 8 direções no SpriteFrames, sequência completa",
+      "name": "clip:cast",
+      "status": "PASS"
+     },
+     "transitions": [
+      {
+       "actions": [
+        "cast"
+       ],
+       "detail": "dura 1.00s e volta para idle",
+       "name": "cast: idle→ação→idle",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "cast",
+        "walk"
+       ],
+       "detail": "preparo protegido; corta a recuperação a partir do quadro 8",
+       "name": "magia + movimento",
+       "status": "PASS"
+      }
+     ],
+     "directions": {
+      "N": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_192/cast_N.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/cast_N.png",
+       "smoke_failures": []
+      },
+      "NE": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_192/cast_NE.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/cast_NE.png",
+       "smoke_failures": []
+      },
+      "E": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_192/cast_E.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/cast_E.png",
+       "smoke_failures": []
+      },
+      "SE": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_192/cast_SE.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/cast_SE.png",
+       "smoke_failures": []
+      },
+      "S": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_192/cast_S.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/cast_S.png",
+       "smoke_failures": []
+      },
+      "SW": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_192/cast_SW.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/cast_SW.png",
+       "smoke_failures": []
+      },
+      "W": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_192/cast_W.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/cast_W.png",
+       "smoke_failures": []
+      },
+      "NW": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_192/cast_NW.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/cast_NW.png",
+       "smoke_failures": []
+      }
+     }
+    },
+    "interact": {
+     "fps": 10,
+     "frames": 8,
+     "loop": false,
+     "category": "interaction",
+     "priority": 10,
+     "interruptible_after": 6,
+     "return_to": "idle",
+     "held_frames": [],
+     "phases": [
+      {
+       "name": "prepare",
+       "start_frame": 0,
+       "end_frame": 2
+      },
+      {
+       "name": "execute",
+       "start_frame": 3,
+       "end_frame": 5
+      },
+      {
+       "name": "recover",
+       "start_frame": 6,
+       "end_frame": 7
+      }
+     ],
+     "events": [
+      {
+       "frame": 0,
+       "event": "LEFT_FOOT_CONTACT"
+      },
+      {
+       "frame": 0,
+       "event": "RIGHT_FOOT_CONTACT"
+      },
+      {
+       "frame": 4,
+       "event": "INTERACT"
+      }
+     ],
+     "duration_s": 0.8,
+     "resolution": "192×192",
+     "checks": [
+      {
+       "id": "ANI-001:interact",
+       "status": "PASS",
+       "detail": "8 frames + fechamento avaliados; IK 0.00001H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-002:interact",
+       "status": "PASS",
+       "detail": "contatos coerentes; mínimo -0.0000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-003:interact",
+       "status": "PASS",
+       "detail": "foot sliding 0.00001 H/s",
+       "tolerance": "0.03 H/s",
+       "evidence": []
+      },
+      {
+       "id": "ANI-004:interact",
+       "status": "PASS",
+       "detail": "loop 0.000000H; maior passo 0.0929H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-REVIEW:interact",
+       "status": "REVIEW",
+       "detail": "qualidade do movimento exige revisão humana",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-005:interact",
+       "status": "PASS",
+       "detail": "ponto mais baixo +0.5 mm (boot_sole_l, quadro 7); coxa fora da túnica até 6.0 mm",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "RND-003:interact",
+       "status": "PASS",
+       "detail": "8 direções × 8 frames",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "IMG-001:interact",
+       "status": "PASS",
+       "detail": "PNG RGBA, dimensões, alpha e sem corte",
+       "tolerance": "margem 2px",
+       "evidence": []
+      },
+      {
+       "id": "IMG-004:interact",
+       "status": "PASS",
+       "detail": "landmarks 3D projetados caem na silhueta em todos os frames",
+       "tolerance": "raio 4px",
+       "evidence": []
+      },
+      {
+       "id": "DIR-002:interact",
+       "status": "PASS",
+       "detail": "oito direções distintas (sem espelhamento)",
+       "tolerance": null,
+       "evidence": []
+      }
+     ],
+     "scenario": {
+      "actions": [
+       "interact"
+      ],
+      "detail": "8 quadros a 10 fps (0.80s), 8 direções no SpriteFrames, sequência completa",
+      "name": "clip:interact",
+      "status": "PASS"
+     },
+     "transitions": [
+      {
+       "actions": [
+        "interact"
+       ],
+       "detail": "dura 0.80s e volta para idle",
+       "name": "interact: idle→ação→idle",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "walk",
+        "interact"
+       ],
+       "detail": "termina em walk",
+       "name": "interagir em movimento",
+       "status": "PASS"
+      }
+     ],
+     "directions": {
+      "N": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/interact_N.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/interact_N.png",
+       "smoke_failures": []
+      },
+      "NE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/interact_NE.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/interact_NE.png",
+       "smoke_failures": []
+      },
+      "E": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/interact_E.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/interact_E.png",
+       "smoke_failures": []
+      },
+      "SE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/interact_SE.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/interact_SE.png",
+       "smoke_failures": []
+      },
+      "S": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/interact_S.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/interact_S.png",
+       "smoke_failures": []
+      },
+      "SW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/interact_SW.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/interact_SW.png",
+       "smoke_failures": []
+      },
+      "W": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/interact_W.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/interact_W.png",
+       "smoke_failures": []
+      },
+      "NW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/interact_NW.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/interact_NW.png",
+       "smoke_failures": []
+      }
+     }
+    },
+    "hurt": {
+     "fps": 12,
+     "frames": 6,
+     "loop": false,
+     "category": "state",
+     "priority": 20,
+     "interruptible_after": 3,
+     "return_to": "idle",
+     "held_frames": [],
+     "phases": [
+      {
+       "name": "execute",
+       "start_frame": 0,
+       "end_frame": 1
+      },
+      {
+       "name": "recover",
+       "start_frame": 2,
+       "end_frame": 5
+      }
+     ],
+     "events": [
+      {
+       "frame": 0,
+       "event": "LEFT_FOOT_CONTACT"
+      },
+      {
+       "frame": 0,
+       "event": "RIGHT_FOOT_CONTACT"
+      },
+      {
+       "frame": 0,
+       "event": "IMPACT"
+      }
+     ],
+     "duration_s": 0.5,
+     "resolution": "192×192",
+     "checks": [
+      {
+       "id": "ANI-001:hurt",
+       "status": "PASS",
+       "detail": "6 frames + fechamento avaliados; IK 0.00000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-002:hurt",
+       "status": "PASS",
+       "detail": "contatos coerentes; mínimo -0.0000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-003:hurt",
+       "status": "PASS",
+       "detail": "foot sliding 0.00001 H/s",
+       "tolerance": "0.03 H/s",
+       "evidence": []
+      },
+      {
+       "id": "ANI-004:hurt",
+       "status": "PASS",
+       "detail": "loop 0.000000H; maior passo 0.0294H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-REVIEW:hurt",
+       "status": "REVIEW",
+       "detail": "qualidade do movimento exige revisão humana",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-005:hurt",
+       "status": "PASS",
+       "detail": "ponto mais baixo +0.5 mm (boot_sole_l, quadro 5); coxa fora da túnica até 3.2 mm",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "RND-003:hurt",
+       "status": "PASS",
+       "detail": "8 direções × 6 frames",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "IMG-001:hurt",
+       "status": "PASS",
+       "detail": "PNG RGBA, dimensões, alpha e sem corte",
+       "tolerance": "margem 2px",
+       "evidence": []
+      },
+      {
+       "id": "IMG-004:hurt",
+       "status": "PASS",
+       "detail": "landmarks 3D projetados caem na silhueta em todos os frames",
+       "tolerance": "raio 4px",
+       "evidence": []
+      },
+      {
+       "id": "DIR-002:hurt",
+       "status": "PASS",
+       "detail": "oito direções distintas (sem espelhamento)",
+       "tolerance": null,
+       "evidence": []
+      }
+     ],
+     "scenario": {
+      "actions": [
+       "hurt"
+      ],
+      "detail": "6 quadros a 12 fps (0.50s), 8 direções no SpriteFrames, sequência completa",
+      "name": "clip:hurt",
+      "status": "PASS"
+     },
+     "transitions": [
+      {
+       "actions": [
+        "hurt"
+       ],
+       "detail": "dura 0.50s e volta para idle",
+       "name": "hurt: idle→ação→idle",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "attack_melee",
+        "hurt"
+       ],
+       "detail": "histórico [\"attack_melee\", \"hurt\", \"idle\"]",
+       "name": "dano interrompe ataque",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "hurt",
+        "attack_melee"
+       ],
+       "detail": "estado hurt",
+       "name": "ataque durante dano",
+       "status": "PASS"
+      }
+     ],
+     "directions": {
+      "N": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/hurt_N.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/hurt_N.png",
+       "smoke_failures": []
+      },
+      "NE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/hurt_NE.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/hurt_NE.png",
+       "smoke_failures": []
+      },
+      "E": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/hurt_E.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/hurt_E.png",
+       "smoke_failures": []
+      },
+      "SE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/hurt_SE.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/hurt_SE.png",
+       "smoke_failures": []
+      },
+      "S": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/hurt_S.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/hurt_S.png",
+       "smoke_failures": []
+      },
+      "SW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/hurt_SW.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/hurt_SW.png",
+       "smoke_failures": []
+      },
+      "W": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/hurt_W.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/hurt_W.png",
+       "smoke_failures": []
+      },
+      "NW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/hurt_NW.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/hurt_NW.png",
+       "smoke_failures": []
+      }
+     }
+    },
+    "death": {
+     "fps": 10,
+     "frames": 10,
+     "loop": false,
+     "category": "state",
+     "priority": 100,
+     "interruptible_after": 99,
+     "return_to": null,
+     "held_frames": [
+      9
+     ],
+     "phases": [
+      {
+       "name": "execute",
+       "start_frame": 0,
+       "end_frame": 7
+      },
+      {
+       "name": "hold",
+       "start_frame": 8,
+       "end_frame": 9
+      }
+     ],
+     "events": [
+      {
+       "frame": 0,
+       "event": "LEFT_FOOT_CONTACT"
+      },
+      {
+       "frame": 0,
+       "event": "RIGHT_FOOT_CONTACT"
+      },
+      {
+       "frame": 8,
+       "event": "DEATH_REST"
+      }
+     ],
+     "duration_s": 1.0,
+     "resolution": "192×192",
+     "checks": [
+      {
+       "id": "ANI-001:death",
+       "status": "PASS",
+       "detail": "10 frames + fechamento avaliados; IK 0.00002H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-002:death",
+       "status": "PASS",
+       "detail": "contatos coerentes; mínimo -0.0000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-003:death",
+       "status": "PASS",
+       "detail": "foot sliding 0.00007 H/s",
+       "tolerance": "0.03 H/s",
+       "evidence": []
+      },
+      {
+       "id": "ANI-004:death",
+       "status": "PASS",
+       "detail": "loop 0.250457H; maior passo 0.1173H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-REVIEW:death",
+       "status": "REVIEW",
+       "detail": "qualidade do movimento exige revisão humana",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-005:death",
+       "status": "PASS",
+       "detail": "ponto mais baixo +0.4 mm (boot_sole_l, quadro 6); coxa fora da túnica até 6.1 mm",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "RND-003:death",
+       "status": "PASS",
+       "detail": "8 direções × 10 frames",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "IMG-001:death",
+       "status": "PASS",
+       "detail": "PNG RGBA, dimensões, alpha e sem corte",
+       "tolerance": "margem 2px",
+       "evidence": []
+      },
+      {
+       "id": "IMG-004:death",
+       "status": "PASS",
+       "detail": "landmarks 3D projetados caem na silhueta em todos os frames",
+       "tolerance": "raio 4px",
+       "evidence": []
+      },
+      {
+       "id": "DIR-002:death",
+       "status": "PASS",
+       "detail": "oito direções distintas (sem espelhamento)",
+       "tolerance": null,
+       "evidence": []
+      }
+     ],
+     "scenario": {
+      "actions": [
+       "death"
+      ],
+      "detail": "10 quadros a 10 fps (1.00s), 8 direções no SpriteFrames, sequência completa",
+      "name": "clip:death",
+      "status": "PASS"
+     },
+     "transitions": [
+      {
+       "actions": [
+        "death"
+       ],
+       "detail": "quadro final 9, estado death",
+       "name": "morte é terminal",
+       "status": "PASS"
+      }
+     ],
+     "directions": {
+      "N": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/death_N.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/death_N.png",
+       "smoke_failures": []
+      },
+      "NE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/death_NE.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/death_NE.png",
+       "smoke_failures": []
+      },
+      "E": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/death_E.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/death_E.png",
+       "smoke_failures": []
+      },
+      "SE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/death_SE.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/death_SE.png",
+       "smoke_failures": []
+      },
+      "S": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/death_S.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/death_S.png",
+       "smoke_failures": []
+      },
+      "SW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/death_SW.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/death_SW.png",
+       "smoke_failures": []
+      },
+      "W": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/death_W.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/death_W.png",
+       "smoke_failures": []
+      },
+      "NW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_192/death_NW.gif",
+       "atlas": "showcase/aprendiz_suave_192/atlas/death_NW.png",
+       "smoke_failures": []
+      }
+     }
+    }
+   },
+   "state_scenarios": [
+    {
+     "actions": [
+      "idle"
+     ],
+     "detail": "8 quadros a 8 fps (1.00s), 8 direções no SpriteFrames, sequência completa",
+     "name": "clip:idle",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "walk"
+     ],
+     "detail": "8 quadros a 12 fps (0.67s), 8 direções no SpriteFrames, sequência completa",
+     "name": "clip:walk",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "run"
+     ],
+     "detail": "8 quadros a 16 fps (0.50s), 8 direções no SpriteFrames, sequência completa",
+     "name": "clip:run",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "attack_melee"
+     ],
+     "detail": "8 quadros a 12 fps (0.67s), 8 direções no SpriteFrames, sequência completa",
+     "name": "clip:attack_melee",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "cast"
+     ],
+     "detail": "12 quadros a 12 fps (1.00s), 8 direções no SpriteFrames, sequência completa",
+     "name": "clip:cast",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "interact"
+     ],
+     "detail": "8 quadros a 10 fps (0.80s), 8 direções no SpriteFrames, sequência completa",
+     "name": "clip:interact",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "hurt"
+     ],
+     "detail": "6 quadros a 12 fps (0.50s), 8 direções no SpriteFrames, sequência completa",
+     "name": "clip:hurt",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "death"
+     ],
+     "detail": "10 quadros a 10 fps (1.00s), 8 direções no SpriteFrames, sequência completa",
+     "name": "clip:death",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "idle",
+      "walk",
+      "run"
+     ],
+     "detail": "histórico [\"walk\", \"run\", \"idle\"]",
+     "name": "idle→walk→run→idle",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "attack_melee"
+     ],
+     "detail": "dura 0.67s e volta para idle",
+     "name": "attack_melee: idle→ação→idle",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "cast"
+     ],
+     "detail": "dura 1.00s e volta para idle",
+     "name": "cast: idle→ação→idle",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "interact"
+     ],
+     "detail": "dura 0.80s e volta para idle",
+     "name": "interact: idle→ação→idle",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "hurt"
+     ],
+     "detail": "dura 0.50s e volta para idle",
+     "name": "hurt: idle→ação→idle",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "walk",
+      "attack_melee"
+     ],
+     "detail": "termina em walk",
+     "name": "andar + atacar",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "run",
+      "attack_melee"
+     ],
+     "detail": "termina em run",
+     "name": "correr + atacar",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "attack_melee"
+     ],
+     "detail": "quadro 2 mantido, clip attack_melee_W",
+     "name": "atacar e virar",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "cast",
+      "walk"
+     ],
+     "detail": "preparo protegido; corta a recuperação a partir do quadro 8",
+     "name": "magia + movimento",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "walk",
+      "interact"
+     ],
+     "detail": "termina em walk",
+     "name": "interagir em movimento",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "attack_melee",
+      "hurt"
+     ],
+     "detail": "histórico [\"attack_melee\", \"hurt\", \"idle\"]",
+     "name": "dano interrompe ataque",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "hurt",
+      "attack_melee"
+     ],
+     "detail": "estado hurt",
+     "name": "ataque durante dano",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "attack_melee"
+     ],
+     "detail": "histórico [\"attack_melee\", \"attack_melee\"]",
+     "name": "dois ataques seguidos",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "death"
+     ],
+     "detail": "quadro final 9, estado death",
+     "name": "morte é terminal",
+     "status": "PASS"
+    }
+   ]
+  },
+  {
+   "slug": "aprendiz_suave_var_arma",
+   "name": "Aprendiz suave arma",
+   "render_profile": "isometric_smooth_192_v1",
+   "art_profile": "pindorama_friendly_smooth_v1",
+   "godot": "4.7.2-stable (official)",
+   "clips": {
+    "idle": {
+     "fps": 8,
+     "frames": 8,
+     "loop": true,
+     "category": "locomotion",
+     "priority": 0,
+     "interruptible_after": 0,
+     "return_to": null,
+     "held_frames": [],
+     "phases": [],
+     "events": [
+      {
+       "frame": 0,
+       "event": "LEFT_FOOT_CONTACT"
+      },
+      {
+       "frame": 0,
+       "event": "RIGHT_FOOT_CONTACT"
+      }
+     ],
+     "duration_s": 1.0,
+     "resolution": "192×192",
+     "checks": [
+      {
+       "id": "ANI-001:idle",
+       "status": "PASS",
+       "detail": "8 frames + fechamento avaliados; IK 0.00000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-002:idle",
+       "status": "PASS",
+       "detail": "contatos coerentes; mínimo -0.0000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-003:idle",
+       "status": "PASS",
+       "detail": "foot sliding 0.00001 H/s",
+       "tolerance": "0.03 H/s",
+       "evidence": []
+      },
+      {
+       "id": "ANI-004:idle",
+       "status": "PASS",
+       "detail": "loop 0.000000H; maior passo 0.0172H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-REVIEW:idle",
+       "status": "REVIEW",
+       "detail": "qualidade do movimento exige revisão humana",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-005:idle",
+       "status": "PASS",
+       "detail": "ponto mais baixo +0.5 mm (boot_sole_l, quadro 7); coxa fora da túnica até 0.0 mm",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "RND-003:idle",
+       "status": "PASS",
+       "detail": "8 direções × 8 frames",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "IMG-001:idle",
+       "status": "PASS",
+       "detail": "PNG RGBA, dimensões, alpha e sem corte",
+       "tolerance": "margem 2px",
+       "evidence": []
+      },
+      {
+       "id": "IMG-004:idle",
+       "status": "PASS",
+       "detail": "landmarks 3D projetados caem na silhueta em todos os frames",
+       "tolerance": "raio 4px",
+       "evidence": []
+      },
+      {
+       "id": "DIR-002:idle",
+       "status": "PASS",
+       "detail": "oito direções distintas (sem espelhamento)",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "IMG-005:idle",
+       "status": "WARN",
+       "detail": "3 frames repetidos dentro de uma direção",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "IMG-002:idle",
+       "status": "PASS",
+       "detail": "variação máxima de bbox no idle: 3px",
+       "tolerance": "4px",
+       "evidence": []
+      }
+     ],
+     "scenario": {
+      "actions": [
+       "idle"
+      ],
+      "detail": "8 quadros a 8 fps (1.00s), 8 direções no SpriteFrames, sequência completa",
+      "name": "clip:idle",
+      "status": "PASS"
+     },
+     "transitions": [
+      {
+       "actions": [
+        "idle",
+        "walk",
+        "run"
+       ],
+       "detail": "histórico [\"walk\", \"run\", \"idle\"]",
+       "name": "idle→walk→run→idle",
+       "status": "PASS"
+      }
+     ],
+     "directions": {
+      "N": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_var_arma/idle_N.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/idle_N.png",
+       "smoke_failures": []
+      },
+      "NE": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_var_arma/idle_NE.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/idle_NE.png",
+       "smoke_failures": []
+      },
+      "E": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_var_arma/idle_E.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/idle_E.png",
+       "smoke_failures": []
+      },
+      "SE": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_var_arma/idle_SE.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/idle_SE.png",
+       "smoke_failures": []
+      },
+      "S": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_var_arma/idle_S.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/idle_S.png",
+       "smoke_failures": []
+      },
+      "SW": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_var_arma/idle_SW.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/idle_SW.png",
+       "smoke_failures": []
+      },
+      "W": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_var_arma/idle_W.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/idle_W.png",
+       "smoke_failures": []
+      },
+      "NW": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_var_arma/idle_NW.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/idle_NW.png",
+       "smoke_failures": []
+      }
+     }
+    },
+    "walk": {
+     "fps": 12,
+     "frames": 8,
+     "loop": true,
+     "category": "locomotion",
+     "priority": 0,
+     "interruptible_after": 0,
+     "return_to": null,
+     "held_frames": [],
+     "phases": [],
+     "events": [
+      {
+       "frame": 0,
+       "event": "LEFT_FOOT_CONTACT"
+      },
+      {
+       "frame": 5,
+       "event": "LEFT_SWING"
+      },
+      {
+       "frame": 4,
+       "event": "RIGHT_FOOT_CONTACT"
+      },
+      {
+       "frame": 1,
+       "event": "RIGHT_SWING"
+      }
+     ],
+     "duration_s": 0.6666666666666666,
+     "resolution": "192×192",
+     "checks": [
+      {
+       "id": "ANI-001:walk",
+       "status": "PASS",
+       "detail": "8 frames + fechamento avaliados; IK 0.00001H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-002:walk",
+       "status": "PASS",
+       "detail": "contatos coerentes; mínimo -0.0000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-003:walk",
+       "status": "PASS",
+       "detail": "foot sliding 0.00002 H/s",
+       "tolerance": "0.03 H/s",
+       "evidence": []
+      },
+      {
+       "id": "ANI-004:walk",
+       "status": "PASS",
+       "detail": "loop 0.000000H; maior passo 0.0851H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-REVIEW:walk",
+       "status": "REVIEW",
+       "detail": "qualidade do movimento exige revisão humana",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-005:walk",
+       "status": "PASS",
+       "detail": "ponto mais baixo +0.5 mm (boot_sole_l, quadro 5); coxa fora da túnica até 5.4 mm",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "RND-003:walk",
+       "status": "PASS",
+       "detail": "8 direções × 8 frames",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "IMG-001:walk",
+       "status": "PASS",
+       "detail": "PNG RGBA, dimensões, alpha e sem corte",
+       "tolerance": "margem 2px",
+       "evidence": []
+      },
+      {
+       "id": "IMG-004:walk",
+       "status": "PASS",
+       "detail": "landmarks 3D projetados caem na silhueta em todos os frames",
+       "tolerance": "raio 4px",
+       "evidence": []
+      },
+      {
+       "id": "DIR-002:walk",
+       "status": "PASS",
+       "detail": "oito direções distintas (sem espelhamento)",
+       "tolerance": null,
+       "evidence": []
+      }
+     ],
+     "scenario": {
+      "actions": [
+       "walk"
+      ],
+      "detail": "8 quadros a 12 fps (0.67s), 8 direções no SpriteFrames, sequência completa",
+      "name": "clip:walk",
+      "status": "PASS"
+     },
+     "transitions": [
+      {
+       "actions": [
+        "idle",
+        "walk",
+        "run"
+       ],
+       "detail": "histórico [\"walk\", \"run\", \"idle\"]",
+       "name": "idle→walk→run→idle",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "walk",
+        "attack_melee"
+       ],
+       "detail": "termina em walk",
+       "name": "andar + atacar",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "cast",
+        "walk"
+       ],
+       "detail": "preparo protegido; corta a recuperação a partir do quadro 8",
+       "name": "magia + movimento",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "walk",
+        "interact"
+       ],
+       "detail": "termina em walk",
+       "name": "interagir em movimento",
+       "status": "PASS"
+      }
+     ],
+     "directions": {
+      "N": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/walk_N.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/walk_N.png",
+       "smoke_failures": []
+      },
+      "NE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/walk_NE.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/walk_NE.png",
+       "smoke_failures": []
+      },
+      "E": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/walk_E.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/walk_E.png",
+       "smoke_failures": []
+      },
+      "SE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/walk_SE.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/walk_SE.png",
+       "smoke_failures": []
+      },
+      "S": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/walk_S.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/walk_S.png",
+       "smoke_failures": []
+      },
+      "SW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/walk_SW.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/walk_SW.png",
+       "smoke_failures": []
+      },
+      "W": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/walk_W.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/walk_W.png",
+       "smoke_failures": []
+      },
+      "NW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/walk_NW.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/walk_NW.png",
+       "smoke_failures": []
+      }
+     }
+    },
+    "run": {
+     "fps": 16,
+     "frames": 8,
+     "loop": true,
+     "category": "locomotion",
+     "priority": 0,
+     "interruptible_after": 0,
+     "return_to": null,
+     "held_frames": [],
+     "phases": [],
+     "events": [
+      {
+       "frame": 0,
+       "event": "LEFT_FOOT_CONTACT"
+      },
+      {
+       "frame": 3,
+       "event": "LEFT_SWING"
+      },
+      {
+       "frame": 4,
+       "event": "RIGHT_FOOT_CONTACT"
+      },
+      {
+       "frame": 7,
+       "event": "RIGHT_SWING"
+      }
+     ],
+     "duration_s": 0.5,
+     "resolution": "192×192",
+     "checks": [
+      {
+       "id": "ANI-001:run",
+       "status": "PASS",
+       "detail": "8 frames + fechamento avaliados; IK 0.00001H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-002:run",
+       "status": "PASS",
+       "detail": "contatos coerentes; mínimo -0.0000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-003:run",
+       "status": "PASS",
+       "detail": "foot sliding 0.00006 H/s",
+       "tolerance": "0.03 H/s",
+       "evidence": []
+      },
+      {
+       "id": "ANI-004:run",
+       "status": "PASS",
+       "detail": "loop 0.000000H; maior passo 0.0700H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-REVIEW:run",
+       "status": "REVIEW",
+       "detail": "qualidade do movimento exige revisão humana",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-005:run",
+       "status": "PASS",
+       "detail": "ponto mais baixo +0.5 mm (boot_sole_l, quadro 3); coxa fora da túnica até 11.2 mm",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "RND-003:run",
+       "status": "PASS",
+       "detail": "8 direções × 8 frames",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "IMG-001:run",
+       "status": "PASS",
+       "detail": "PNG RGBA, dimensões, alpha e sem corte",
+       "tolerance": "margem 2px",
+       "evidence": []
+      },
+      {
+       "id": "IMG-004:run",
+       "status": "PASS",
+       "detail": "landmarks 3D projetados caem na silhueta em todos os frames",
+       "tolerance": "raio 4px",
+       "evidence": []
+      },
+      {
+       "id": "DIR-002:run",
+       "status": "PASS",
+       "detail": "oito direções distintas (sem espelhamento)",
+       "tolerance": null,
+       "evidence": []
+      }
+     ],
+     "scenario": {
+      "actions": [
+       "run"
+      ],
+      "detail": "8 quadros a 16 fps (0.50s), 8 direções no SpriteFrames, sequência completa",
+      "name": "clip:run",
+      "status": "PASS"
+     },
+     "transitions": [
+      {
+       "actions": [
+        "idle",
+        "walk",
+        "run"
+       ],
+       "detail": "histórico [\"walk\", \"run\", \"idle\"]",
+       "name": "idle→walk→run→idle",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "run",
+        "attack_melee"
+       ],
+       "detail": "termina em run",
+       "name": "correr + atacar",
+       "status": "PASS"
+      }
+     ],
+     "directions": {
+      "N": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/run_N.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/run_N.png",
+       "smoke_failures": []
+      },
+      "NE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/run_NE.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/run_NE.png",
+       "smoke_failures": []
+      },
+      "E": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/run_E.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/run_E.png",
+       "smoke_failures": []
+      },
+      "SE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/run_SE.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/run_SE.png",
+       "smoke_failures": []
+      },
+      "S": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/run_S.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/run_S.png",
+       "smoke_failures": []
+      },
+      "SW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/run_SW.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/run_SW.png",
+       "smoke_failures": []
+      },
+      "W": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/run_W.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/run_W.png",
+       "smoke_failures": []
+      },
+      "NW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/run_NW.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/run_NW.png",
+       "smoke_failures": []
+      }
+     }
+    },
+    "attack_melee": {
+     "fps": 12,
+     "frames": 8,
+     "loop": false,
+     "category": "melee",
+     "priority": 10,
+     "interruptible_after": 5,
+     "return_to": "idle",
+     "held_frames": [],
+     "phases": [
+      {
+       "name": "prepare",
+       "start_frame": 0,
+       "end_frame": 2
+      },
+      {
+       "name": "execute",
+       "start_frame": 3,
+       "end_frame": 4
+      },
+      {
+       "name": "recover",
+       "start_frame": 5,
+       "end_frame": 7
+      }
+     ],
+     "events": [
+      {
+       "frame": 0,
+       "event": "LEFT_FOOT_CONTACT"
+      },
+      {
+       "frame": 0,
+       "event": "RIGHT_FOOT_CONTACT"
+      },
+      {
+       "frame": 4,
+       "event": "HIT"
+      }
+     ],
+     "duration_s": 0.6666666666666666,
+     "resolution": "192×192",
+     "checks": [
+      {
+       "id": "ANI-001:attack_melee",
+       "status": "PASS",
+       "detail": "8 frames + fechamento avaliados; IK 0.00000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-002:attack_melee",
+       "status": "PASS",
+       "detail": "contatos coerentes; mínimo -0.0000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-003:attack_melee",
+       "status": "PASS",
+       "detail": "foot sliding 0.00002 H/s",
+       "tolerance": "0.03 H/s",
+       "evidence": []
+      },
+      {
+       "id": "ANI-004:attack_melee",
+       "status": "PASS",
+       "detail": "loop 0.000000H; maior passo 0.2987H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-REVIEW:attack_melee",
+       "status": "REVIEW",
+       "detail": "qualidade do movimento exige revisão humana",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-005:attack_melee",
+       "status": "PASS",
+       "detail": "ponto mais baixo +0.5 mm (boot_sole_l, quadro 7); coxa fora da túnica até 8.4 mm",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "RND-003:attack_melee",
+       "status": "PASS",
+       "detail": "8 direções × 8 frames",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "IMG-001:attack_melee",
+       "status": "PASS",
+       "detail": "PNG RGBA, dimensões, alpha e sem corte",
+       "tolerance": "margem 2px",
+       "evidence": []
+      },
+      {
+       "id": "IMG-004:attack_melee",
+       "status": "PASS",
+       "detail": "landmarks 3D projetados caem na silhueta em todos os frames",
+       "tolerance": "raio 4px",
+       "evidence": []
+      },
+      {
+       "id": "DIR-002:attack_melee",
+       "status": "PASS",
+       "detail": "oito direções distintas (sem espelhamento)",
+       "tolerance": null,
+       "evidence": []
+      }
+     ],
+     "scenario": {
+      "actions": [
+       "attack_melee"
+      ],
+      "detail": "8 quadros a 12 fps (0.67s), 8 direções no SpriteFrames, sequência completa",
+      "name": "clip:attack_melee",
+      "status": "PASS"
+     },
+     "transitions": [
+      {
+       "actions": [
+        "attack_melee"
+       ],
+       "detail": "dura 0.67s e volta para idle",
+       "name": "attack_melee: idle→ação→idle",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "walk",
+        "attack_melee"
+       ],
+       "detail": "termina em walk",
+       "name": "andar + atacar",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "run",
+        "attack_melee"
+       ],
+       "detail": "termina em run",
+       "name": "correr + atacar",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "attack_melee"
+       ],
+       "detail": "quadro 2 mantido, clip attack_melee_W",
+       "name": "atacar e virar",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "attack_melee",
+        "hurt"
+       ],
+       "detail": "histórico [\"attack_melee\", \"hurt\", \"idle\"]",
+       "name": "dano interrompe ataque",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "hurt",
+        "attack_melee"
+       ],
+       "detail": "estado hurt",
+       "name": "ataque durante dano",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "attack_melee"
+       ],
+       "detail": "histórico [\"attack_melee\", \"attack_melee\"]",
+       "name": "dois ataques seguidos",
+       "status": "PASS"
+      }
+     ],
+     "directions": {
+      "N": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/attack_melee_N.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/attack_melee_N.png",
+       "smoke_failures": []
+      },
+      "NE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/attack_melee_NE.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/attack_melee_NE.png",
+       "smoke_failures": []
+      },
+      "E": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/attack_melee_E.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/attack_melee_E.png",
+       "smoke_failures": []
+      },
+      "SE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/attack_melee_SE.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/attack_melee_SE.png",
+       "smoke_failures": []
+      },
+      "S": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/attack_melee_S.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/attack_melee_S.png",
+       "smoke_failures": []
+      },
+      "SW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/attack_melee_SW.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/attack_melee_SW.png",
+       "smoke_failures": []
+      },
+      "W": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/attack_melee_W.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/attack_melee_W.png",
+       "smoke_failures": []
+      },
+      "NW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/attack_melee_NW.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/attack_melee_NW.png",
+       "smoke_failures": []
+      }
+     }
+    },
+    "cast": {
+     "fps": 12,
+     "frames": 12,
+     "loop": false,
+     "category": "magic",
+     "priority": 10,
+     "interruptible_after": 8,
+     "return_to": "idle",
+     "held_frames": [],
+     "phases": [
+      {
+       "name": "prepare",
+       "start_frame": 0,
+       "end_frame": 5
+      },
+      {
+       "name": "execute",
+       "start_frame": 6,
+       "end_frame": 7
+      },
+      {
+       "name": "recover",
+       "start_frame": 8,
+       "end_frame": 11
+      }
+     ],
+     "events": [
+      {
+       "frame": 0,
+       "event": "LEFT_FOOT_CONTACT"
+      },
+      {
+       "frame": 0,
+       "event": "RIGHT_FOOT_CONTACT"
+      },
+      {
+       "frame": 7,
+       "event": "CAST_RELEASE"
+      }
+     ],
+     "duration_s": 1.0,
+     "resolution": "192×192",
+     "checks": [
+      {
+       "id": "ANI-001:cast",
+       "status": "PASS",
+       "detail": "12 frames + fechamento avaliados; IK 0.00000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-002:cast",
+       "status": "PASS",
+       "detail": "contatos coerentes; mínimo -0.0000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-003:cast",
+       "status": "PASS",
+       "detail": "foot sliding 0.00000 H/s",
+       "tolerance": "0.03 H/s",
+       "evidence": []
+      },
+      {
+       "id": "ANI-004:cast",
+       "status": "PASS",
+       "detail": "loop 0.000000H; maior passo 0.1474H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-REVIEW:cast",
+       "status": "REVIEW",
+       "detail": "qualidade do movimento exige revisão humana",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-005:cast",
+       "status": "WARN",
+       "detail": "ponto mais baixo +0.5 mm (boot_sole_l, quadro 11); coxa fora da túnica até 15.8 mm",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "RND-003:cast",
+       "status": "PASS",
+       "detail": "8 direções × 12 frames",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "IMG-001:cast",
+       "status": "PASS",
+       "detail": "PNG RGBA, dimensões, alpha e sem corte",
+       "tolerance": "margem 2px",
+       "evidence": []
+      },
+      {
+       "id": "IMG-004:cast",
+       "status": "PASS",
+       "detail": "landmarks 3D projetados caem na silhueta em todos os frames",
+       "tolerance": "raio 4px",
+       "evidence": []
+      },
+      {
+       "id": "DIR-002:cast",
+       "status": "PASS",
+       "detail": "oito direções distintas (sem espelhamento)",
+       "tolerance": null,
+       "evidence": []
+      }
+     ],
+     "scenario": {
+      "actions": [
+       "cast"
+      ],
+      "detail": "12 quadros a 12 fps (1.00s), 8 direções no SpriteFrames, sequência completa",
+      "name": "clip:cast",
+      "status": "PASS"
+     },
+     "transitions": [
+      {
+       "actions": [
+        "cast"
+       ],
+       "detail": "dura 1.00s e volta para idle",
+       "name": "cast: idle→ação→idle",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "cast",
+        "walk"
+       ],
+       "detail": "preparo protegido; corta a recuperação a partir do quadro 8",
+       "name": "magia + movimento",
+       "status": "PASS"
+      }
+     ],
+     "directions": {
+      "N": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_var_arma/cast_N.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/cast_N.png",
+       "smoke_failures": []
+      },
+      "NE": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_var_arma/cast_NE.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/cast_NE.png",
+       "smoke_failures": []
+      },
+      "E": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_var_arma/cast_E.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/cast_E.png",
+       "smoke_failures": []
+      },
+      "SE": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_var_arma/cast_SE.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/cast_SE.png",
+       "smoke_failures": []
+      },
+      "S": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_var_arma/cast_S.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/cast_S.png",
+       "smoke_failures": []
+      },
+      "SW": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_var_arma/cast_SW.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/cast_SW.png",
+       "smoke_failures": []
+      },
+      "W": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_var_arma/cast_W.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/cast_W.png",
+       "smoke_failures": []
+      },
+      "NW": {
+       "status": "WARN",
+       "gif": "showcase/aprendiz_suave_var_arma/cast_NW.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/cast_NW.png",
+       "smoke_failures": []
+      }
+     }
+    },
+    "interact": {
+     "fps": 10,
+     "frames": 8,
+     "loop": false,
+     "category": "interaction",
+     "priority": 10,
+     "interruptible_after": 6,
+     "return_to": "idle",
+     "held_frames": [],
+     "phases": [
+      {
+       "name": "prepare",
+       "start_frame": 0,
+       "end_frame": 2
+      },
+      {
+       "name": "execute",
+       "start_frame": 3,
+       "end_frame": 5
+      },
+      {
+       "name": "recover",
+       "start_frame": 6,
+       "end_frame": 7
+      }
+     ],
+     "events": [
+      {
+       "frame": 0,
+       "event": "LEFT_FOOT_CONTACT"
+      },
+      {
+       "frame": 0,
+       "event": "RIGHT_FOOT_CONTACT"
+      },
+      {
+       "frame": 4,
+       "event": "INTERACT"
+      }
+     ],
+     "duration_s": 0.8,
+     "resolution": "192×192",
+     "checks": [
+      {
+       "id": "ANI-001:interact",
+       "status": "PASS",
+       "detail": "8 frames + fechamento avaliados; IK 0.00001H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-002:interact",
+       "status": "PASS",
+       "detail": "contatos coerentes; mínimo -0.0000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-003:interact",
+       "status": "PASS",
+       "detail": "foot sliding 0.00001 H/s",
+       "tolerance": "0.03 H/s",
+       "evidence": []
+      },
+      {
+       "id": "ANI-004:interact",
+       "status": "PASS",
+       "detail": "loop 0.000000H; maior passo 0.0929H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-REVIEW:interact",
+       "status": "REVIEW",
+       "detail": "qualidade do movimento exige revisão humana",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-005:interact",
+       "status": "PASS",
+       "detail": "ponto mais baixo +0.5 mm (boot_sole_l, quadro 7); coxa fora da túnica até 6.0 mm",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "RND-003:interact",
+       "status": "PASS",
+       "detail": "8 direções × 8 frames",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "IMG-001:interact",
+       "status": "PASS",
+       "detail": "PNG RGBA, dimensões, alpha e sem corte",
+       "tolerance": "margem 2px",
+       "evidence": []
+      },
+      {
+       "id": "IMG-004:interact",
+       "status": "PASS",
+       "detail": "landmarks 3D projetados caem na silhueta em todos os frames",
+       "tolerance": "raio 4px",
+       "evidence": []
+      },
+      {
+       "id": "DIR-002:interact",
+       "status": "PASS",
+       "detail": "oito direções distintas (sem espelhamento)",
+       "tolerance": null,
+       "evidence": []
+      }
+     ],
+     "scenario": {
+      "actions": [
+       "interact"
+      ],
+      "detail": "8 quadros a 10 fps (0.80s), 8 direções no SpriteFrames, sequência completa",
+      "name": "clip:interact",
+      "status": "PASS"
+     },
+     "transitions": [
+      {
+       "actions": [
+        "interact"
+       ],
+       "detail": "dura 0.80s e volta para idle",
+       "name": "interact: idle→ação→idle",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "walk",
+        "interact"
+       ],
+       "detail": "termina em walk",
+       "name": "interagir em movimento",
+       "status": "PASS"
+      }
+     ],
+     "directions": {
+      "N": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/interact_N.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/interact_N.png",
+       "smoke_failures": []
+      },
+      "NE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/interact_NE.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/interact_NE.png",
+       "smoke_failures": []
+      },
+      "E": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/interact_E.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/interact_E.png",
+       "smoke_failures": []
+      },
+      "SE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/interact_SE.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/interact_SE.png",
+       "smoke_failures": []
+      },
+      "S": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/interact_S.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/interact_S.png",
+       "smoke_failures": []
+      },
+      "SW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/interact_SW.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/interact_SW.png",
+       "smoke_failures": []
+      },
+      "W": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/interact_W.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/interact_W.png",
+       "smoke_failures": []
+      },
+      "NW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/interact_NW.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/interact_NW.png",
+       "smoke_failures": []
+      }
+     }
+    },
+    "hurt": {
+     "fps": 12,
+     "frames": 6,
+     "loop": false,
+     "category": "state",
+     "priority": 20,
+     "interruptible_after": 3,
+     "return_to": "idle",
+     "held_frames": [],
+     "phases": [
+      {
+       "name": "execute",
+       "start_frame": 0,
+       "end_frame": 1
+      },
+      {
+       "name": "recover",
+       "start_frame": 2,
+       "end_frame": 5
+      }
+     ],
+     "events": [
+      {
+       "frame": 0,
+       "event": "LEFT_FOOT_CONTACT"
+      },
+      {
+       "frame": 0,
+       "event": "RIGHT_FOOT_CONTACT"
+      },
+      {
+       "frame": 0,
+       "event": "IMPACT"
+      }
+     ],
+     "duration_s": 0.5,
+     "resolution": "192×192",
+     "checks": [
+      {
+       "id": "ANI-001:hurt",
+       "status": "PASS",
+       "detail": "6 frames + fechamento avaliados; IK 0.00000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-002:hurt",
+       "status": "PASS",
+       "detail": "contatos coerentes; mínimo -0.0000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-003:hurt",
+       "status": "PASS",
+       "detail": "foot sliding 0.00001 H/s",
+       "tolerance": "0.03 H/s",
+       "evidence": []
+      },
+      {
+       "id": "ANI-004:hurt",
+       "status": "PASS",
+       "detail": "loop 0.000000H; maior passo 0.0294H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-REVIEW:hurt",
+       "status": "REVIEW",
+       "detail": "qualidade do movimento exige revisão humana",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-005:hurt",
+       "status": "PASS",
+       "detail": "ponto mais baixo +0.5 mm (boot_sole_l, quadro 5); coxa fora da túnica até 3.2 mm",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "RND-003:hurt",
+       "status": "PASS",
+       "detail": "8 direções × 6 frames",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "IMG-001:hurt",
+       "status": "PASS",
+       "detail": "PNG RGBA, dimensões, alpha e sem corte",
+       "tolerance": "margem 2px",
+       "evidence": []
+      },
+      {
+       "id": "IMG-004:hurt",
+       "status": "PASS",
+       "detail": "landmarks 3D projetados caem na silhueta em todos os frames",
+       "tolerance": "raio 4px",
+       "evidence": []
+      },
+      {
+       "id": "DIR-002:hurt",
+       "status": "PASS",
+       "detail": "oito direções distintas (sem espelhamento)",
+       "tolerance": null,
+       "evidence": []
+      }
+     ],
+     "scenario": {
+      "actions": [
+       "hurt"
+      ],
+      "detail": "6 quadros a 12 fps (0.50s), 8 direções no SpriteFrames, sequência completa",
+      "name": "clip:hurt",
+      "status": "PASS"
+     },
+     "transitions": [
+      {
+       "actions": [
+        "hurt"
+       ],
+       "detail": "dura 0.50s e volta para idle",
+       "name": "hurt: idle→ação→idle",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "attack_melee",
+        "hurt"
+       ],
+       "detail": "histórico [\"attack_melee\", \"hurt\", \"idle\"]",
+       "name": "dano interrompe ataque",
+       "status": "PASS"
+      },
+      {
+       "actions": [
+        "hurt",
+        "attack_melee"
+       ],
+       "detail": "estado hurt",
+       "name": "ataque durante dano",
+       "status": "PASS"
+      }
+     ],
+     "directions": {
+      "N": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/hurt_N.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/hurt_N.png",
+       "smoke_failures": []
+      },
+      "NE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/hurt_NE.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/hurt_NE.png",
+       "smoke_failures": []
+      },
+      "E": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/hurt_E.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/hurt_E.png",
+       "smoke_failures": []
+      },
+      "SE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/hurt_SE.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/hurt_SE.png",
+       "smoke_failures": []
+      },
+      "S": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/hurt_S.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/hurt_S.png",
+       "smoke_failures": []
+      },
+      "SW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/hurt_SW.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/hurt_SW.png",
+       "smoke_failures": []
+      },
+      "W": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/hurt_W.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/hurt_W.png",
+       "smoke_failures": []
+      },
+      "NW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/hurt_NW.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/hurt_NW.png",
+       "smoke_failures": []
+      }
+     }
+    },
+    "death": {
+     "fps": 10,
+     "frames": 10,
+     "loop": false,
+     "category": "state",
+     "priority": 100,
+     "interruptible_after": 99,
+     "return_to": null,
+     "held_frames": [
+      9
+     ],
+     "phases": [
+      {
+       "name": "execute",
+       "start_frame": 0,
+       "end_frame": 7
+      },
+      {
+       "name": "hold",
+       "start_frame": 8,
+       "end_frame": 9
+      }
+     ],
+     "events": [
+      {
+       "frame": 0,
+       "event": "LEFT_FOOT_CONTACT"
+      },
+      {
+       "frame": 0,
+       "event": "RIGHT_FOOT_CONTACT"
+      },
+      {
+       "frame": 8,
+       "event": "DEATH_REST"
+      }
+     ],
+     "duration_s": 1.0,
+     "resolution": "192×192",
+     "checks": [
+      {
+       "id": "ANI-001:death",
+       "status": "PASS",
+       "detail": "10 frames + fechamento avaliados; IK 0.00002H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-002:death",
+       "status": "PASS",
+       "detail": "contatos coerentes; mínimo -0.0000H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-003:death",
+       "status": "PASS",
+       "detail": "foot sliding 0.00007 H/s",
+       "tolerance": "0.03 H/s",
+       "evidence": []
+      },
+      {
+       "id": "ANI-004:death",
+       "status": "PASS",
+       "detail": "loop 0.250457H; maior passo 0.1173H",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-REVIEW:death",
+       "status": "REVIEW",
+       "detail": "qualidade do movimento exige revisão humana",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "ANI-005:death",
+       "status": "PASS",
+       "detail": "ponto mais baixo +0.4 mm (boot_sole_l, quadro 6); coxa fora da túnica até 6.1 mm",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "RND-003:death",
+       "status": "PASS",
+       "detail": "8 direções × 10 frames",
+       "tolerance": null,
+       "evidence": []
+      },
+      {
+       "id": "IMG-001:death",
+       "status": "PASS",
+       "detail": "PNG RGBA, dimensões, alpha e sem corte",
+       "tolerance": "margem 2px",
+       "evidence": []
+      },
+      {
+       "id": "IMG-004:death",
+       "status": "PASS",
+       "detail": "landmarks 3D projetados caem na silhueta em todos os frames",
+       "tolerance": "raio 4px",
+       "evidence": []
+      },
+      {
+       "id": "DIR-002:death",
+       "status": "PASS",
+       "detail": "oito direções distintas (sem espelhamento)",
+       "tolerance": null,
+       "evidence": []
+      }
+     ],
+     "scenario": {
+      "actions": [
+       "death"
+      ],
+      "detail": "10 quadros a 10 fps (1.00s), 8 direções no SpriteFrames, sequência completa",
+      "name": "clip:death",
+      "status": "PASS"
+     },
+     "transitions": [
+      {
+       "actions": [
+        "death"
+       ],
+       "detail": "quadro final 9, estado death",
+       "name": "morte é terminal",
+       "status": "PASS"
+      }
+     ],
+     "directions": {
+      "N": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/death_N.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/death_N.png",
+       "smoke_failures": []
+      },
+      "NE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/death_NE.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/death_NE.png",
+       "smoke_failures": []
+      },
+      "E": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/death_E.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/death_E.png",
+       "smoke_failures": []
+      },
+      "SE": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/death_SE.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/death_SE.png",
+       "smoke_failures": []
+      },
+      "S": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/death_S.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/death_S.png",
+       "smoke_failures": []
+      },
+      "SW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/death_SW.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/death_SW.png",
+       "smoke_failures": []
+      },
+      "W": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/death_W.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/death_W.png",
+       "smoke_failures": []
+      },
+      "NW": {
+       "status": "PASS",
+       "gif": "showcase/aprendiz_suave_var_arma/death_NW.gif",
+       "atlas": "showcase/aprendiz_suave_var_arma/atlas/death_NW.png",
+       "smoke_failures": []
+      }
+     }
+    }
+   },
+   "state_scenarios": [
+    {
+     "actions": [
+      "idle"
+     ],
+     "detail": "8 quadros a 8 fps (1.00s), 8 direções no SpriteFrames, sequência completa",
+     "name": "clip:idle",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "walk"
+     ],
+     "detail": "8 quadros a 12 fps (0.67s), 8 direções no SpriteFrames, sequência completa",
+     "name": "clip:walk",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "run"
+     ],
+     "detail": "8 quadros a 16 fps (0.50s), 8 direções no SpriteFrames, sequência completa",
+     "name": "clip:run",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "attack_melee"
+     ],
+     "detail": "8 quadros a 12 fps (0.67s), 8 direções no SpriteFrames, sequência completa",
+     "name": "clip:attack_melee",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "cast"
+     ],
+     "detail": "12 quadros a 12 fps (1.00s), 8 direções no SpriteFrames, sequência completa",
+     "name": "clip:cast",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "interact"
+     ],
+     "detail": "8 quadros a 10 fps (0.80s), 8 direções no SpriteFrames, sequência completa",
+     "name": "clip:interact",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "hurt"
+     ],
+     "detail": "6 quadros a 12 fps (0.50s), 8 direções no SpriteFrames, sequência completa",
+     "name": "clip:hurt",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "death"
+     ],
+     "detail": "10 quadros a 10 fps (1.00s), 8 direções no SpriteFrames, sequência completa",
+     "name": "clip:death",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "idle",
+      "walk",
+      "run"
+     ],
+     "detail": "histórico [\"walk\", \"run\", \"idle\"]",
+     "name": "idle→walk→run→idle",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "attack_melee"
+     ],
+     "detail": "dura 0.67s e volta para idle",
+     "name": "attack_melee: idle→ação→idle",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "cast"
+     ],
+     "detail": "dura 1.00s e volta para idle",
+     "name": "cast: idle→ação→idle",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "interact"
+     ],
+     "detail": "dura 0.80s e volta para idle",
+     "name": "interact: idle→ação→idle",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "hurt"
+     ],
+     "detail": "dura 0.50s e volta para idle",
+     "name": "hurt: idle→ação→idle",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "walk",
+      "attack_melee"
+     ],
+     "detail": "termina em walk",
+     "name": "andar + atacar",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "run",
+      "attack_melee"
+     ],
+     "detail": "termina em run",
+     "name": "correr + atacar",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "attack_melee"
+     ],
+     "detail": "quadro 2 mantido, clip attack_melee_W",
+     "name": "atacar e virar",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "cast",
+      "walk"
+     ],
+     "detail": "preparo protegido; corta a recuperação a partir do quadro 8",
+     "name": "magia + movimento",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "walk",
+      "interact"
+     ],
+     "detail": "termina em walk",
+     "name": "interagir em movimento",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "attack_melee",
+      "hurt"
+     ],
+     "detail": "histórico [\"attack_melee\", \"hurt\", \"idle\"]",
+     "name": "dano interrompe ataque",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "hurt",
+      "attack_melee"
+     ],
+     "detail": "estado hurt",
+     "name": "ataque durante dano",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "attack_melee"
+     ],
+     "detail": "histórico [\"attack_melee\", \"attack_melee\"]",
+     "name": "dois ataques seguidos",
+     "status": "PASS"
+    },
+    {
+     "actions": [
+      "death"
+     ],
+     "detail": "quadro final 9, estado death",
+     "name": "morte é terminal",
+     "status": "PASS"
+    }
+   ]
+  }
+ ]
+}

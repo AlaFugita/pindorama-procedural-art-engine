@@ -51,7 +51,7 @@ footer{max-width:1080px;margin:auto;padding:24px 16px;color:var(--soft);font-siz
   <p>O <b>Isometric Character Studio</b> gera personagens 2.5D isométricos para um MMORPG <b>por código</b>: geometria procedural, rig, animação e renderização no Blender, composição de imagem em Python e exportação para o Godot. A visão de longo prazo é gerar também criaturas, natureza, objetos, construções e ambientes com a mesma identidade visual. Projeto pessoal, de hobby.</p>
 </header>
 <nav><div>
-  <a href="#estado">Estado</a><a href="#galeria">Galeria</a><a href="#evolucao">Evolução</a><a href="#arquitetura">Arquitetura</a><a href="#pesquisa">Pesquisa</a><a href="#decisoes">Decisões</a><a href="#docs">Documentação</a>
+  <a href="animations.html"><b>Animações</b></a><a href="#estado">Estado</a><a href="#galeria">Galeria</a><a href="#evolucao">Evolução</a><a href="#arquitetura">Arquitetura</a><a href="#pesquisa">Pesquisa</a><a href="#decisoes">Decisões</a><a href="#docs">Documentação</a>
 </div></nav>
 <main>
 
@@ -67,7 +67,8 @@ footer{max-width:1080px;margin:auto;padding:24px 16px;color:var(--soft);font-siz
     <tr><td>Acabamento pixel art (opcional)</td><td><span class="tag ok">testado</span></td><td>Transparência 216 de 216, alpha binário</td></tr>
     <tr><td>Atlas recortado para o Godot</td><td><span class="tag ok">testado</span></td><td>VRAM por personagem (192 px): 27,9 → 10,6 MiB; Godot confere pixel a pixel</td></tr>
     <tr><td>Personalização modular</td><td><span class="tag ok">testado</span></td><td>5 variações de um campo cada; só mudam as peças trocadas</td></tr>
-    <tr><td>Clips de ataque, magia, defesa e morte; perfis por arma</td><td><span class="tag warn">planejado</span></td><td>Bloqueado até a aprovação do mestre</td></tr>
+    <tr><td>Ações: ataque com cajado, magia, interação, dano, morte</td><td><span class="tag ok">testado no Godot</span></td><td><a href="animations.html">Animation Showcase &amp; Validation</a>: 48 PASS e 16 WARN por personagem; 22 cenários de estado no Godot</td></tr>
+    <tr><td>À distância, pulo/queda, atordoado, renascer, perfis por arma</td><td><span class="tag warn">MISSING</span></td><td>Veja o plano de correção em <a href="docs/ANIMATION_VALIDATION.html">ANIMATION_VALIDATION</a></td></tr>
     <tr><td>Criaturas, natureza, objetos, construções, ambientes</td><td><span class="tag warn">visão / planejado</span></td><td>Roadmap; nenhum código ainda</td></tr>
   </table></div>
 </section>
@@ -105,6 +106,7 @@ footer{max-width:1080px;margin:auto;padding:24px 16px;color:var(--soft);font-siz
     <li><b>2026-11-07</b>: evolução 3: rosto como decalque vetorial procedural (feedback do usuário), mechas por curva e <code>seed</code> na ficha.</li>
     <li><b>2026-11-07</b>: atlas recortado: −62% de memória de vídeo por personagem.</li>
     <li><b>2026-11-07</b>: sonda de chão e túnica dentro do gate G5 (ANI-005); piscar no idle.</li>
+    <li><b>2026-11-07</b>: prioridade em animação: 5 ações por poses-chave, máquina de estados no Godot (GODOT-003) e página de validação.</li>
   </ol>
 </section>
 

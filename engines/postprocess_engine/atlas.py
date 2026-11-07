@@ -197,7 +197,18 @@ def qa_frames(
             array = np.array(boxes)
             jitter[direction] = tuple(int(v) for v in array.max(axis=0) - array.min(axis=0))
 
-    repeated = sum(len(d) - len(set(d)) for d in digests.values())
+    # Repetição intencional (pose mantida, ``held_frames``) não é duplicação acidental.
+    held = set(clip.held_frames)
+    repeated = intentional = 0
+    for frame_digests in digests.values():
+        seen = set()
+        for index, digest in enumerate(frame_digests):
+            if digest in seen:
+                if index in held:
+                    intentional += 1
+                else:
+                    repeated += 1
+            seen.add(digest)
     equal_directions = []
     names = list(digests)
     for i, a in enumerate(names):
@@ -231,7 +242,7 @@ def qa_frames(
             status=GateStatus.WARN if worst > IDLE_JITTER_WARN_PX else GateStatus.PASS,
             detail=f"variação máxima de bbox no idle: {worst}px", tolerance=f"{IDLE_JITTER_WARN_PX}px",
         ))
-    return checks, {"bbox_jitter": jitter, "repeated_frames": repeated}
+    return checks, {"bbox_jitter": jitter, "repeated_frames": repeated, "held_repeats": intentional}
 
 
 def events_of(clip: AnimationClip) -> list[ContactEvent]:

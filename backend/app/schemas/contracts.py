@@ -187,7 +187,8 @@ class RigProfile(Contract):
 # --- Animação ----------------------------------------------------------------
 class ContactEvent(Sub):
     frame: int = Field(ge=0)
-    event: Literal["LEFT_FOOT_CONTACT", "RIGHT_FOOT_CONTACT", "LEFT_SWING", "RIGHT_SWING"]
+    event: Literal["LEFT_FOOT_CONTACT", "RIGHT_FOOT_CONTACT", "LEFT_SWING", "RIGHT_SWING",
+                   "HIT", "CAST_RELEASE", "INTERACT", "IMPACT", "DEATH_REST"]
 
 
 class AnimationTolerances(Sub):
@@ -214,8 +215,29 @@ class GaitParams(Sub):
     torso_twist_deg: float = 0
 
 
+class PoseKey(Sub):
+    """Pose-chave de uma ação: rotações (graus, eixos canônicos de repouso) e deslocamento da pelve."""
+
+    t: float = Field(ge=0, le=1)
+    bones: dict[str, tuple[float, float, float]] = Field(default_factory=dict)
+    pelvis: tuple[float, float, float] = (0.0, 0.0, 0.0)
+
+
+class ClipPhase(Sub):
+    name: Literal["prepare", "execute", "recover", "hold"]
+    start_frame: int = Field(ge=0)
+    end_frame: int = Field(ge=0)
+
+
 class AnimationClip(Sub):
-    animation_id: Literal["idle", "walk", "run"]
+    animation_id: Annotated[str, Field(pattern=r"^[a-z][a-z_]{1,31}$")]
+    category: Literal["locomotion", "melee", "ranged", "magic", "interaction", "state"] = "locomotion"
+    keys: list[PoseKey] = Field(default_factory=list, description="Vazio = locomoção procedural pela marcha")
+    phases: list[ClipPhase] = Field(default_factory=list)
+    priority: int = Field(default=0, ge=0, description="Maior interrompe menor (locomoção 0, ação 10, dano 20, morte 100)")
+    interruptible_after: int = Field(default=0, ge=0, description="A partir deste quadro, movimento ou nova ação cortam a recuperação")
+    return_to: str | None = Field(default=None, description="Estado após o fim de um clip sem laço; vazio = terminal")
+    held_frames: list[int] = Field(default_factory=list, description="Quadros repetidos de propósito (pose mantida)")
     version: str
     fps: int = Field(gt=0, le=60)
     frame_count: int = Field(gt=1, le=64)
@@ -476,6 +498,12 @@ class DirectionAtlas(Sub):
 
 class AnimationExport(Sub):
     animation: str
+    category: str = "locomotion"
+    priority: int = 0
+    interruptible_after: int = 0
+    return_to: str | None = None
+    held_frames: list[int] = Field(default_factory=list)
+    phases: list[ClipPhase] = Field(default_factory=list)
     fps: int
     loop: bool
     frame_count: int

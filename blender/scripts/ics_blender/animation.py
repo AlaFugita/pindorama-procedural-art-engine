@@ -42,8 +42,32 @@ def _sole_clearance(pitch_deg):
     return -lowest
 
 
+def _smooth(u):
+    return u * u * (3 - 2 * u)
+
+
+def apply_keys(armature, keys, t):
+    """Ação por poses-chave: interpola rotações e pelve; os pés ficam plantados (controles em repouso)."""
+    bones = armature.pose.bones
+    keys = sorted(keys, key=lambda k: k["t"])
+    after = next((i for i, k in enumerate(keys) if k["t"] >= t), len(keys) - 1)
+    before = max(after - 1, 0)
+    a, b = keys[before], keys[after]
+    u = 0.0 if b["t"] == a["t"] else _smooth((t - a["t"]) / (b["t"] - a["t"]))
+    names = set(a["bones"]) | set(b["bones"])
+    for name in names:
+        ra = a["bones"].get(name, (0, 0, 0))
+        rb = b["bones"].get(name, (0, 0, 0))
+        rig_utils.rotation_in_armature_axes(bones[name], tuple(x + (y - x) * u for x, y in zip(ra, rb)))
+    pa, pb = a.get("pelvis", (0, 0, 0)), b.get("pelvis", (0, 0, 0))
+    pelvis = bones["pelvis"]
+    pelvis.location = _armature_delta(pelvis, tuple(x + (y - x) * u for x, y in zip(pa, pb)))
+
+
 def apply_pose(armature, clip, t, right_arm_factor):
     bones = armature.pose.bones
+    if clip.get("keys"):
+        return apply_keys(armature, clip["keys"], t)
     gait = clip["gait"]
     cycle = 2 * math.pi * t
     moving = gait["stride_m"] > 0
@@ -96,8 +120,8 @@ def _armature_delta(pose_bone, delta):
 
 
 ANIMATED = [
-    "ctrl_foot_l", "ctrl_foot_r", "pelvis", "spine_01", "chest", "head",
-    "upper_arm_l", "upper_arm_r", "forearm_l", "forearm_r",
+    "ctrl_foot_l", "ctrl_foot_r", "pelvis", "spine_01", "chest", "neck", "head",
+    "upper_arm_l", "upper_arm_r", "forearm_l", "forearm_r", "hand_l", "hand_r",
 ]
 
 
@@ -112,7 +136,11 @@ def bake_clip(armature, clip, right_arm_factor):
     scene.render.fps = clip["fps"]
     for frame in range(frames + 1):
         rig_utils.reset_pose(armature)
-        apply_pose(armature, clip, (frame % frames) / frames, right_arm_factor)
+        # Laço e ação que volta a outro estado: t ∈ [0, 1); o próximo quadro (pose neutra) é o do
+        # estado seguinte, então nenhum quadro repete o primeiro. Ação terminal (morte): t vai até 1.
+        terminal = not clip.get("loop", True) and clip.get("return_to") is None
+        t = min(frame, frames - 1) / max(frames - 1, 1) if terminal else (frame % frames) / frames
+        apply_pose(armature, clip, t, right_arm_factor)
         for name in ANIMATED:
             bone = armature.pose.bones[name]
             bone.keyframe_insert("rotation_quaternion", frame=frame)

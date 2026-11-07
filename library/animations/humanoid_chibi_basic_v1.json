@@ -134,6 +134,1048 @@
     "loop_landmark_gap_factor": 1.25
    },
    "approval": "UNAPPROVED"
+  },
+  {
+   "animation_id": "attack_melee",
+   "version": "1.0.0",
+   "fps": 12,
+   "frame_count": 8,
+   "loop": false,
+   "root_motion": "in_place",
+   "ground_speed_mps": 0.0,
+   "gait": {
+    "stride_m": 0,
+    "stance_fraction": 1,
+    "foot_lift_m": 0,
+    "pelvis_drop_m": 0,
+    "pelvis_bob_m": 0,
+    "arm_swing_deg": 0,
+    "forearm_bend_deg": 0
+   },
+   "events": [
+    {
+     "frame": 0,
+     "event": "LEFT_FOOT_CONTACT"
+    },
+    {
+     "frame": 0,
+     "event": "RIGHT_FOOT_CONTACT"
+    },
+    {
+     "frame": 4,
+     "event": "HIT"
+    }
+   ],
+   "tolerances": {
+    "foot_slide_speed_h_per_s": 0.03,
+    "ground_penetration_h": 0.006,
+    "contact_height_h": 0.012,
+    "ik_error_h": 0.002,
+    "max_landmark_step_h": 0.32,
+    "loop_landmark_gap_factor": 1.25
+   },
+   "approval": "UNAPPROVED",
+   "category": "melee",
+   "keys": [
+    {
+     "t": 0,
+     "bones": {
+      "forearm_l": [
+       12,
+       0,
+       0
+      ],
+      "forearm_r": [
+       12,
+       0,
+       0
+      ]
+     },
+     "pelvis": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 0.3,
+     "bones": {
+      "forearm_l": [
+       25,
+       0,
+       0
+      ],
+      "forearm_r": [
+       12,
+       0,
+       0
+      ],
+      "upper_arm_l": [
+       -45,
+       0,
+       0
+      ],
+      "chest": [
+       4,
+       0,
+       18
+      ],
+      "spine_01": [
+       6,
+       0,
+       0
+      ],
+      "head": [
+       0,
+       0,
+       8
+      ]
+     },
+     "pelvis": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 0.55,
+     "bones": {
+      "forearm_l": [
+       10,
+       0,
+       0
+      ],
+      "forearm_r": [
+       12,
+       0,
+       0
+      ],
+      "upper_arm_l": [
+       80,
+       0,
+       0
+      ],
+      "chest": [
+       -6,
+       0,
+       -22
+      ],
+      "spine_01": [
+       -14,
+       0,
+       0
+      ]
+     },
+     "pelvis": [
+      0,
+      0,
+      -0.01
+     ]
+    },
+    {
+     "t": 0.75,
+     "bones": {
+      "forearm_l": [
+       12,
+       0,
+       0
+      ],
+      "forearm_r": [
+       12,
+       0,
+       0
+      ],
+      "upper_arm_l": [
+       60,
+       0,
+       0
+      ],
+      "chest": [
+       -4,
+       0,
+       -14
+      ],
+      "spine_01": [
+       -8,
+       0,
+       0
+      ]
+     },
+     "pelvis": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 1,
+     "bones": {
+      "forearm_l": [
+       12,
+       0,
+       0
+      ],
+      "forearm_r": [
+       12,
+       0,
+       0
+      ]
+     },
+     "pelvis": [
+      0,
+      0,
+      0
+     ]
+    }
+   ],
+   "priority": 10,
+   "interruptible_after": 5,
+   "return_to": "idle",
+   "held_frames": [],
+   "phases": [
+    {
+     "name": "prepare",
+     "start_frame": 0,
+     "end_frame": 2
+    },
+    {
+     "name": "execute",
+     "start_frame": 3,
+     "end_frame": 4
+    },
+    {
+     "name": "recover",
+     "start_frame": 5,
+     "end_frame": 7
+    }
+   ]
+  },
+  {
+   "animation_id": "cast",
+   "version": "1.0.0",
+   "fps": 12,
+   "frame_count": 12,
+   "loop": false,
+   "root_motion": "in_place",
+   "ground_speed_mps": 0.0,
+   "gait": {
+    "stride_m": 0,
+    "stance_fraction": 1,
+    "foot_lift_m": 0,
+    "pelvis_drop_m": 0,
+    "pelvis_bob_m": 0,
+    "arm_swing_deg": 0,
+    "forearm_bend_deg": 0
+   },
+   "events": [
+    {
+     "frame": 0,
+     "event": "LEFT_FOOT_CONTACT"
+    },
+    {
+     "frame": 0,
+     "event": "RIGHT_FOOT_CONTACT"
+    },
+    {
+     "frame": 7,
+     "event": "CAST_RELEASE"
+    }
+   ],
+   "tolerances": {
+    "foot_slide_speed_h_per_s": 0.03,
+    "ground_penetration_h": 0.006,
+    "contact_height_h": 0.012,
+    "ik_error_h": 0.002,
+    "max_landmark_step_h": 0.32,
+    "loop_landmark_gap_factor": 1.25
+   },
+   "approval": "UNAPPROVED",
+   "category": "magic",
+   "keys": [
+    {
+     "t": 0,
+     "bones": {
+      "forearm_l": [
+       12,
+       0,
+       0
+      ],
+      "forearm_r": [
+       12,
+       0,
+       0
+      ]
+     },
+     "pelvis": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 0.35,
+     "bones": {
+      "forearm_l": [
+       8,
+       0,
+       0
+      ],
+      "forearm_r": [
+       30,
+       0,
+       0
+      ],
+      "upper_arm_l": [
+       110,
+       0,
+       0
+      ],
+      "upper_arm_r": [
+       55,
+       0,
+       0
+      ],
+      "chest": [
+       5,
+       0,
+       0
+      ],
+      "head": [
+       6,
+       0,
+       0
+      ]
+     },
+     "pelvis": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 0.5,
+     "bones": {
+      "forearm_l": [
+       5,
+       0,
+       0
+      ],
+      "forearm_r": [
+       25,
+       0,
+       0
+      ],
+      "upper_arm_l": [
+       115,
+       0,
+       0
+      ],
+      "upper_arm_r": [
+       60,
+       0,
+       0
+      ],
+      "chest": [
+       6,
+       0,
+       0
+      ],
+      "head": [
+       8,
+       0,
+       0
+      ]
+     },
+     "pelvis": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 0.62,
+     "bones": {
+      "forearm_l": [
+       12,
+       0,
+       0
+      ],
+      "forearm_r": [
+       5,
+       0,
+       0
+      ],
+      "upper_arm_l": [
+       70,
+       0,
+       0
+      ],
+      "upper_arm_r": [
+       75,
+       0,
+       0
+      ],
+      "spine_01": [
+       -7,
+       0,
+       0
+      ],
+      "chest": [
+       -3,
+       0,
+       0
+      ]
+     },
+     "pelvis": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 1,
+     "bones": {
+      "forearm_l": [
+       12,
+       0,
+       0
+      ],
+      "forearm_r": [
+       12,
+       0,
+       0
+      ]
+     },
+     "pelvis": [
+      0,
+      0,
+      0
+     ]
+    }
+   ],
+   "priority": 10,
+   "interruptible_after": 8,
+   "return_to": "idle",
+   "held_frames": [],
+   "phases": [
+    {
+     "name": "prepare",
+     "start_frame": 0,
+     "end_frame": 5
+    },
+    {
+     "name": "execute",
+     "start_frame": 6,
+     "end_frame": 7
+    },
+    {
+     "name": "recover",
+     "start_frame": 8,
+     "end_frame": 11
+    }
+   ]
+  },
+  {
+   "animation_id": "interact",
+   "version": "1.0.0",
+   "fps": 10,
+   "frame_count": 8,
+   "loop": false,
+   "root_motion": "in_place",
+   "ground_speed_mps": 0.0,
+   "gait": {
+    "stride_m": 0,
+    "stance_fraction": 1,
+    "foot_lift_m": 0,
+    "pelvis_drop_m": 0,
+    "pelvis_bob_m": 0,
+    "arm_swing_deg": 0,
+    "forearm_bend_deg": 0
+   },
+   "events": [
+    {
+     "frame": 0,
+     "event": "LEFT_FOOT_CONTACT"
+    },
+    {
+     "frame": 0,
+     "event": "RIGHT_FOOT_CONTACT"
+    },
+    {
+     "frame": 4,
+     "event": "INTERACT"
+    }
+   ],
+   "tolerances": {
+    "foot_slide_speed_h_per_s": 0.03,
+    "ground_penetration_h": 0.006,
+    "contact_height_h": 0.012,
+    "ik_error_h": 0.002,
+    "max_landmark_step_h": 0.32,
+    "loop_landmark_gap_factor": 1.25
+   },
+   "approval": "UNAPPROVED",
+   "category": "interaction",
+   "keys": [
+    {
+     "t": 0,
+     "bones": {
+      "forearm_l": [
+       12,
+       0,
+       0
+      ],
+      "forearm_r": [
+       12,
+       0,
+       0
+      ]
+     },
+     "pelvis": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 0.4,
+     "bones": {
+      "forearm_l": [
+       12,
+       0,
+       0
+      ],
+      "forearm_r": [
+       8,
+       0,
+       0
+      ],
+      "upper_arm_r": [
+       65,
+       0,
+       0
+      ],
+      "spine_01": [
+       -18,
+       0,
+       0
+      ],
+      "head": [
+       -10,
+       0,
+       0
+      ]
+     },
+     "pelvis": [
+      0,
+      0,
+      -0.012
+     ]
+    },
+    {
+     "t": 0.7,
+     "bones": {
+      "forearm_l": [
+       12,
+       0,
+       0
+      ],
+      "forearm_r": [
+       14,
+       0,
+       0
+      ],
+      "upper_arm_r": [
+       62,
+       0,
+       0
+      ],
+      "spine_01": [
+       -16,
+       0,
+       0
+      ],
+      "head": [
+       -8,
+       0,
+       0
+      ]
+     },
+     "pelvis": [
+      0,
+      0,
+      -0.012
+     ]
+    },
+    {
+     "t": 1,
+     "bones": {
+      "forearm_l": [
+       12,
+       0,
+       0
+      ],
+      "forearm_r": [
+       12,
+       0,
+       0
+      ]
+     },
+     "pelvis": [
+      0,
+      0,
+      0
+     ]
+    }
+   ],
+   "priority": 10,
+   "interruptible_after": 6,
+   "return_to": "idle",
+   "held_frames": [],
+   "phases": [
+    {
+     "name": "prepare",
+     "start_frame": 0,
+     "end_frame": 2
+    },
+    {
+     "name": "execute",
+     "start_frame": 3,
+     "end_frame": 5
+    },
+    {
+     "name": "recover",
+     "start_frame": 6,
+     "end_frame": 7
+    }
+   ]
+  },
+  {
+   "animation_id": "hurt",
+   "version": "1.0.0",
+   "fps": 12,
+   "frame_count": 6,
+   "loop": false,
+   "root_motion": "in_place",
+   "ground_speed_mps": 0.0,
+   "gait": {
+    "stride_m": 0,
+    "stance_fraction": 1,
+    "foot_lift_m": 0,
+    "pelvis_drop_m": 0,
+    "pelvis_bob_m": 0,
+    "arm_swing_deg": 0,
+    "forearm_bend_deg": 0
+   },
+   "events": [
+    {
+     "frame": 0,
+     "event": "LEFT_FOOT_CONTACT"
+    },
+    {
+     "frame": 0,
+     "event": "RIGHT_FOOT_CONTACT"
+    },
+    {
+     "frame": 0,
+     "event": "IMPACT"
+    }
+   ],
+   "tolerances": {
+    "foot_slide_speed_h_per_s": 0.03,
+    "ground_penetration_h": 0.006,
+    "contact_height_h": 0.012,
+    "ik_error_h": 0.002,
+    "max_landmark_step_h": 0.32,
+    "loop_landmark_gap_factor": 1.25
+   },
+   "approval": "UNAPPROVED",
+   "category": "state",
+   "keys": [
+    {
+     "t": 0,
+     "bones": {
+      "forearm_l": [
+       12,
+       0,
+       0
+      ],
+      "forearm_r": [
+       12,
+       0,
+       0
+      ],
+      "spine_01": [
+       8,
+       0,
+       0
+      ],
+      "chest": [
+       5,
+       0,
+       4
+      ],
+      "head": [
+       9,
+       0,
+       0
+      ],
+      "upper_arm_l": [
+       -12,
+       0,
+       0
+      ],
+      "upper_arm_r": [
+       -14,
+       0,
+       0
+      ]
+     },
+     "pelvis": [
+      0,
+      -0.006,
+      -0.008
+     ]
+    },
+    {
+     "t": 0.3,
+     "bones": {
+      "forearm_l": [
+       12,
+       0,
+       0
+      ],
+      "forearm_r": [
+       12,
+       0,
+       0
+      ],
+      "spine_01": [
+       15,
+       0,
+       0
+      ],
+      "chest": [
+       8,
+       0,
+       6
+      ],
+      "head": [
+       17,
+       0,
+       0
+      ],
+      "upper_arm_l": [
+       -24,
+       0,
+       0
+      ],
+      "upper_arm_r": [
+       -28,
+       0,
+       0
+      ]
+     },
+     "pelvis": [
+      0,
+      -0.012,
+      -0.016
+     ]
+    },
+    {
+     "t": 1,
+     "bones": {
+      "forearm_l": [
+       12,
+       0,
+       0
+      ],
+      "forearm_r": [
+       12,
+       0,
+       0
+      ]
+     },
+     "pelvis": [
+      0,
+      0,
+      0
+     ]
+    }
+   ],
+   "priority": 20,
+   "interruptible_after": 3,
+   "return_to": "idle",
+   "held_frames": [],
+   "phases": [
+    {
+     "name": "execute",
+     "start_frame": 0,
+     "end_frame": 1
+    },
+    {
+     "name": "recover",
+     "start_frame": 2,
+     "end_frame": 5
+    }
+   ]
+  },
+  {
+   "animation_id": "death",
+   "version": "1.0.0",
+   "fps": 10,
+   "frame_count": 10,
+   "loop": false,
+   "root_motion": "in_place",
+   "ground_speed_mps": 0.0,
+   "gait": {
+    "stride_m": 0,
+    "stance_fraction": 1,
+    "foot_lift_m": 0,
+    "pelvis_drop_m": 0,
+    "pelvis_bob_m": 0,
+    "arm_swing_deg": 0,
+    "forearm_bend_deg": 0
+   },
+   "events": [
+    {
+     "frame": 0,
+     "event": "LEFT_FOOT_CONTACT"
+    },
+    {
+     "frame": 0,
+     "event": "RIGHT_FOOT_CONTACT"
+    },
+    {
+     "frame": 8,
+     "event": "DEATH_REST"
+    }
+   ],
+   "tolerances": {
+    "foot_slide_speed_h_per_s": 0.03,
+    "ground_penetration_h": 0.006,
+    "contact_height_h": 0.012,
+    "ik_error_h": 0.002,
+    "max_landmark_step_h": 0.32,
+    "loop_landmark_gap_factor": 1.25
+   },
+   "approval": "UNAPPROVED",
+   "category": "state",
+   "keys": [
+    {
+     "t": 0,
+     "bones": {
+      "forearm_l": [
+       12,
+       0,
+       0
+      ],
+      "forearm_r": [
+       12,
+       0,
+       0
+      ]
+     },
+     "pelvis": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 0.2,
+     "bones": {
+      "forearm_l": [
+       12,
+       0,
+       0
+      ],
+      "forearm_r": [
+       12,
+       0,
+       0
+      ],
+      "spine_01": [
+       12,
+       0,
+       0
+      ],
+      "head": [
+       12,
+       0,
+       0
+      ],
+      "upper_arm_l": [
+       -10,
+       0,
+       0
+      ],
+      "upper_arm_r": [
+       -15,
+       0,
+       0
+      ]
+     },
+     "pelvis": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 0.55,
+     "bones": {
+      "forearm_l": [
+       0,
+       0,
+       0
+      ],
+      "forearm_r": [
+       12,
+       0,
+       0
+      ],
+      "spine_01": [
+       -22,
+       0,
+       0
+      ],
+      "chest": [
+       -10,
+       0,
+       0
+      ],
+      "head": [
+       -18,
+       0,
+       0
+      ],
+      "upper_arm_l": [
+       112,
+       0,
+       0
+      ],
+      "upper_arm_r": [
+       10,
+       0,
+       0
+      ]
+     },
+     "pelvis": [
+      0,
+      0,
+      -0.06
+     ]
+    },
+    {
+     "t": 0.8,
+     "bones": {
+      "forearm_l": [
+       0,
+       0,
+       0
+      ],
+      "forearm_r": [
+       12,
+       0,
+       0
+      ],
+      "spine_01": [
+       -30,
+       0,
+       0
+      ],
+      "chest": [
+       -14,
+       0,
+       0
+      ],
+      "head": [
+       -26,
+       0,
+       0
+      ],
+      "upper_arm_l": [
+       130,
+       0,
+       0
+      ],
+      "upper_arm_r": [
+       16,
+       0,
+       0
+      ]
+     },
+     "pelvis": [
+      0,
+      0.006,
+      -0.09
+     ]
+    },
+    {
+     "t": 1,
+     "bones": {
+      "forearm_l": [
+       0,
+       0,
+       0
+      ],
+      "forearm_r": [
+       12,
+       0,
+       0
+      ],
+      "spine_01": [
+       -30,
+       0,
+       0
+      ],
+      "chest": [
+       -14,
+       0,
+       0
+      ],
+      "head": [
+       -26,
+       0,
+       0
+      ],
+      "upper_arm_l": [
+       130,
+       0,
+       0
+      ],
+      "upper_arm_r": [
+       16,
+       0,
+       0
+      ]
+     },
+     "pelvis": [
+      0,
+      0.006,
+      -0.09
+     ]
+    }
+   ],
+   "priority": 100,
+   "interruptible_after": 99,
+   "return_to": null,
+   "held_frames": [
+    9
+   ],
+   "phases": [
+    {
+     "name": "execute",
+     "start_frame": 0,
+     "end_frame": 7
+    },
+    {
+     "name": "hold",
+     "start_frame": 8,
+     "end_frame": 9
+    }
+   ]
   }
  ]
 }

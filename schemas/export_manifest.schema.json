@@ -7,6 +7,47 @@
           "title": "Animation",
           "type": "string"
         },
+        "category": {
+          "default": "locomotion",
+          "title": "Category",
+          "type": "string"
+        },
+        "priority": {
+          "default": 0,
+          "title": "Priority",
+          "type": "integer"
+        },
+        "interruptible_after": {
+          "default": 0,
+          "title": "Interruptible After",
+          "type": "integer"
+        },
+        "return_to": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Return To"
+        },
+        "held_frames": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Held Frames",
+          "type": "array"
+        },
+        "phases": {
+          "items": {
+            "$ref": "#/$defs/ClipPhase"
+          },
+          "title": "Phases",
+          "type": "array"
+        },
         "fps": {
           "title": "Fps",
           "type": "integer"
@@ -63,6 +104,38 @@
       "title": "AnimationExport",
       "type": "object"
     },
+    "ClipPhase": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "enum": [
+            "prepare",
+            "execute",
+            "recover",
+            "hold"
+          ],
+          "title": "Name",
+          "type": "string"
+        },
+        "start_frame": {
+          "minimum": 0,
+          "title": "Start Frame",
+          "type": "integer"
+        },
+        "end_frame": {
+          "minimum": 0,
+          "title": "End Frame",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "start_frame",
+        "end_frame"
+      ],
+      "title": "ClipPhase",
+      "type": "object"
+    },
     "ContactEvent": {
       "additionalProperties": false,
       "properties": {
@@ -76,7 +149,12 @@
             "LEFT_FOOT_CONTACT",
             "RIGHT_FOOT_CONTACT",
             "LEFT_SWING",
-            "RIGHT_SWING"
+            "RIGHT_SWING",
+            "HIT",
+            "CAST_RELEASE",
+            "INTERACT",
+            "IMPACT",
+            "DEATH_REST"
           ],
           "title": "Event",
           "type": "string"

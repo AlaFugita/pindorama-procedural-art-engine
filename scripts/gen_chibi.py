@@ -91,6 +91,69 @@ def clip(aid, fps, n, speed, gait, events):
             "approval": "UNAPPROVED"}
 
 
+# ---------------------------------------------------------------- ações pontuais (poses-chave como dados)
+STILL = {"stride_m": 0, "stance_fraction": 1, "foot_lift_m": 0, "pelvis_drop_m": 0, "pelvis_bob_m": 0,
+         "arm_swing_deg": 0, "forearm_bend_deg": 0}
+PLANTED = [(0, "LEFT_FOOT_CONTACT"), (0, "RIGHT_FOOT_CONTACT")]
+REST_ARMS = {"forearm_l": (12, 0, 0), "forearm_r": (12, 0, 0)}
+
+
+def key(t, pelvis=(0, 0, 0), **bones):
+    return {"t": t, "bones": {**REST_ARMS, **bones}, "pelvis": pelvis}
+
+
+def action(aid, category, fps, n, keys, events, phases, priority, interruptible_after, return_to, held=()):
+    data = clip(aid, fps, n, 0.0, STILL, PLANTED + events)
+    data.update({"loop": False, "category": category, "keys": keys, "priority": priority,
+                 "interruptible_after": interruptible_after, "return_to": return_to, "held_frames": list(held),
+                 "phases": [{"name": p, "start_frame": a, "end_frame": b} for p, a, b in phases]})
+    return data
+
+
+ACTIONS = [
+    # Golpe de cajado: recua o braço (cajado inclina para trás) e varre para a frente.
+    action("attack_melee", "melee", 12, 8, [
+        key(0), key(.3, upper_arm_l=(-45, 0, 0), forearm_l=(25, 0, 0), chest=(4, 0, 18), spine_01=(6, 0, 0), head=(0, 0, 8)),
+        key(.55, upper_arm_l=(80, 0, 0), forearm_l=(10, 0, 0), chest=(-6, 0, -22), spine_01=(-14, 0, 0), pelvis=(0, 0, -.01)),
+        key(.75, upper_arm_l=(60, 0, 0), chest=(-4, 0, -14), spine_01=(-8, 0, 0)), key(1)],
+        [(4, "HIT")], [("prepare", 0, 2), ("execute", 3, 4), ("recover", 5, 7)], 10, 5, "idle"),
+    # Magia: ergue o cajado (preparo), estende para a frente (lançamento) e recolhe.
+    action("cast", "magic", 12, 12, [
+        key(0), key(.35, upper_arm_l=(110, 0, 0), forearm_l=(8, 0, 0), upper_arm_r=(55, 0, 0), forearm_r=(30, 0, 0),
+                    chest=(5, 0, 0), head=(6, 0, 0)),
+        key(.5, upper_arm_l=(115, 0, 0), forearm_l=(5, 0, 0), upper_arm_r=(60, 0, 0), forearm_r=(25, 0, 0), chest=(6, 0, 0), head=(8, 0, 0)),
+        key(.62, upper_arm_l=(70, 0, 0), upper_arm_r=(75, 0, 0), forearm_r=(5, 0, 0), spine_01=(-7, 0, 0), chest=(-3, 0, 0)),
+        key(1)],
+        [(7, "CAST_RELEASE")], [("prepare", 0, 5), ("execute", 6, 7), ("recover", 8, 11)], 10, 8, "idle"),
+    # Interação: inclina e alcança com a mão livre (direita), segura e volta.
+    action("interact", "interaction", 10, 8, [
+        key(0), key(.4, upper_arm_r=(65, 0, 0), forearm_r=(8, 0, 0), spine_01=(-18, 0, 0), head=(-10, 0, 0), pelvis=(0, 0, -.012)),
+        key(.7, upper_arm_r=(62, 0, 0), forearm_r=(14, 0, 0), spine_01=(-16, 0, 0), head=(-8, 0, 0), pelvis=(0, 0, -.012)),
+        key(1)],
+        [(4, "INTERACT")], [("prepare", 0, 2), ("execute", 3, 5), ("recover", 6, 7)], 10, 6, "idle"),
+    # Dano: recua o tronco e a cabeça, braços abrem para trás, volta.
+    action("hurt", "state", 12, 6, [
+        # Começa já no impacto (sem quadro neutro repetido), pico logo depois, volta ao neutro.
+        key(0, spine_01=(8, 0, 0), chest=(5, 0, 4), head=(9, 0, 0), upper_arm_l=(-12, 0, 0), upper_arm_r=(-14, 0, 0),
+               pelvis=(0, -.006, -.008)),
+        key(.3, spine_01=(15, 0, 0), chest=(8, 0, 6), head=(17, 0, 0), upper_arm_l=(-24, 0, 0), upper_arm_r=(-28, 0, 0),
+                pelvis=(0, -.012, -.016)),
+        key(1)],
+        [(0, "IMPACT")], [("execute", 0, 1), ("recover", 2, 5)], 20, 3, "idle"),
+    # Morte: recua, cai de joelhos e tomba para a frente; os últimos quadros mantêm a pose.
+    action("death", "state", 10, 10, [
+        key(0), key(.2, spine_01=(12, 0, 0), head=(12, 0, 0), upper_arm_l=(-10, 0, 0), upper_arm_r=(-15, 0, 0)),
+        # Braço do cajado estendido à frente (≈ 90° no mundo, somando o tronco inclinado): o cajado deita na altura da mão.
+        key(.55, spine_01=(-22, 0, 0), chest=(-10, 0, 0), head=(-18, 0, 0), upper_arm_l=(112, 0, 0), forearm_l=(0, 0, 0),
+                 upper_arm_r=(10, 0, 0), pelvis=(0, 0, -.06)),
+        key(.8, spine_01=(-30, 0, 0), chest=(-14, 0, 0), head=(-26, 0, 0), upper_arm_l=(130, 0, 0), forearm_l=(0, 0, 0),
+                upper_arm_r=(16, 0, 0), pelvis=(0, .006, -.09)),
+        key(1, spine_01=(-30, 0, 0), chest=(-14, 0, 0), head=(-26, 0, 0), upper_arm_l=(130, 0, 0), forearm_l=(0, 0, 0),
+                upper_arm_r=(16, 0, 0), pelvis=(0, .006, -.09))],
+        [(8, "DEATH_REST")], [("execute", 0, 7), ("hold", 8, 9)], 100, 99, None, held=(9,)),
+]
+
+
 dump(LIB / "animations/humanoid_chibi_basic_v1.json", {
     "schema_version": "1.0.0", "id": "humanoid_chibi_basic_v1", "version": "1.0.0",
     "rig_profile": "humanoid_chibi_v1", "clips": [
@@ -107,7 +170,7 @@ dump(LIB / "animations/humanoid_chibi_basic_v1.json", {
               "pelvis_bob_m": .009, "arm_swing_deg": 40, "forearm_bend_deg": 50, "torso_lean_deg": 9,
               "torso_twist_deg": 9},
              [(0, "LEFT_FOOT_CONTACT"), (3, "LEFT_SWING"), (4, "RIGHT_FOOT_CONTACT"), (7, "RIGHT_SWING")]),
-    ]})
+    ] + ACTIONS})
 
 dump(LIB / "profiles/render/isometric_chibi_v1.json", {
     "schema_version": "1.0.0", "id": "isometric_chibi_v1", "version": "1.0.0", "projection": "orthographic",

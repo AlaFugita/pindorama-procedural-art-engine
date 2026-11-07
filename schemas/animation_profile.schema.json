@@ -4,13 +4,72 @@
       "additionalProperties": false,
       "properties": {
         "animation_id": {
-          "enum": [
-            "idle",
-            "walk",
-            "run"
-          ],
+          "pattern": "^[a-z][a-z_]{1,31}$",
           "title": "Animation Id",
           "type": "string"
+        },
+        "category": {
+          "default": "locomotion",
+          "enum": [
+            "locomotion",
+            "melee",
+            "ranged",
+            "magic",
+            "interaction",
+            "state"
+          ],
+          "title": "Category",
+          "type": "string"
+        },
+        "keys": {
+          "description": "Vazio = locomoção procedural pela marcha",
+          "items": {
+            "$ref": "#/$defs/PoseKey"
+          },
+          "title": "Keys",
+          "type": "array"
+        },
+        "phases": {
+          "items": {
+            "$ref": "#/$defs/ClipPhase"
+          },
+          "title": "Phases",
+          "type": "array"
+        },
+        "priority": {
+          "default": 0,
+          "description": "Maior interrompe menor (locomoção 0, ação 10, dano 20, morte 100)",
+          "minimum": 0,
+          "title": "Priority",
+          "type": "integer"
+        },
+        "interruptible_after": {
+          "default": 0,
+          "description": "A partir deste quadro, movimento ou nova ação cortam a recuperação",
+          "minimum": 0,
+          "title": "Interruptible After",
+          "type": "integer"
+        },
+        "return_to": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Estado após o fim de um clip sem laço; vazio = terminal",
+          "title": "Return To"
+        },
+        "held_frames": {
+          "description": "Quadros repetidos de propósito (pose mantida)",
+          "items": {
+            "type": "integer"
+          },
+          "title": "Held Frames",
+          "type": "array"
         },
         "version": {
           "title": "Version",
@@ -127,6 +186,38 @@
       "title": "AnimationTolerances",
       "type": "object"
     },
+    "ClipPhase": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "enum": [
+            "prepare",
+            "execute",
+            "recover",
+            "hold"
+          ],
+          "title": "Name",
+          "type": "string"
+        },
+        "start_frame": {
+          "minimum": 0,
+          "title": "Start Frame",
+          "type": "integer"
+        },
+        "end_frame": {
+          "minimum": 0,
+          "title": "End Frame",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "start_frame",
+        "end_frame"
+      ],
+      "title": "ClipPhase",
+      "type": "object"
+    },
     "ContactEvent": {
       "additionalProperties": false,
       "properties": {
@@ -140,7 +231,12 @@
             "LEFT_FOOT_CONTACT",
             "RIGHT_FOOT_CONTACT",
             "LEFT_SWING",
-            "RIGHT_SWING"
+            "RIGHT_SWING",
+            "HIT",
+            "CAST_RELEASE",
+            "INTERACT",
+            "IMPACT",
+            "DEATH_REST"
           ],
           "title": "Event",
           "type": "string"
@@ -213,6 +309,65 @@
         "forearm_bend_deg"
       ],
       "title": "GaitParams",
+      "type": "object"
+    },
+    "PoseKey": {
+      "additionalProperties": false,
+      "description": "Pose-chave de uma ação: rotações (graus, eixos canônicos de repouso) e deslocamento da pelve.",
+      "properties": {
+        "t": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "T",
+          "type": "number"
+        },
+        "bones": {
+          "additionalProperties": {
+            "maxItems": 3,
+            "minItems": 3,
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Bones",
+          "type": "object"
+        },
+        "pelvis": {
+          "default": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "maxItems": 3,
+          "minItems": 3,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Pelvis",
+          "type": "array"
+        }
+      },
+      "required": [
+        "t"
+      ],
+      "title": "PoseKey",
       "type": "object"
     }
   },

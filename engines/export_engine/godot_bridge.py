@@ -125,6 +125,26 @@ def run_godot_checks(
         f"{smoke['godot']}: {smoke['clips']} clips, {smoke['frames']} frames, pixels idênticos",
         evidence=[str(result_path), str(log)],
     ))
+    # GODOT-003: máquina de estados (prioridade, interrupção, retorno, direção) com o pacote real.
+    state_path = work_dir / "godot_states.json"
+    state_path.unlink(missing_ok=True)
+    code_state = _run(
+        [str(godot), "--headless", "--path", str(project), "--script", "res://state_test.gd",
+         "--", "--package", resource, "--result", str(state_path)], log, 300,
+    )
+    if state_path.is_file():
+        states = json.loads(state_path.read_text(encoding="utf-8"))
+        run.report["states"] = states
+        passed = sum(1 for s in states["scenarios"] if s["status"] == "PASS")
+        run.checks.append(CheckResult(
+            id="GODOT-003",
+            status=GateStatus.FAIL if states["failures"] or code_state else GateStatus.PASS,
+            detail="; ".join(states["failures"][:6]) or f"{passed} cenários de clip e transição aprovados",
+            evidence=[str(state_path), str(log)],
+        ))
+    else:
+        run.checks.append(CheckResult(id="GODOT-003", status=GateStatus.FAIL,
+                                      detail=f"sem relatório (state_test={code_state})", evidence=[str(log)]))
     if not windowed:
         run.checks.append(CheckResult(id="GODOT-002", status=GateStatus.NOT_TESTED,
                                       detail="execução com janela não solicitada"))

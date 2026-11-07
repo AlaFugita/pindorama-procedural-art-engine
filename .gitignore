@@ -24,3 +24,5 @@ tests/_tmp/
 
 # Notas de sessão de outras ferramentas
 .memento/
+# Configuração local do agente
+.claude/

@@ -103,7 +103,10 @@ def stage_export(
         for atlas in atlases[cid].values():
             shutil.copy2(atlas_dir / atlas.file, staging / "atlases" / atlas.file)
         animations.append(AnimationExport(
-            animation=cid, fps=clip.fps, loop=clip.loop, frame_count=clip.frame_count,
+            animation=cid, category=clip.category, priority=clip.priority,
+            interruptible_after=clip.interruptible_after, return_to=clip.return_to,
+            held_frames=clip.held_frames, phases=clip.phases,
+            fps=clip.fps, loop=clip.loop, frame_count=clip.frame_count,
             duration_s=clip.duration_s, ground_speed_mps=clip.ground_speed_mps,
             events=clip.events, direction_order=list(DIRECTION_ORDER), directions=atlases[cid],
         ))

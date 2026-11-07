@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Animation Showcase</title>
+<meta name="description" content="Validação das animações do Pindorama Procedural Art Engine: cobertura, oito direções e testes no Godot.">
+<style>
+:root{--bg:#f6f3ec;--card:#fffdf8;--ink:#2a2430;--soft:#6b6070;--line:#e2dccf;--accent:#3f5fa8;--pass:#2f7d4f;--warn:#a8700a;--fail:#b23b3b;--miss:#7d7584;--nt:#5b6bb0;--sprite:#a4ba96}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17151b;--card:#201d25;--ink:#ece6f2;--soft:#a79fb0;--line:#332e3a;--accent:#8fa8ff;--pass:#6fcf97;--warn:#f2c94c;--fail:#ff8a8a;--miss:#8d8596;--nt:#9fb0ff;--sprite:#5d6f55}}
+:root[data-theme="dark"]{--bg:#17151b;--card:#201d25;--ink:#ece6f2;--soft:#a79fb0;--line:#332e3a;--accent:#8fa8ff;--pass:#6fcf97;--warn:#f2c94c;--fail:#ff8a8a;--miss:#8d8596;--nt:#9fb0ff;--sprite:#5d6f55}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header,main,footer{max-width:1180px;margin:auto;padding:0 16px}
+header{padding-top:36px}
+header h1{margin:0;font-size:clamp(24px,4.5vw,36px);letter-spacing:-.02em}
+header p{color:var(--soft);margin:6px 0 0;max-width:820px}
+a{color:var(--accent)}
+nav.top{margin:10px 0 0;font-size:14px}
+section{margin-top:34px}
+h2{font-size:20px;margin:0 0 10px}
+h3{font-size:15px;margin:0 0 6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:end}
+.filters label{display:flex;flex-direction:column;font-size:12px;color:var(--soft);gap:3px}
+select{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 8px;min-width:140px}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{color:var(--soft);font-weight:600}
+td.cat{color:var(--soft)}
+.st{display:inline-block;min-width:74px;text-align:center;font-size:11px;font-weight:700;letter-spacing:.02em;padding:2px 6px;border-radius:99px;border:1px solid currentColor;cursor:pointer;background:transparent;color:inherit}
+.PASS{color:var(--pass)}.WARN{color:var(--warn)}.FAIL{color:var(--fail)}.MISSING{color:var(--miss)}.NOT-TESTED{color:var(--nt)}
+.summary{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.big{font-size:26px;font-weight:700}
+.dirs{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px;cursor:pointer}
+.tile.sel{outline:2px solid var(--accent)}
+.tile img{width:100%;height:auto;display:block;border-radius:6px;background:var(--sprite)}
+.tile .meta{display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:12px}
+.detail{display:grid;gap:14px;grid-template-columns:minmax(0,300px) minmax(0,1fr)}
+@media (max-width:760px){.detail{grid-template-columns:minmax(0,1fr)}}
+.detail img{max-width:100%;border-radius:8px;background:var(--sprite)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-size:13px}
+.kv b{color:var(--soft);font-weight:600}
+ul.checks{list-style:none;padding:0;margin:6px 0 0;font-size:13px}
+ul.checks li{padding:3px 0;border-bottom:1px solid var(--line)}
+.muted{color:var(--soft)}
+.atlas{overflow-x:auto;background:var(--sprite);border-radius:8px;padding:4px}
+.atlas img{max-width:none;height:110px;background:transparent}
+footer{padding:28px 16px;color:var(--soft);font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Animation Showcase &amp; Validation</h1>
+  <p>Estado real do sistema de animação: GIFs gerados pelo pipeline, matriz de cobertura nas 8 direções e testes executados no <b>Godot</b> (importação, velocidade, sequência e máquina de estados). Um GIF existir não torna a animação PASS; o status vem dos testes.</p>
+  <nav class="top"><a href="index.html">← Página do projeto</a> · <a href="docs/ANIMATION_VALIDATION.html">Relatório completo</a></nav>
+</header>
+<main>
+  <section>
+    <div class="card filters" id="filters">
+      <label>Personagem<select id="f-char"></select></label>
+      <label>Categoria<select id="f-cat"></select></label>
+      <label>Ação<select id="f-act"></select></label>
+      <label>Direção<select id="f-dir"></select></label>
+      <label>Status<select id="f-st"></select></label>
+    </div>
+  </section>
+
+  <section>
+    <h2>Resumo de cobertura</h2>
+    <div class="summary" id="summary"></div>
+  </section>
+
+  <section>
+    <h2>Matriz de cobertura</h2>
+    <p class="muted">Clique numa célula para abrir a animação. Legenda: <span class="st PASS">PASS</span> implementada e validada · <span class="st WARN">WARN</span> funciona com ressalva · <span class="st FAIL">FAIL</span> problema · <span class="st MISSING">MISSING</span> não existe · <span class="st NOT-TESTED">NOT TESTED</span> sem teste no Godot.</p>
+    <div class="card scroll"><table id="matrix"></table></div>
+  </section>
+
+  <section>
+    <h2 id="dirs-title">Oito direções</h2>
+    <div class="dirs" id="dirs"></div>
+  </section>
+
+  <section>
+    <h2 id="cmp-title">Comparar ações</h2>
+    <div class="dirs" id="compare"></div>
+  </section>
+
+  <section>
+    <h2>Detalhes</h2>
+    <div class="card" id="detail"><p class="muted">Selecione uma animação.</p></div>
+  </section>
+
+  <section>
+    <h2>Cenários de estado testados no Godot</h2>
+    <div class="card scroll"><table id="scenarios"></table></div>
+  </section>
+</main>
+<footer id="foot">Pindorama Procedural Art Engine · dados gerados por <code>scripts/build_animation_showcase.py</code></footer>
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const cls = s => s.replace(" ", "-");
+let DATA, sel = {clip: null, dir: "S"};
+
+function opts(el, values, all = true) {
+  el.innerHTML = (all ? '<option value="">Todos</option>' : "") + values.map(v => `<option value="${esc(v[0])}">${esc(v[1])}</option>`).join("");
+}
+function char() { return DATA.characters.find(c => c.slug === $("f-char").value) || DATA.characters[0]; }
+function rows() {
+  const ch = char(), cat = $("f-cat").value, act = $("f-act").value;
+  return DATA.catalog.filter(r => (!cat || r.category === cat) && (!act || r.action === act)).map(r => {
+    const clip = r.clip && ch.clips[r.clip];
+    const dirs = {};
+    for (const d of DATA.directions) dirs[d] = clip ? clip.directions[d].status : "MISSING";
+    return {...r, data: clip, dirs};
+  });
+}
+function cell(r, d) {
+  const st = r.dirs[d];
+  return `<button class="st ${cls(st)}" data-clip="${esc(r.clip || "")}" data-dir="${d}" ${r.clip ? "" : "disabled"}>${st}</button>`;
+}
+function render() {
+  const ch = char(), dirF = $("f-dir").value, stF = $("f-st").value;
+  const dirs = dirF ? [dirF] : DATA.directions;
+  let rs = rows();
+  if (stF) rs = rs.filter(r => dirs.some(d => r.dirs[d] === stF));
+  $("matrix").innerHTML = `<tr><th>Categoria</th><th>Ação</th><th>Clip</th>${dirs.map(d => `<th>${d}</th>`).join("")}<th>Nota</th></tr>` +
+    rs.map(r => `<tr><td class="cat">${esc(r.category)}</td><td>${esc(r.action)}</td><td><code>${esc(r.clip || "—")}</code></td>${dirs.map(d => `<td>${cell(r, d)}</td>`).join("")}<td class="muted">${esc(r.note)}</td></tr>`).join("");
+  // resumo
+  const all = rows(), count = {};
+  for (const r of all) for (const d of DATA.directions) count[r.dirs[d]] = (count[r.dirs[d]] || 0) + 1;
+  const cats = [...new Set(DATA.catalog.map(r => r.category))].map(c => {
+    const rr = all.filter(r => r.category === c);
+    const impl = rr.filter(r => r.clip).length;
+    return `<div class="card"><h3>${esc(c)}</h3><div class="big">${impl}/${rr.length}</div><div class="muted">ações com clip</div></div>`;
+  }).join("");
+  $("summary").innerHTML = ["PASS", "WARN", "FAIL", "MISSING", "NOT TESTED"].map(s =>
+    `<div class="card"><span class="st ${cls(s)}">${s}</span><div class="big">${count[s] || 0}</div><div class="muted">ação × direção</div></div>`).join("") + cats;
+  // oito direções da ação selecionada
+  const clip = sel.clip && ch.clips[sel.clip];
+  $("dirs-title").textContent = clip ? `Oito direções: ${sel.clip}` : "Oito direções (selecione uma ação)";
+  $("dirs").innerHTML = clip ? DATA.directions.map(d => {
+    const x = clip.directions[d];
+    return `<div class="tile ${d === sel.dir ? "sel" : ""}" data-clip="${sel.clip}" data-dir="${d}"><img loading="lazy" src="docs/${x.gif}" alt="${sel.clip} ${d}"><div class="meta"><b>${d}</b><span class="st ${cls(x.status)}">${x.status}</span></div></div>`;
+  }).join("") : "";
+  // comparar ações na mesma direção
+  $("cmp-title").textContent = `Comparar ações: direção ${sel.dir}`;
+  $("compare").innerHTML = Object.entries(ch.clips).map(([cid, c]) => {
+    const x = c.directions[sel.dir];
+    return `<div class="tile ${cid === sel.clip ? "sel" : ""}" data-clip="${cid}" data-dir="${sel.dir}"><img loading="lazy" src="docs/${x.gif}" alt="${cid} ${sel.dir}"><div class="meta"><b>${cid}</b><span class="st ${cls(x.status)}">${x.status}</span></div></div>`;
+  }).join("");
+  // detalhe
+  if (clip) {
+    const x = clip.directions[sel.dir];
+    const checks = clip.checks.map(k => `<li><span class="st ${cls(k.status)}">${k.status}</span> <code>${esc(k.id)}</code> ${esc(k.detail)}</li>`).join("");
+    const scen = [clip.scenario, ...clip.transitions].filter(Boolean).map(s => `<li><span class="st ${cls(s.status)}">${s.status}</span> ${esc(s.name)}: ${esc(s.detail)}</li>`).join("");
+    const phases = clip.phases.map(p => `${p.name} ${p.start_frame}–${p.end_frame}`).join(", ") || "—";
+    const events = clip.events.map(e => `${e.event}@${e.frame}`).join(", ");
+    const problems = [...clip.checks.filter(k => k.status !== "PASS"), ...[clip.scenario, ...clip.transitions].filter(s => s && s.status !== "PASS")]
+      .map(k => `<li>${esc(k.id || k.name)}: ${esc(k.detail)}</li>`).join("") + (x.smoke_failures || []).map(f => `<li>${esc(f)}</li>`).join("");
+    $("detail").innerHTML = `<div class="detail"><div><img src="docs/${x.gif}" alt="${sel.clip} ${sel.dir}"><p><span class="st ${cls(x.status)}">${x.status}</span></p></div><div>
+      <h3>${esc(ch.name)} · ${esc(sel.clip)} · ${sel.dir}</h3>
+      <div class="kv"><b>Categoria</b><span>${esc(clip.category)}</span><b>FPS</b><span>${clip.fps}</span><b>Quadros</b><span>${clip.frames} (${clip.duration_s.toFixed(2)} s)</span><b>Resolução</b><span>${clip.resolution}</span><b>Laço</b><span>${clip.loop ? "sim" : "não"}</span><b>Prioridade</b><span>${clip.priority}</span><b>Interrompível após</b><span>quadro ${clip.interruptible_after}</span><b>Volta para</b><span>${esc(clip.return_to ?? "terminal")}</span><b>Fases</b><span>${esc(phases)}</span><b>Eventos</b><span>${esc(events)}</span><b>Quadros mantidos</b><span>${clip.held_frames.join(", ") || "—"}</span><b>Godot</b><span>${esc(ch.godot || "não executado")}</span></div>
+      <h3 style="margin-top:12px">Spritesheet (atlas recortado)</h3><div class="atlas"><img src="docs/${x.atlas}" alt="atlas ${sel.clip} ${sel.dir}"></div>
+      <h3 style="margin-top:12px">Testes do Godot</h3><ul class="checks">${scen || '<li class="muted">nenhum</li>'}</ul>
+      <h3 style="margin-top:12px">Checks dos gates (G5/G6/G8)</h3><ul class="checks">${checks || '<li class="muted">nenhum</li>'}</ul>
+      <h3 style="margin-top:12px">Problemas</h3><ul class="checks">${problems || '<li class="muted">nenhum</li>'}</ul>
+      <p class="muted">O GIF repete para visualização; no jogo, as ações sem laço tocam uma vez.</p></div></div>`;
+  }
+  $("scenarios").innerHTML = `<tr><th>Cenário</th><th>Ações</th><th>Status</th><th>Resultado</th></tr>` +
+    ch.state_scenarios.map(s => `<tr><td>${esc(s.name)}</td><td>${esc(s.actions.join(", "))}</td><td><span class="st ${cls(s.status)}">${s.status}</span></td><td class="muted">${esc(s.detail)}</td></tr>`).join("");
+}
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-clip]");
+  if (!t || !t.dataset.clip) return;
+  sel = {clip: t.dataset.clip, dir: t.dataset.dir || sel.dir};
+  render();
+  if (t.tagName === "BUTTON") $("dirs-title").scrollIntoView({behavior: "smooth"});
+});
+fetch("docs/showcase/data.json").then(r => r.json()).then(d => {
+  DATA = d;
+  opts($("f-char"), d.characters.map(c => [c.slug, `${c.name} (${c.render_profile})`]), false);
+  opts($("f-cat"), [...new Set(d.catalog.map(r => r.category))].map(c => [c, c]));
+  opts($("f-act"), d.catalog.map(r => [r.action, r.action]));
+  opts($("f-dir"), d.directions.map(x => [x, x]));
+  opts($("f-st"), ["PASS", "WARN", "FAIL", "MISSING", "NOT TESTED"].map(s => [s, s]));
+  sel.clip = Object.keys(d.characters[0].clips)[1] || null;
+  for (const id of ["f-char", "f-cat", "f-act", "f-dir", "f-st"]) $(id).addEventListener("change", () => {
+    if (id === "f-dir" && $("f-dir").value) sel.dir = $("f-dir").value;
+    render();
+  });
+  $("foot").innerHTML += ` · gerado em ${esc(d.generated)}`;
+  render();
+}).catch(() => { $("detail").innerHTML = '<p class="FAIL">Não foi possível carregar docs/showcase/data.json.</p>'; });
+</script>
+</body>
+</html>
