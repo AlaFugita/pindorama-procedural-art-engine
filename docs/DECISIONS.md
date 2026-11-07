@@ -87,4 +87,5 @@ Regras de aprovação 1 a 8: [MASTER_QUALITY_CRITERIA.md](MASTER_QUALITY_CRITERI
 | IMP-049 | Mechas por curva | Bézier com conicidade e ponta curvada | Recomendação P1 (F4, ideia do midori) | Franja acima das sobrancelhas; peças finas sem sombra projetada | Aprovada pelo agente |
 | IMP-050 | Atlas recortado | `RenderProfile.atlas_trim`: caixa justa por quadro + `ox`/`oy`; o Godot reconstrói o quadro com `AtlasTexture.margin` | Recomendação P1; memória do MMORPG | 192 px: VRAM de 27,9 para **10,6 MiB** por personagem; GODOT-001/002 PASS | Aprovada pelo agente |
 | IMP-051 | Pivô inteiro | Perfis `isometric_smooth_*` com pivô arredondado | Meio pixel (160,5) deslocava a região recortada no Godot e reprovava o GODOT-002 | Perfis antigos mantidos | Aprovada pelo agente |
+| IMP-052 | Sonda de pose nos gates | ANI-005 no G5: chão por peça (falha < −5 mm, aviso < −1 mm) e coxa × túnica (aviso > 15 mm), com cache no animate | Recomendação P1 (produtividade) | Os defeitos de chão e túnica da auditoria agora barram o pipeline sozinhos | Aprovada pelo agente |
 

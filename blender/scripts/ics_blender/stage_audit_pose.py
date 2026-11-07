@@ -61,10 +61,13 @@ def run(payload):
         for mod in obj.modifiers:
             if mod.type == "SOLIDIFY":
                 mod.show_viewport = False
-    body = bpy.data.objects["body"]
-    groups = {g.index: g.name for g in body.vertex_groups}
-    thigh = [v.index for v in body.data.vertices
-             if sum(e.weight for e in v.groups if groups.get(e.group, "").startswith("thigh")) > .5]
+    body = bpy.data.objects.get("body")
+    has_skirt = body is not None and any(o.name in SKIRT for o in meshes)
+    thigh = []
+    if has_skirt:
+        groups = {g.index: g.name for g in body.vertex_groups}
+        thigh = [v.index for v in body.data.vertices
+                 if sum(e.weight for e in v.groups if groups.get(e.group, "").startswith("thigh")) > .5]
     report = {"thigh_vertices": len(thigh), "clips": {}}
     for action in sorted(a.name for a in bpy.data.actions if a.name.startswith("clip_")):
         frames = int(anim.use_action(armature, action).frame_range[1])
@@ -80,6 +83,9 @@ def run(payload):
                     lows[obj.name] = (round(low, 4), frame)
                 if obj.name in SKIRT:
                     skirt += verts
+            if not has_skirt:
+                outside.append({"vertices": 0, "max_mm": 0.0})
+                continue
             legs = _world_verts(body, depsgraph)
             count, worst = 0, 0.0
             top = max(v.z for v in skirt)

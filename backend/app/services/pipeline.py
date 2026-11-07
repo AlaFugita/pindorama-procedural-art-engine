@@ -49,6 +49,9 @@ from engines.rig_engine.validate import validate_rig
 Progress = Callable[[Stage, float | None, str], None]
 RIGHT_ARM_FACTOR_WITH_WEAPON = 0.45
 NON_MESH_GENERATORS = {"chibi_face_decal"}
+POSE_WARN_M = .001   # peça até 1 mm abaixo do chão: tolerância de arredondamento
+POSE_FAIL_M = .005   # mais de 5 mm abaixo do chão: pé ou arma enterrados, visível
+THIGH_WARN_MM = 15.0
 REQUIRED_HUMAN_GATES = ("G2", "G9")
 
 
@@ -267,10 +270,35 @@ class Pipeline:
             checks += clip_checks
             metrics.append(clip_metrics)
         write_json(folder / "animation_validation.json", metrics)
+        checks += self._pose_checks(folder)
         report = self._gate("G5", checks)
         self._require(Stage.ANIMATION, report)
         self._maybe_fail(Stage.ANIMATION)
         return folder, traces
+
+    @staticmethod
+    def _pose_checks(folder: Path) -> list[CheckResult]:
+        """ANI-005: malha deformada em todos os quadros (chão por peça; coxa × túnica)."""
+        cached = folder / "audit_pose.json"
+        if cached.exists():
+            audit = read_json(cached)
+        else:
+            audit = run_stage("audit_pose", {}, folder / "_audit", blend_file=folder / "character.blend",
+                              timeout_s=900).output
+            write_json(cached, audit)
+        checks = []
+        for clip, data in audit["clips"].items():
+            low_name, (low, frame) = next(iter(data["min_z"].items()))
+            worst = max((f["max_mm"] for f in data["thigh_out_per_frame"]), default=0.0)
+            status = GateStatus.PASS
+            if low < -POSE_FAIL_M:
+                status = GateStatus.FAIL
+            elif low < -POSE_WARN_M or worst > THIGH_WARN_MM:
+                status = GateStatus.WARN
+            checks.append(CheckResult(
+                id=f"ANI-005:{clip}", status=status,
+                detail=f"ponto mais baixo {low * 1000:+.1f} mm ({low_name}, quadro {frame}); coxa fora da túnica até {worst:.1f} mm"))
+        return checks
 
     def _render(self, r: Resolved, anim_dir: Path, scripts: str) -> tuple[Path, dict[str, Any]]:
         self.progress(Stage.RENDER, 0.4, "Renderizando oito direções")
