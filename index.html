@@ -51,7 +51,7 @@ footer{max-width:1080px;margin:auto;padding:24px 16px;color:var(--soft);font-siz
   <p>O <b>Isometric Character Studio</b> gera personagens 2.5D isométricos para um MMORPG <b>por código</b>: geometria procedural, rig, animação e renderização no Blender, composição de imagem em Python e exportação para o Godot. A visão de longo prazo é gerar também criaturas, natureza, objetos, construções e ambientes com a mesma identidade visual. Projeto pessoal, de hobby.</p>
 </header>
 <nav><div>
-  <a href="animations.html"><b>Animações</b></a><a href="#estado">Estado</a><a href="#galeria">Galeria</a><a href="#evolucao">Evolução</a><a href="#arquitetura">Arquitetura</a><a href="#pesquisa">Pesquisa</a><a href="#decisoes">Decisões</a><a href="#docs">Documentação</a>
+  <a href="docs/cena_batalha/site/jogar.html"><b>Jogar a cena</b></a><a href="animations.html"><b>Animações</b></a><a href="#estado">Estado</a><a href="#galeria">Galeria</a><a href="#evolucao">Evolução</a><a href="#arquitetura">Arquitetura</a><a href="#pesquisa">Pesquisa</a><a href="#decisoes">Decisões</a><a href="#docs">Documentação</a>
 </div></nav>
 <main>
 
@@ -63,6 +63,7 @@ footer{max-width:1080px;margin:auto;padding:24px 16px;color:var(--soft);font-siz
     <tr><td>Pipeline ficha → Blender → sprites → Godot</td><td><span class="tag ok">testado</span></td><td>Gates G1, G7 e G8 passam; o Godot confere 192 quadros em 24 clips</td></tr>
     <tr><td>Rig humanoide chibi, idle, walk e run</td><td><span class="tag ok">testado</span></td><td>Sonda de chão e túnica em todos os quadros; pé deslizando ≤ 0,00006 H/s</td></tr>
     <tr><td><b>Protagonista indígena (mestre)</b>: desenho no ChatGPT + QA e correção por código</td><td><span class="tag ok">aprovado pelo usuário</span></td><td>Opção 1 escolhida em 2026-11-07; andar em 5 direções (+3 espelhadas), 40 poses revisadas; ver <a href="docs/arte_chatgpt/README.html">arte_chatgpt</a></td></tr>
+    <tr><td>Cena de combate jogável (protótipo)</td><td><span class="tag ok">testado no navegador</span></td><td>4 ações do herói e 2 da criatura desenhadas no ChatGPT; efeitos, IA e HUD em código; 60 s simulados sem erro</td></tr>
     <tr><td>Aprendiz no motor 3D procedural</td><td><span class="tag warn">histórico</span></td><td>Substituído: o usuário achou o resultado ruim e trocou o mago por um protagonista indígena</td></tr>
     <tr><td>Acabamento suave <code>pindorama_friendly_smooth_v1</code> (principal)</td><td><span class="tag ok">implementado e testado</span></td><td>Passes em 3× com antialiasing real, luz de borda, textura contínua; transparência 207 de 216</td></tr>
     <tr><td>Acabamento pixel art (opcional)</td><td><span class="tag ok">testado</span></td><td>Transparência 216 de 216, alpha binário</td></tr>
@@ -77,6 +78,7 @@ footer{max-width:1080px;margin:auto;padding:24px 16px;color:var(--soft);font-siz
 <section id="galeria">
   <h2>Galeria</h2>
   <div class="grid">
+    <div class="card wide"><a href="docs/cena_batalha/site/jogar.html"><img src="docs/cena_batalha/capa_cena.jpg" alt="Batalha na Clareira: o protagonista enfrenta uma criatura da mata" loading="lazy"></a><p><b>Novo, jogável:</b> <a href="docs/cena_batalha/site/jogar.html">Batalha na Clareira</a>. O herói luta contra uma criatura da mata com golpe de cajado, disparo, magia de raízes, esquiva e cura. Tem demonstração automática ou controle por teclado e toque.</p></div>
     <div class="card wide"><img src="docs/arte_chatgpt/prep/protagonista_andar_8direcoes.gif" alt="Protagonista indígena caminhando nas oito direções" loading="lazy"><p><b>Atual:</b> protagonista indígena caminhando nas 8 direções, 128 px. Desenho gerado no ChatGPT; recorte, escala, linha do pé, correção de cor por material e contorno feitos por código.</p></div>
     <div class="card wide"><img src="docs/arte_chatgpt/gerado/mockup_vila_t2_indigena.png" alt="Tela-alvo do jogo: vila à beira do riacho" loading="lazy"><p><b>Tela-alvo:</b> clima e estilo do jogo. Não é planta técnica: ângulo, tile e escala serão fixados pela engine.</p></div>
     <div class="card wide"><img src="docs/arte_chatgpt/mestre/protagonista_5vistas.png" alt="Protagonista indígena em cinco vistas" loading="lazy"><p>Mestre aprovado: cinco vistas. Sem cocar, penas, pintura ou grafismos (elemento cultural real exige dossiê).</p></div>
@@ -114,6 +116,7 @@ footer{max-width:1080px;margin:auto;padding:24px 16px;color:var(--soft);font-siz
     <li><b>2026-11-07</b>: sonda de chão e túnica dentro do gate G5 (ANI-005); piscar no idle.</li>
     <li><b>2026-11-07</b>: prioridade em animação: 5 ações por poses-chave, máquina de estados no Godot (GODOT-003) e página de validação.</li>
     <li><b>2026-11-07</b>: virada de arte: o motor 3D não alcança o nível desejado. Volta a geração no ChatGPT, com QA por código. O usuário troca o mago por um <b>protagonista indígena</b>, aprova a opção 1 e o andar sai nas 5 direções, com cor normalizada e contorno.</li>
+      <li><b>2026-11-07</b>: cena de combate jogável: fundo da clareira, criatura original de casca e folhas, 4 ações do herói e efeitos em código. O preparo das ações passa a ancorar pelo tronco. O QA pegou e contornou um cajado duplicado no quadro 7 da folha de dano.</li>
   </ol>
 </section>
 
