@@ -14,7 +14,12 @@ Auditoria: [audit/AUDITORIA_VISUAL_2026-11-06.md](audit/AUDITORIA_VISUAL_2026-11
 | Pixel art | Implementado e testado; passa a **opcional** (VIS-005) | `audit/detalhamento/` |
 | Pesquisa de 14 repositórios | Feita | `research/repository-catalog.md` e mais 5 |
 | Repositório e site | Públicos | github.com/AlaFugita/pindorama-procedural-art-engine |
-| Testes automatizados | 56 passam | `pytest` |
+| Rosto como decalque vetorial, piscar no idle | Implementado e testado | `audit/suave/evolucao_rosto_decalque.png`, `piscar.png` |
+| Atlas recortado | Testado até o Godot | VRAM de 27,9 para 10,6 MiB por personagem (192 px) |
+| ANI-005 (sonda de pose no G5) | Testado | Chão +0,5 mm; coxa ≤ 11,2 mm |
+| Variações no acabamento suave | Testadas | `audit/suave/variacoes_suave.png` |
+| Aviso aberto | IMG-005: 3 quadros repetidos no idle (fases simétricas do ciclo) | G6 WARN |
+| Testes automatizados | 60 passam | `pytest` |
 
 ## Auditoria do mestre e sistema de detalhamento, 2026-11-07
 

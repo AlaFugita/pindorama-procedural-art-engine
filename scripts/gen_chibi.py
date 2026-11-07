@@ -95,7 +95,7 @@ dump(LIB / "animations/humanoid_chibi_basic_v1.json", {
     "schema_version": "1.0.0", "id": "humanoid_chibi_basic_v1", "version": "1.0.0",
     "rig_profile": "humanoid_chibi_v1", "clips": [
         clip("idle", 8, 8, 0.0, {"stride_m": 0, "stance_fraction": 1, "foot_lift_m": 0, "pelvis_drop_m": .012,
-                                 "pelvis_bob_m": .005, "arm_swing_deg": 3, "forearm_bend_deg": 12},
+                                 "pelvis_bob_m": .009, "arm_swing_deg": 5, "forearm_bend_deg": 12},
              [(0, "LEFT_FOOT_CONTACT"), (0, "RIGHT_FOOT_CONTACT")]),
         clip("walk", 12, 8, round(.17 / (8 / 12 * 5 / 8), 4),
              {"stride_m": .17, "stance_fraction": .625, "foot_lift_m": .035, "pelvis_drop_m": .018,

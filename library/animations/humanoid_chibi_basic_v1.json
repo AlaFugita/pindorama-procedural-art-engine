@@ -17,8 +17,8 @@
     "stance_fraction": 1,
     "foot_lift_m": 0,
     "pelvis_drop_m": 0.012,
-    "pelvis_bob_m": 0.005,
-    "arm_swing_deg": 3,
+    "pelvis_bob_m": 0.009,
+    "arm_swing_deg": 5,
     "forearm_bend_deg": 12
    },
    "events": [
