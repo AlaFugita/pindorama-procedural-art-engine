@@ -36,3 +36,14 @@ def test_decal_facing_away_is_hidden():
     rgb = np.full((40, 40, 3), 200.0)
     apply_face_decal(rgb, p, PARTS, decal, np.eye(4).tolist())
     assert (rgb == 200.0).all()
+
+
+def test_blink_swaps_open_eye_for_closed_stroke():
+    p, decal = scene([0, 0, 1])
+    closed = dict(decal["features"][0], name="closed_1", color="#FF0000")
+    decal["features"] = [dict(decal["features"][0], name="eye_1"), closed]
+    open_rgb = np.full((40, 40, 3), 200.0)
+    apply_face_decal(open_rgb, p, PARTS, decal, np.eye(4).tolist(), blink=False)
+    blink_rgb = np.full((40, 40, 3), 200.0)
+    apply_face_decal(blink_rgb, p, PARTS, decal, np.eye(4).tolist(), blink=True)
+    assert open_rgb[20, 20, 0] < 50 and blink_rgb[20, 20, 0] > 200

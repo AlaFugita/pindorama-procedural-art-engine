@@ -50,8 +50,15 @@ def _disk(radius: float) -> np.ndarray:
     return x * x + y * y <= radius * radius
 
 
-def apply_face_decal(rgb: np.ndarray, p: Passes, parts: list[dict], decal: dict, head: list) -> None:
-    """Projeta os traços do rosto (laços 3D presos à cabeça) e pinta só sobre pixels da cabeça."""
+OPEN_EYE = ("eye_", "iris_", "shine_", "shine2_", "lash_")
+
+
+def apply_face_decal(rgb: np.ndarray, p: Passes, parts: list[dict], decal: dict, head: list,
+                     blink: bool = False) -> None:
+    """Projeta os traços do rosto (laços 3D presos à cabeça) e pinta só sobre pixels da cabeça.
+
+    ``blink``: troca os olhos abertos pelo traço de olho fechado (expressão por quadro).
+    """
     head_index = next((q["index"] for q in parts if q["name"] == "head"), None)
     if head_index is None:
         return
@@ -63,6 +70,9 @@ def apply_face_decal(rgb: np.ndarray, p: Passes, parts: list[dict], decal: dict,
     mh = np.array(head)
     toward_viewer = cam[:3, 2] / np.linalg.norm(cam[:3, 2])
     for feat in decal["features"]:
+        is_open, is_closed = feat["name"].startswith(OPEN_EYE), feat["name"].startswith("closed_")
+        if (blink and is_open) or (not blink and is_closed):
+            continue
         facing = float(np.dot(mh[:3, :3] @ np.array(feat["normal"]), toward_viewer))
         if facing < .02:
             continue
@@ -78,7 +88,7 @@ def apply_face_decal(rgb: np.ndarray, p: Passes, parts: list[dict], decal: dict,
 
 
 def compose_smooth(p: Passes, parts: list[dict], cfg: SmoothArtSettings,
-                   decal: dict | None = None, head: list | None = None) -> Image.Image:
+                   decal: dict | None = None, head: list | None = None, blink: bool = False) -> Image.Image:
     ss = cfg.supersample
     h, w = p.ids.shape
     rgb = np.zeros((h, w, 3))
@@ -115,7 +125,7 @@ def compose_smooth(p: Passes, parts: list[dict], cfg: SmoothArtSettings,
                 colors = colors * (1 - k[:, None]) + hex_rgb(role.highlight) * k[:, None]
             rgb[mask] = colors
     if decal is not None and head is not None:
-        apply_face_decal(rgb, p, parts, decal, head)
+        apply_face_decal(rgb, p, parts, decal, head, blink)
     # Luz de borda: faixa junto à silhueta, só onde a normal de tela aponta para a luz.
     if cfg.rim_px > 0 and cfg.rim_strength > 0:
         inside = ndimage.distance_transform_edt(solid)
@@ -194,8 +204,9 @@ def compose_folder(passes_root: Path, frames_root: Path, cfg: SmoothArtSettings,
             files = []
             heads = json.loads((src / "head.json").read_text(encoding="utf-8")) if decal else None
             for frame in range(clip["frame_count"]):
+                blink = name == "idle" and frame == clip["frame_count"] - 2  # uma piscada por ciclo
                 image = compose_smooth(load_passes(src, frame, depth_range), parts, cfg,
-                                       decal, heads[frame] if heads else None)
+                                       decal, heads[frame] if heads else None, blink)
                 path = dst / f"{name}_{direction}_{frame:04d}.png"
                 image.save(path, optimize=True)
                 files.append(str(path))

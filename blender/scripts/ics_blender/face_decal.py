@@ -64,6 +64,9 @@ def features(params):
                        end=math.radians(160 if k > 0 else 20))
         arc.append((ex + k * .046, ez + .026))
         add(f"lash_{k}", eye_color, _band(arc, lambda t: .006 + .006 * math.sin(math.pi * t)), centre=(ex, ez + .04))
+        # Olho fechado (piscar): arco curvado para baixo, com cílio no canto.
+        closed = [(ex - .034 + .068 * t, ez - .004 - .012 * math.sin(math.pi * t)) for t in [i / 10 for i in range(11)]]
+        add(f"closed_{k}", eye_color, _band(closed, lambda t: .006 + .004 * math.sin(math.pi * t)), centre=(ex, ez))
         brow = [(ex - k * .026, ez + .086), (ex, ez + .094), (ex + k * .03, ez + .088)]
         brow = [(brow[0][0] + (brow[2][0] - brow[0][0]) * t, ez + .066 + .008 * math.sin(math.pi * t) + .003 * (1 - t))
                 for t in [i / 8 for i in range(9)]]
