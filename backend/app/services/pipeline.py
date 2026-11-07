@@ -48,6 +48,7 @@ from engines.rig_engine.validate import validate_rig
 
 Progress = Callable[[Stage, float | None, str], None]
 RIGHT_ARM_FACTOR_WITH_WEAPON = 0.45
+NON_MESH_GENERATORS = {"chibi_face_decal"}
 REQUIRED_HUMAN_GATES = ("G2", "G9")
 
 
@@ -203,7 +204,8 @@ class Pipeline:
     @staticmethod
     def _build_checks(r: Resolved, output: dict[str, Any]) -> list[CheckResult]:
         components = {o["component"] for o in output["objects"]}
-        wanted = {c.id for c in r.components}
+        # Componentes desenhados na composição (ex.: rosto decalcado) não geram malha.
+        wanted = {c.id for c in r.components if c.generator not in NON_MESH_GENERATORS}
         missing = sorted(wanted - components)
         empty = [o["name"] for o in output["objects"] if o["vertices"] == 0]
         return [
@@ -332,6 +334,9 @@ class Pipeline:
         passes = folder / "passes"
         passes.mkdir()
         payload = {"clips": clips, "render": render, "output_dir": str(passes), "pixel": cfg.model_dump(mode="json")}
+        face = next((c for c in r.components if c.generator == "chibi_face_decal"), None)
+        if face is not None:
+            payload["face_decal"] = face.params
         self.progress(Stage.RENDER, 0.45, f"Renderizando passes ({mode})")
         output = run_stage("pixel_passes", payload, folder, blend_file=anim_dir / "character.blend",
                            timeout_s=5400, cancel=self.cancel).output

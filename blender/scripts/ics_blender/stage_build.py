@@ -7,6 +7,7 @@ import bpy
 from . import BUILDER_VERSION
 from . import chibi_components as chibi
 from . import chibi_detail
+from . import face_decal
 from . import components as comp
 from . import materials as mats
 from . import rig as rig_utils
@@ -62,7 +63,7 @@ def run(payload):
     rig_utils.setup_ik(armature, rig)
     deform = [b["blender_name"] for b in rig["bones"] if b["deform"]]
     head_params = next(c["params"] for c in payload["components"] if c["kind"] == "head")
-    context = {"deform_bones": deform, "head_params": head_params}
+    context = {"deform_bones": deform, "head_params": head_params, "seed": int(spec.get("seed", 0))}
     palette = dict(spec["palette"])
     palette["skin"] = payload["skin_color"]
     palette["hair"] = payload.get("hair_color") or palette["secondary"]
@@ -82,7 +83,7 @@ def run(payload):
 
     objects = []
     for component in payload["components"]:
-        generator = {**comp.GENERATORS, **chibi.GENERATORS, **chibi_detail.GENERATORS}[component["generator"]]
+        generator = {**comp.GENERATORS, **chibi.GENERATORS, **chibi_detail.GENERATORS, **face_decal.GENERATORS}[component["generator"]]
         for part in generator(component["params"], context):
             obj = _make_mesh(part, collection)
             base, outline = material_pair(part["material"])

@@ -158,6 +158,8 @@ def run(payload):
                 mod.show_render = False
                 mod.show_viewport = False
         role = role_of(obj.name)
+        if obj.name in ("hair_locks", "lashes", "brows", "hood_seam", "hood_band", "stud_hood"):
+            obj.visible_shadow = False  # peças finas: sombra projetada vira risco no rosto e no capuz
         sets[obj.name] = {
             "id": _id_material(index),
             "light": _light_material(f"PX_light_{obj.name}", role),
@@ -166,6 +168,15 @@ def run(payload):
         meta.append({"index": index, "name": obj.name, "color": obj.get("ics_color", "")})
     armature.rotation_mode = "XYZ"
     root = payload["output_dir"]
+    decal = payload.get("face_decal")
+    head_rest_inv = armature.data.bones["head"].matrix_local.inverted() if decal is not None else None
+    if decal is not None:
+        from .face_decal import features
+        cam = scene.camera
+        with open(os.path.join(root, "decal.json"), "w", encoding="utf-8") as stream:
+            json.dump({"features": features(decal), "camera": [list(r) for r in cam.matrix_world],
+                       "ortho_scale": cam.data.ortho_scale,
+                       "canvas": [scene.render.resolution_x, scene.render.resolution_y]}, stream)
     samples = {"id": 1, "light": payload.get("light_samples", 16), "depth": 1}
     started = time.monotonic()
     done = 0
@@ -175,14 +186,21 @@ def run(payload):
             armature.rotation_euler = (0, 0, -math.radians(render["headings_deg"][direction]))
             folder = os.path.join(root, clip["animation_id"], direction)
             os.makedirs(folder, exist_ok=True)
+            heads = []
             for frame in range(clip["frame_count"]):
                 scene.frame_set(frame)
+                if decal is not None:
+                    pose = armature.matrix_world @ armature.pose.bones["head"].matrix @ head_rest_inv
+                    heads.append([list(r) for r in pose])
                 for kind in ("id", "light", "depth"):
                     for obj in parts:
                         _set_material(obj, sets[obj.name][kind])
                     scene.eevee.taa_render_samples = samples[kind]
                     scene_utils.render_to(scene, os.path.join(folder, f"{frame:04d}_{kind}.png"))
                 done += 1
+            if decal is not None:
+                with open(os.path.join(folder, "head.json"), "w", encoding="utf-8") as stream:
+                    json.dump(heads, stream)
     with open(os.path.join(root, "parts.json"), "w", encoding="utf-8") as stream:
         json.dump(meta, stream, indent=1)
     return {"parts": meta, "frames": done, "seconds": time.monotonic() - started,

@@ -16,7 +16,7 @@ import json
 from pathlib import Path
 
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageDraw
 from scipy import ndimage
 
 from app.schemas.contracts import SmoothArtSettings
@@ -50,7 +50,35 @@ def _disk(radius: float) -> np.ndarray:
     return x * x + y * y <= radius * radius
 
 
-def compose_smooth(p: Passes, parts: list[dict], cfg: SmoothArtSettings) -> Image.Image:
+def apply_face_decal(rgb: np.ndarray, p: Passes, parts: list[dict], decal: dict, head: list) -> None:
+    """Projeta os traços do rosto (laços 3D presos à cabeça) e pinta só sobre pixels da cabeça."""
+    head_index = next((q["index"] for q in parts if q["name"] == "head"), None)
+    if head_index is None:
+        return
+    h, w = p.ids.shape
+    on_head = p.ids == head_index
+    cam = np.array(decal["camera"])
+    view = np.linalg.inv(cam)
+    ortho = decal["ortho_scale"]
+    mh = np.array(head)
+    toward_viewer = cam[:3, 2] / np.linalg.norm(cam[:3, 2])
+    for feat in decal["features"]:
+        facing = float(np.dot(mh[:3, :3] @ np.array(feat["normal"]), toward_viewer))
+        if facing < .02:
+            continue
+        loop = np.c_[np.array(feat["loop"]), np.ones(len(feat["loop"]))]
+        v = (view @ mh @ loop.T).T
+        xs = (v[:, 0] / ortho + .5) * w
+        ys = (.5 - v[:, 1] / ortho) * h
+        mask = Image.new("L", (w, h), 0)
+        ImageDraw.Draw(mask).polygon(list(zip(xs.tolist(), ys.tolist())), fill=255)
+        a = np.asarray(mask, dtype=np.float64) / 255 * feat["alpha"] * _smoothstep(.02, .18, facing)
+        a *= on_head
+        rgb += (hex_rgb(feat["color"]) - rgb) * a[..., None]
+
+
+def compose_smooth(p: Passes, parts: list[dict], cfg: SmoothArtSettings,
+                   decal: dict | None = None, head: list | None = None) -> Image.Image:
     ss = cfg.supersample
     h, w = p.ids.shape
     rgb = np.zeros((h, w, 3))
@@ -86,6 +114,8 @@ def compose_smooth(p: Passes, parts: list[dict], cfg: SmoothArtSettings) -> Imag
                 k = _smoothstep(role.highlight_threshold - cfg.band_softness, role.highlight_threshold + cfg.band_softness, s)
                 colors = colors * (1 - k[:, None]) + hex_rgb(role.highlight) * k[:, None]
             rgb[mask] = colors
+    if decal is not None and head is not None:
+        apply_face_decal(rgb, p, parts, decal, head)
     # Luz de borda: faixa junto à silhueta, só onde a normal de tela aponta para a luz.
     if cfg.rim_px > 0 and cfg.rim_strength > 0:
         inside = ndimage.distance_transform_edt(solid)
@@ -151,6 +181,8 @@ def compose_smooth(p: Passes, parts: list[dict], cfg: SmoothArtSettings) -> Imag
 def compose_folder(passes_root: Path, frames_root: Path, cfg: SmoothArtSettings,
                    clips: list[dict], directions: list[str], depth_range: tuple[float, float]) -> dict:
     parts = json.loads((passes_root / "parts.json").read_text(encoding="utf-8"))
+    decal_file = passes_root / "decal.json"
+    decal = json.loads(decal_file.read_text(encoding="utf-8")) if decal_file.exists() else None
     index: dict[str, dict[str, list[str]]] = {}
     for clip in clips:
         name = clip["animation_id"]
@@ -160,8 +192,10 @@ def compose_folder(passes_root: Path, frames_root: Path, cfg: SmoothArtSettings,
             dst = frames_root / name / direction
             dst.mkdir(parents=True, exist_ok=True)
             files = []
+            heads = json.loads((src / "head.json").read_text(encoding="utf-8")) if decal else None
             for frame in range(clip["frame_count"]):
-                image = compose_smooth(load_passes(src, frame, depth_range), parts, cfg)
+                image = compose_smooth(load_passes(src, frame, depth_range), parts, cfg,
+                                       decal, heads[frame] if heads else None)
                 path = dst / f"{name}_{direction}_{frame:04d}.png"
                 image.save(path, optimize=True)
                 files.append(str(path))

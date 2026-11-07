@@ -152,7 +152,15 @@ for size in (192, 256):
     s["appearance"].update({"hair_asset": "chibi_hair_detail_v1", "face_preset": "chibi_face_detail_v1"})
     s["outfit"].update({"body_asset": "chibi_robe_detail_v1", "accessories": ["chibi_bag_detail_v1"],
                         "weapon_asset": "chibi_staff_detail_v1"})
+    s["appearance"]["face_preset"] = "chibi_face_decal_v1"
     s.update({"id": f"character_15{size // 64}", "slug": f"aprendiz_suave_{size}", "name": f"Aprendiz suave {size}",
               "art_profile": "pindorama_friendly_smooth_v1", "render_profile": f"isometric_smooth_{size}_v1"})
     dump(SPECS / f"aprendiz_suave_{size}.json", s)
+
+dump(LIB / "components/chibi_face_decal_v1/asset.json", {
+    "schema_version": "1.0.0", "id": "chibi_face_decal_v1", "version": "1.0.0", "kind": "face", "families": ["humanoid"],
+    "generator": "chibi_face_decal", "params": {"eye": "#2A1A14", "iris": "#7A4A2A", "brow": "#6B3A20", "mouth": "#8C3B32"},
+    "anchors": ["head"], "depends_on": [], "scale_reference_m": 1.0, "tags": ["rosto", "decalque", "vetorial"],
+    "license": {"spdx_or_terms": "project-original", "origin": "blender/scripts/ics_blender/face_decal.py",
+                "author": "Isometric Character Studio", "redistribution_allowed": True}})
 print("ok")

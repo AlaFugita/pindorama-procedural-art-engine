@@ -56,15 +56,18 @@ def chibi_face_detail(params, ctx):
         shines.append(ellipsoid((x - .009, y + .007, z + .016), (.009, .004, .012), rings=6, segments=10))
         shines.append(ellipsoid((x + .01, y + .006, z - .024), (.005, .003, .006), rings=6, segments=8))
         # Pálpebra superior grossa, mais pesada no canto de fora (traço de anime/chibi).
-        lid = [(x - k * .036, _face_y(x - k * .036, z + .03) + .002, z + .03),
-               (x, _face_y(x, z + .05) + .004, z + .052),
-               (x + k * .04, _face_y(x + k * .04, z + .036) + .002, z + .03)]
-        lids.append(tube(lid, [.006, .009, .011], segments=8))
+        # Pálpebra gentil: canto interno mais alto, externo levemente caído, traço uniforme.
+        # Canto interno (``x - k``, junto ao nariz) mais alto; externo caído: olhar gentil.
+        lid = [(x - k * .034, _face_y(x - k * .034, z + .042) + .002, z + .042),
+               (x, _face_y(x, z + .052) + .004, z + .052),
+               (x + k * .038, _face_y(x + k * .038, z + .022) + .002, z + .022)]
+        lids.append(tube(lid, [.0055, .0065, .0065], segments=8))
         bz = z + .088
-        brow = [(x - k * .032, _face_y(x - k * .032, bz + .002) + .002, bz + .002),
-                (x + k * .002, _face_y(x, bz + .01) + .003, bz + .01),
-                (x + k * .036, _face_y(x + k * .036, bz - .008) + .002, bz - .008)]
-        brows.append(tube(brow, [.006, .008, .005], segments=6))
+        # Expressão amigável: ponta interna mais alta, arco suave, traço fino.
+        brow = [(x - k * .03, _face_y(x - k * .03, bz + .018) + .002, bz + .018),
+                (x + k * .002, _face_y(x, bz + .02) + .003, bz + .02),
+                (x + k * .034, _face_y(x + k * .034, bz + .004) + .002, bz + .004)]
+        brows.append(tube(brow, [.0045, .006, .004], segments=6))
         cx, cz = k * .118, HEAD.z - .1
         blush.append(ellipsoid((cx, _face_y(cx, cz) - .004, cz), (.026, .008, .014), rings=8, segments=12))
     nz = HEAD.z - .095
@@ -88,29 +91,52 @@ def chibi_face_detail(params, ctx):
 
 # ---------------------------------------------------------------- cabelo
 
+def _curve_lock(root, tip, bulge, curl, count=9):
+    """Mecha por curva: Bézier quadrática da raiz à ponta + gancho curvado na ponta.
+
+    Mesma ideia dos galhos com conicidade (midori ``Stem.point_at``/``radius_at``): o raio
+    nasce estreito, engorda na "barriga" e afina até a ponta.
+    """
+    root, tip = Vector(root), Vector(tip)
+    mid = (root + tip) / 2 + Vector(bulge)
+    pts = [root.lerp(mid, t).lerp(mid.lerp(tip, t), t) for t in np.linspace(0, 1, count)]
+    if curl:
+        direction = (pts[-1] - pts[-2]).normalized()
+        side = Vector((curl, 0, 0))
+        pts += [pts[-1] + direction * .012 + side * .4, pts[-1] + direction * .016 + side]
+    n = len(pts)
+    widths = [(.02 + .022 * math.sin(math.pi * min(1, i / (n * .55)))) * (1 - (i / (n - 1)) ** 2 * .92) for i in range(n)]
+    return pts, widths
+
+
 def chibi_hair_detail(params, ctx):
     color = params["color"]
+    rng = np.random.default_rng(int(ctx.get("seed", 0)))
     cap = ellipsoid((0, -.006, HEAD.z + .035), (.214, .19, .165), rings=18, segments=32)
 
     def out(p):
         return (Vector(p) - HEAD).normalized()
 
     locks = []
-    # Franja: mechas afiladas que nascem sob a borda do capuz e terminam em ponta.
-    for x0, z0, length, bend in ((-.15, .88, .13, -.02), (-.095, .9, .12, -.012), (-.035, .905, .105, .006),
-                                 (.03, .905, .11, .014), (.09, .895, .125, .02), (.145, .875, .14, .026)):
-        x1, z1 = x0 + bend, z0 - length
-        mx, mz = (x0 + x1) / 2 + bend * .6, (z0 + z1) / 2
-        pts = [(x, _face_y(x, z) - .004 + .016 * math.sin(math.pi * t), z)
-               for t, (x, z) in zip(np.linspace(0, 1, 7),
-                                    [(x0 + (x1 - x0) * u + (mx - (x0 + x1) / 2) * math.sin(math.pi * u), z0 + (z1 - z0) * u)
-                                     for u in np.linspace(0, 1, 7)])]
-        widths = [.03, .034, .032, .026, .018, .009, .002]
-        locks.append(strip(pts, widths, [.012, .014, .013, .011, .008, .005, .002], out, sides=8))
-    # Mechas laterais longas, na frente das orelhas.
+    # Franja em duas camadas: atrás, mechas largas e longas; na frente, mais curtas e afiadas.
+    rows = (
+        # Pontas acima da linha das sobrancelhas (z ≈ .78): franja longa vira traço sobre os olhos.
+        ((-.14, -.09, -.035, .02, .075, .13), .885, .085, .0),
+        ((-.115, -.06, -.005, .05, .105), .89, .065, .006),
+    )
+    for xs, z0, length, lift in rows:
+        for x0 in xs:
+            bend = .02 * np.sign(x0) + rng.uniform(-.008, .008)
+            size = length + rng.uniform(-.012, .012)
+            x1, z1 = x0 * 1.08 + bend, z0 - size
+            root = (x0, _face_y(x0, z0) - .012 + lift, z0)  # raiz recolhida: não atravessa o capuz
+            tip = (x1, _face_y(x1, z1) + .004 + lift, z1)
+            pts, widths = _curve_lock(root, tip, (bend * .5, .018, 0), curl=float(np.sign(x0) * .006))
+            locks.append(strip(pts, widths, [w * .45 for w in widths], out, sides=8))
+    # Mechas laterais longas, na frente das orelhas, com ponta virada para fora.
     for k in (-1, 1):
-        pts = [(k * (RX - .02), .02, .8), (k * (RX - .005), .045, .72), (k * (RX - .012), .06, .64), (k * (RX - .03), .065, .59)]
-        locks.append(strip(pts, [.03, .034, .026, .004], [.016, .016, .012, .003], out, sides=8))
+        pts, widths = _curve_lock((k * (RX - .02), .02, .8), (k * (RX - .03), .066, .585), (k * .016, .03, 0), curl=k * .01)
+        locks.append(strip(pts, [w * 1.1 for w in widths], [w * .5 for w in widths], out, sides=8))
     return [
         _part("hair", cap, color, {"rigid": "head"}, remesh=.007),
         _part("hair_locks", merge(*locks), color, {"rigid": "head"}),

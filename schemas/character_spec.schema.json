@@ -159,6 +159,13 @@
       "title": "Family",
       "type": "string"
     },
+    "seed": {
+      "default": 0,
+      "description": "Variação procedural reproduzível (mesma seed = mesmo asset)",
+      "minimum": 0,
+      "title": "Seed",
+      "type": "integer"
+    },
     "art_profile": {
       "pattern": "^[a-z0-9][a-z0-9_]{0,63}$",
       "title": "Art Profile",

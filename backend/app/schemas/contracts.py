@@ -77,6 +77,7 @@ class CharacterSpec(Contract):
     name: Annotated[str, Field(min_length=1, max_length=120)]
     slug: Slug
     family: Literal["humanoid"]
+    seed: int = Field(default=0, ge=0, description="Variação procedural reproduzível (mesma seed = mesmo asset)")
     art_profile: AssetId
     body_profile: BodyProfile
     appearance: Appearance

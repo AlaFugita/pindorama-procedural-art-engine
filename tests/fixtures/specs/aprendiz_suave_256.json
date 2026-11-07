@@ -14,7 +14,7 @@
   "head_asset": "chibi_head_v1",
   "hair_asset": "chibi_hair_detail_v1",
   "skin_material": "chibi_skin_01",
-  "face_preset": "chibi_face_detail_v1"
+  "face_preset": "chibi_face_decal_v1"
  },
  "outfit": {
   "body_asset": "chibi_robe_detail_v1",
